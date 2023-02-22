@@ -8,17 +8,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
-import InAppHBF from "../components/in-app-h-b-f";
+import {InAppHB} from "../components/in-app-h-b-f";
 
 const OfflineTransactionStateNotifierDisplay = props => {
     return (
-        <InAppHBF navigation={props.navigation} headerTitleText={props.messageTitle} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={props.messageTitle} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={[DefaultStyle.centeredXY]}>
                 <Text style={style.messageText}>
                     {props.message}
                 </Text>
             </View>
-        </InAppHBF>
+        </InAppHB>
     )
 }
 

@@ -9,11 +9,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
-import InAppHBF from "../components/in-app-h-b-f";
+import {InAppHB} from "../components/in-app-h-b-f";
 
 const SendOffline = (props) => {
     return (
-        <InAppHBF navigation={props.navigation} headerTitleText={"Send offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Send offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
                 <View>
                     <Text style={[style.introText]}>
@@ -39,7 +39,7 @@ const SendOffline = (props) => {
                     <Btn text="Next" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Next ?")}/>
                 </View>
             </View>
-        </InAppHBF>
+        </InAppHB>
     )
 }
 

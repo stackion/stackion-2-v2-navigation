@@ -4,7 +4,6 @@ import {
     View,
     ScrollView,
     StyleSheet,
-    useWindowDimensions
 } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {Btn} from "./button";
@@ -12,8 +11,7 @@ import DefaultStyle from "../styles/defaults";
 import Colors from "../styles/colors";
 import { QuickMenu } from "./modals"
 
-const InAppHBF = props => {
-    const {height} = useWindowDimensions();
+export const InAppHB = props => {
     const [quickMenuVisibility, setQuickMenuVisibility] = useState(false);
     /*
     // props properties
@@ -30,7 +28,43 @@ const InAppHBF = props => {
    */
     return (
         <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
-            <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibleHeight(false)} />
+            <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibility(false)} />
+            <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
+                <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
+                    <FontAwesomeIcon icon="user" color={Colors.blue2} />
+                )} onPress={props.whenHeaderMenuBtnIsPressed} />
+                <Text style={style.headerTitleText}>
+                    {props.headerTitleText}
+                </Text>
+            </View>
+            <View style={[ DefaultStyle.WSpanParent, style.bodyCont, DefaultStyle.centeredX]}>
+                <ScrollView contentContainerStyle={[DefaultStyle.centeredX]} style={[DefaultStyle.WSpanParent, {paddingTop : 30, marginBottom : 50}, /*, style.bodyContScrollView*/]}>
+                    {props.children}
+                    <View style={{height : 20}}></View>
+                </ScrollView>
+            </View>
+        </View>
+    )
+}
+
+const InAppHBF = props => {
+    const [quickMenuVisibility, setQuickMenuVisibility] = useState(false);
+    /*
+    // props properties
+    
+    props.headerTitleText
+    onPress={props.whenHeaderMenuBtnIsPressed}
+    props.children  jsx {(...)}
+    props.activePage == "home" || "wallet"
+    props.quickMenuOpen = true || false
+    */
+   /*
+   //remember to add button click events for navigation and menu trigger in the footer
+   //later, customize the visibility of the quickMenue.
+   */
+    return (
+        <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
+            <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibility(false)} />
             <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
                 <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="user" color={Colors.blue2} />

@@ -6,11 +6,11 @@ import {
 } from "react-native";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
-import InAppHBF from "../components/in-app-h-b-f";
+import {InAppHB} from "../components/in-app-h-b-f";
 
 const ScanToSendOffline = (props) => {
     return (
-        <InAppHBF navigation={props.navigation} headerTitleText={"Scan to send"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Scan to send"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.View}>
                 <View style={[style.qrCodeScannerContainer, DefaultStyle.blayout, DefaultStyle.centeredXY, style.contentsInBodyCont]}></View>
                 <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
@@ -19,7 +19,7 @@ const ScanToSendOffline = (props) => {
                     </Text>
                 </View>
             </View>
-        </InAppHBF>
+        </InAppHB>
     )
 }
 

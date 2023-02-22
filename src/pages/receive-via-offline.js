@@ -6,11 +6,11 @@ import {
 } from "react-native";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
-import InAppHBF from "../components/in-app-h-b-f";
+import {InAppHB} from "../components/in-app-h-b-f";
 
 const ReceiveViaOffline = (props) => {
     return (
-        <InAppHBF navigation={props.navigation} headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
                 <Text style={{
                     fontSize : 16,
@@ -27,7 +27,7 @@ const ReceiveViaOffline = (props) => {
                     </Text>
                 </View>
             </View>
-        </InAppHBF>
+        </InAppHB>
     )
 }
 

@@ -9,11 +9,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
-import InAppHBF from "../components/in-app-h-b-f";
+import {InAppHB} from "../components/in-app-h-b-f";
 
 const ConfirmTransaction = (props) => {
     return (
-        <InAppHBF navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
                 <View>
                     <Text style={[style.introText]}>
@@ -36,7 +36,7 @@ const ConfirmTransaction = (props) => {
                         </Text>
                     </View>
             </View>
-        </InAppHBF>
+        </InAppHB>
     )
 }
 
