@@ -46,15 +46,19 @@ export const QuickMenu = props => {
             fontFamily : "Comfortaa-Regular"
         }
     })
-
+//TODO add button press feature for the convert page
     return (
         <View style={[style.modalGroupExternalCont, style.bottomModalGroupExternalCont, {
             height : props.height
         }]} >
             <View style={[style.BottomModalContent, DefaultStyle.WSpanParent]} >
                 <View style={[DefaultStyle.WSpanParent, style.quickMenuTopper]}>
-                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Send offline" textStyle={[style.quickMenuBtnsText]} />
-                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Receive offline" textStyle={[style.quickMenuBtnsText]} />
+                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Send offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
+                        console.log(props.navigation)
+                    }}  />
+                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Receive offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
+                        props.navigation.navigate("ReceiveViaOffline")
+                    }}   />
                     <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Convert" textStyle={[style.quickMenuBtnsText]} />
                 </View>
                 <View style={[DefaultStyle.WSpanParent, style.quickMenuFooter, DefaultStyle.centeredXY]}>

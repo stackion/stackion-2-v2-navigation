@@ -29,7 +29,7 @@ const InAppHBF = props => {
    */
     return (
         <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
-            <QuickMenu height={quickMenuVisibleHeight} closeModalBtnPressed={() => setQuickMenuVisibleHeight(0)} />
+            <QuickMenu navigation={props.navigation} height={quickMenuVisibleHeight} closeModalBtnPressed={() => setQuickMenuVisibleHeight(0)} />
             <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
                 <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="user" color={Colors.blue2} />
