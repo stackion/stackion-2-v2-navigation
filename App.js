@@ -8,6 +8,10 @@ import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/
 
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
+import Toast from 'react-native-toast-message';
+
+import { ModalPortal } from 'react-native-modals';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome } from '@fortawesome/free-solid-svg-icons/faHome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons/faWallet';
@@ -77,6 +81,8 @@ const App = () => {
         <Stack.Screen name="SendOffline" component={SendOffline} />
         <Stack.Screen name="OfflineTransactionStateNotifierDisplay" component={OfflineTransactionStateNotifierDisplay} />
       </Stack.Navigator>
+      <ModalPortal />
+      <Toast />
     </NavigationContainer>
   )
 }

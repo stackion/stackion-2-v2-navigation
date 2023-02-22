@@ -3,6 +3,7 @@ import {
     StyleSheet,
     useWindowDimensions
 } from "react-native";
+import { BottomModal, ModalFooter } from 'react-native-modals';
 import { Btn } from "./button";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
@@ -11,17 +12,6 @@ export const QuickMenu = props => {
 
     const {height , width} = useWindowDimensions();
     const style = StyleSheet.create({
-        modalGroupExternalCont : {
-            width : width,
-            backgroundColor : Colors.transparents.black,
-            zIndex : 2,
-            position : "absolute",
-            top : 0,
-            left : 0
-        },
-        bottomModalGroupExternalCont : {
-            justifyContent : "flex-end",
-        },
         BottomModalContent : {
             height : height / 2,
             maxHeight : 260,
@@ -48,9 +38,18 @@ export const QuickMenu = props => {
     })
 //TODO add button press feature for the convert page
     return (
-        <View style={[style.modalGroupExternalCont, style.bottomModalGroupExternalCont, {
-            height : props.height
-        }]} >
+        <BottomModal
+          visible={props.visibility}
+          swipeDirection={['up', 'down']} 
+          swipeThreshold={200}
+          onSwipeOut={(event) => {
+            props.closeModalBtnPressed;
+          }}
+          modalStyle={{
+            padding : 0,
+          }}
+        >
+          <ModalFooter>
             <View style={[style.BottomModalContent, DefaultStyle.WSpanParent]} >
                 <View style={[DefaultStyle.WSpanParent, style.quickMenuTopper]}>
                     <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Send offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
@@ -74,6 +73,7 @@ export const QuickMenu = props => {
                         />
                 </View>
             </View>
-        </View>
+          </ModalFooter>
+        </BottomModal>
     )
 }

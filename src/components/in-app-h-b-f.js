@@ -14,7 +14,7 @@ import { QuickMenu } from "./modals"
 
 const InAppHBF = props => {
     const {height} = useWindowDimensions();
-    const [quickMenuVisibleHeight, setQuickMenuVisibleHeight] = useState(0);
+    const [quickMenuVisibility, setQuickMenuVisibility] = useState(false);
     /*
     // props properties
     
@@ -30,7 +30,7 @@ const InAppHBF = props => {
    */
     return (
         <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
-            <QuickMenu navigation={props.navigation} setHeight={setQuickMenuVisibleHeight} height={quickMenuVisibleHeight} closeModalBtnPressed={() => setQuickMenuVisibleHeight(0)} />
+            <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibleHeight(false)} />
             <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
                 <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="user" color={Colors.blue2} />
@@ -53,7 +53,7 @@ const InAppHBF = props => {
                 }} />
                 <Btn style={[style.footerBtns, style.quickMenuDisplayBtn, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="exchange" size={16} color={Colors.black}/>
-                )} textStyle={[style.footerBtnIcon]} onPress={() => setQuickMenuVisibleHeight(height)} />
+                )} textStyle={[style.footerBtnIcon]} onPress={() => setQuickMenuVisibility(true)} />
                 <Btn style={[style.footerBtns, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="wallet" size={16} color={props.activePage == "wallet" ? Colors.black : Colors.black46}/>
                 )} textStyle={[style.footerBtnIcon]} onPress={() => {

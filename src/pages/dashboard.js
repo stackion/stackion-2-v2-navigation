@@ -1,9 +1,13 @@
+import { useCallback } from "react";
 import {
     Text,
     View,
     StyleSheet,
-    Alert
+    Alert,
+    BackHandler
 } from "react-native";
+import Toast from 'react-native-toast-message';
+import { useFocusEffect } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
@@ -11,6 +15,33 @@ import {Btn} from "../components/button";
 import InAppHBF from "../components/in-app-h-b-f";
 
 const Dashboard = (props) => {
+    let backPressCount = 0;
+  
+    useFocusEffect(
+      useCallback(() => {
+        const onBackPress = () => {
+          backPressCount++;
+          if (backPressCount === 1) {
+            Toast.show({
+                type: 'info',
+                text1: 'Going somewhere ?',
+                text2: 'Press back again to exit 👋'
+            });
+            setTimeout(() => {
+              backPressCount = 0;
+            }, 2000);
+            return true;
+          } else {
+            return false;
+          }
+        };
+  
+        BackHandler.addEventListener('hardwareBackPress', onBackPress);
+  
+        return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      }, [])
+    );
+  
     return (
         <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={"Hey, John!"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={[style.dashboardAssetValueDisplayRect, DefaultStyle.centeredYSpaceBetweenX, style.contentsInBodyCont]}>
