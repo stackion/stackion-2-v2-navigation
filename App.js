@@ -3,7 +3,7 @@ import {
   StatusBar,
 } from "react-native";
 
-import { NavigationContainer , useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
@@ -39,27 +39,16 @@ import OfflineTransactionStateNotifierDisplay from "./src/pages/offline-transact
 
 library.add(faHome, faWallet, faPlus, faUser, faExchange, faArrowRight, faEye, faEyeSlash, faCancel);
 
-const navigation = useNavigation();
 const Stack = createStackNavigator();
 
 const App = () => {
-  try {
-    changeNavigationBarColor(Colors.white, true);
-  }
-  catch(e) {
-    //
-  }
-
-  function preventGoingBackToScreen(route) {
-    if (route.name === 'Splash') {
-      console.log("splash")
-      return false;
-    }
-    return true;
-  }
-
   useEffect(() => {
-    navigation.addEventListener("")
+    try {
+      changeNavigationBarColor(Colors.white, true);
+    }
+    catch(e) {
+      //
+    }
   })
 
   return(
@@ -70,12 +59,6 @@ const App = () => {
         gestureEnabled: true,
         gestureDirection: 'horizontal',
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-      }} 
-      screenListeners={(e) => {
-        const currentRoute = e.data.state.routes[e.data.state.index];
-        if (!preventGoingBackToScreen(currentRoute)) {
-          e.preventDefault();
-        }
       }}
       >
         <Stack.Screen name="Splash" component={Splash} />

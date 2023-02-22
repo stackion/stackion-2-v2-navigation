@@ -184,9 +184,18 @@ const style = StyleSheet.create({
         marginTop : 8,
         height : 80,
         padding : 5,
+        backgroundColor : Colors.white,
         borderColor : Colors.blackF2,
         borderWidth : 0.6,
         borderStyle : "solid",
+        shadowColor: Colors.black,
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 1,
     },
     historyTitle : {
         fontSize : 12,

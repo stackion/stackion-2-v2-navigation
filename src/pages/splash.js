@@ -6,14 +6,12 @@ import {
 import DefaultStyles from "../styles/defaults.js";
 import Colors from "../styles/colors";
 
-import { usePreventGoingBackToScreen } from "../functions/navigation";
 
 const Splash = (props) => {
-    usePreventGoingBackToScreen("Splash");
     //TODO check login state before any navigation;
     useEffect(() => {
         let navigationDelay = setTimeout(() => {
-            props.navigation.navigate("Dashboard");
+            props.navigation.replace("Dashboard");
         }, 1000);
         return () => clearTimeout(navigationDelay);
     }, []);

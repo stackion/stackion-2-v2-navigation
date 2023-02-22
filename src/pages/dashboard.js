@@ -27,7 +27,7 @@ const Dashboard = (props) => {
                 </View>
                 <Btn text={(
                     <FontAwesomeIcon icon="arrow-right" color={Colors.black31} size={21} />
-                )} onPress={() => Alert.alert("Wallet ?")} />
+                )} onPress={() => props.navigation.navigate("Wallet")} />
             </View>
             <View style={[
                 DefaultStyle.centeredY,
@@ -46,7 +46,9 @@ const Dashboard = (props) => {
                         {
                             padding : 12,
                         }
-                    ]} textStyle={style.quickActionBtnText} />
+                    ]} textStyle={style.quickActionBtnText} onPress={() => {
+                        props.navigation.navigate("SendViaInternet")
+                    }} />
                 </View>
                 <View  style={style.quickActionBtn} >
                     <Btn text="Receive" style={[
@@ -54,7 +56,9 @@ const Dashboard = (props) => {
                             {
                                 padding : 12,
                             }
-                    ]} textStyle={style.quickActionBtnText} />
+                    ]} textStyle={style.quickActionBtnText} onPress={() => {
+                        props.navigation.navigate("ReceiveViaOnline")
+                    }}  />
                 </View>
                 <View  style={style.quickActionBtn} >
                     <Btn text="Deposit" style={[
@@ -130,7 +134,15 @@ const style = StyleSheet.create({
         width : 121,
         margin : 15,
         borderRadius : 7,
-        backgroundColor : Colors.blackF2
+        backgroundColor : Colors.blackF2,
+        shadowColor: Colors.black,
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 1,
     },
     quickActionBtnText : {
         fontSize : 16,

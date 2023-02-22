@@ -26,10 +26,11 @@ const InAppHBF = props => {
     */
    /*
    //remember to add button click events for navigation and menu trigger in the footer
+   //later, customize the visibility of the quickMenue.
    */
     return (
         <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
-            <QuickMenu navigation={props.navigation} height={quickMenuVisibleHeight} closeModalBtnPressed={() => setQuickMenuVisibleHeight(0)} />
+            <QuickMenu navigation={props.navigation} setHeight={setQuickMenuVisibleHeight} height={quickMenuVisibleHeight} closeModalBtnPressed={() => setQuickMenuVisibleHeight(0)} />
             <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
                 <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="user" color={Colors.blue2} />

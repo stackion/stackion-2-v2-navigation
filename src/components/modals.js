@@ -54,9 +54,11 @@ export const QuickMenu = props => {
             <View style={[style.BottomModalContent, DefaultStyle.WSpanParent]} >
                 <View style={[DefaultStyle.WSpanParent, style.quickMenuTopper]}>
                     <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Send offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
-                        console.log(props.navigation)
+                        props.setHeight(0);
+                        props.navigation.navigate("SendOffline")
                     }}  />
                     <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Receive offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
+                        props.setHeight(0);
                         props.navigation.navigate("ReceiveViaOffline")
                     }}   />
                     <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Convert" textStyle={[style.quickMenuBtnsText]} />
