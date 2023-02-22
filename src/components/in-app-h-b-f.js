@@ -28,19 +28,18 @@ export const InAppHB = props => {
    */
     return (
         <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
-            <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibility(false)} />
             <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
-                <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
-                    <FontAwesomeIcon icon="user" color={Colors.blue2} />
-                )} onPress={props.whenHeaderMenuBtnIsPressed} />
-                <Text style={style.headerTitleText}>
+                <Text style={[style.headerTitleText, {
+                    textAlign : "center"
+                }]}>
                     {props.headerTitleText}
                 </Text>
             </View>
-            <View style={[ DefaultStyle.WSpanParent, style.bodyCont, DefaultStyle.centeredX]}>
-                <ScrollView contentContainerStyle={[DefaultStyle.centeredX]} style={[DefaultStyle.WSpanParent, {paddingTop : 30, marginBottom : 50}, /*, style.bodyContScrollView*/]}>
+            <View style={[ DefaultStyle.WSpanParent, style.bodyCont, DefaultStyle.centeredX, {
+                marginTop : 40
+            }]}>
+                <ScrollView contentContainerStyle={[DefaultStyle.centeredX]} style={[DefaultStyle.WSpanParent, /*, style.bodyContScrollView*/]}>
                     {props.children}
-                    <View style={{height : 20}}></View>
                 </ScrollView>
             </View>
         </View>

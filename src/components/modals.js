@@ -40,6 +40,7 @@ export const QuickMenu = props => {
     return (
         <BottomModal
           visible={props.visibility}
+          onHardwareBackPress={props.closeModalBtnPressed}
         >
           <ModalFooter>
             <View style={[style.BottomModalContent, DefaultStyle.WSpanParent]} >
