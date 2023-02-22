@@ -15,7 +15,7 @@ const SetupPin = () => {
         <View style={
             [
                 DefaultStyle.WHSpanParent,                      
-                DefaultStyle.centeredX
+                DefaultStyle.centeredX, {backgroundColor : Colors.white}
             ]
         }>
             <View style={style.formView}>

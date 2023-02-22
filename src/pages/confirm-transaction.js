@@ -11,9 +11,9 @@ import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import InAppHBF from "../components/in-app-h-b-f";
 
-const ConfirmTransaction = () => {
+const ConfirmTransaction = (props) => {
     return (
-        <InAppHBF headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
                 <View>
                     <Text style={[style.introText]}>

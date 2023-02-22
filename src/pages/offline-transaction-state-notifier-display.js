@@ -12,7 +12,7 @@ import InAppHBF from "../components/in-app-h-b-f";
 
 const OfflineTransactionStateNotifierDisplay = props => {
     return (
-        <InAppHBF headerTitleText={props.messageTitle} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF navigation={props.navigation} headerTitleText={props.messageTitle} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={[DefaultStyle.centeredXY]}>
                 <Text style={style.messageText}>
                     {props.message}

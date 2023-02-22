@@ -11,9 +11,9 @@ import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import InAppHBF from "../components/in-app-h-b-f";
 
-const SendViaInternet = () => {
+const SendViaInternet = (props) => {
     return (
-        <InAppHBF headerTitleText={"Send Via Internet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF navigation={props.navigation} headerTitleText={"Send Via Internet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
                 <View>
                     <Text style={[style.introText]}>

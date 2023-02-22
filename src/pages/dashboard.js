@@ -10,9 +10,9 @@ import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import InAppHBF from "../components/in-app-h-b-f";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
     return (
-        <InAppHBF activePage="home" headerTitleText={"Hey, John!"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={"Hey, John!"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={[style.dashboardAssetValueDisplayRect, DefaultStyle.centeredYSpaceBetweenX, style.contentsInBodyCont]}>
                 <View style={[style.balanceAmountTextAndDisplayCont]}>
                     <View style={[DefaultStyle.centeredYSpaceBetweenX]}>

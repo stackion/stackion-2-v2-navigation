@@ -23,6 +23,7 @@ import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
 import { faCancel } from '@fortawesome/free-solid-svg-icons/faCancel';
 
 import Colors from "./src/styles/colors";
+
 import Splash from "./src/pages/splash";
 import AppInterfaceAfterInstallation from "./src/pages/app-interface-after-install";
 import SignIn from "./src/pages/sign-in";
@@ -53,14 +54,27 @@ const App = () => {
   return(
     <NavigationContainer>
       <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
-      <Stack.Navigator initialRouteName="Home" screenOptions={{
+      <Stack.Navigator initialRouteName="Splash" screenOptions={{
         headerShown: false,
         gestureEnabled: true,
         gestureDirection: 'horizontal',
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
-        <Stack.Screen name="Home" component={Splash} />
+        <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="AppInterfaceAfterInstallation" component={AppInterfaceAfterInstallation} />
+        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
+        <Stack.Screen name="SetupPin" component={SetupPin} />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Wallet" component={Wallet} />
+        <Stack.Screen name="SendViaInternet" component={SendViaInternet} />
+        <Stack.Screen name="ConfirmTransaction" component={ConfirmTransaction} />
+        <Stack.Screen name="ReceiveViaOnline" component={ReceiveViaOnline} />
+        <Stack.Screen name="ReceiveViaOffline" component={ReceiveViaOffline} />
+        <Stack.Screen name="ScanToSendOffline" component={ScanToSendOffline} />
+        <Stack.Screen name="SendOffline" component={SendOffline} />
+        <Stack.Screen name="OfflineTransactionStateNotifierDisplay" component={OfflineTransactionStateNotifierDisplay} />
       </Stack.Navigator>
     </NavigationContainer>
   )

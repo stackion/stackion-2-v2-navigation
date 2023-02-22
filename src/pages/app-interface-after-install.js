@@ -16,7 +16,7 @@ const AppInterfaceAfterInstallation = () => {
         <View style={
             [
                 DefaultStyle.WHSpanParent,
-                DefaultStyle.centeredXY
+                DefaultStyle.centeredXY, {backgroundColor : Colors.white}
             ]
         }>
             <Image style={[style.logo]} source={require("../../assets/images/favicon.png")}/>

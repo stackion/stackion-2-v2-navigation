@@ -10,9 +10,9 @@ import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import InAppHBF from "../components/in-app-h-b-f";
 
-const Wallet = () => {
+const Wallet = (props) => {
     return (
-        <InAppHBF activePage="wallet" headerTitleText={"Wallet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF activePage="wallet" navigation={props.navigation} headerTitleText={"Wallet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[style.balanceAmountTextAndDisplayCont]}>
                     <View style={[DefaultStyle.centeredYSpaceBetweenX]}>

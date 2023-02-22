@@ -28,7 +28,7 @@ const InAppHBF = props => {
    //remember to add button click events for navigation and menu trigger in the footer
    */
     return (
-        <View style={[DefaultStyle.WHSpanParent]}>
+        <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
             <QuickMenu height={quickMenuVisibleHeight} closeModalBtnPressed={() => setQuickMenuVisibleHeight(0)} />
             <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
                 <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
@@ -47,13 +47,17 @@ const InAppHBF = props => {
             <View style={[DefaultStyle.WSpanParent, style.footerCont]}>
                 <Btn style={[style.footerBtns, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="home" size={16} color={props.activePage == "home" ? Colors.black : Colors.black46}/>
-                )} textStyle={[style.footerBtnIcon]}/>
+                )} textStyle={[style.footerBtnIcon]} onPress={() => {
+                    props.navigation.navigate("Dashboard")
+                }} />
                 <Btn style={[style.footerBtns, style.quickMenuDisplayBtn, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="exchange" size={16} color={Colors.black}/>
                 )} textStyle={[style.footerBtnIcon]} onPress={() => setQuickMenuVisibleHeight(height)} />
                 <Btn style={[style.footerBtns, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="wallet" size={16} color={props.activePage == "wallet" ? Colors.black : Colors.black46}/>
-                )} textStyle={[style.footerBtnIcon]}/>
+                )} textStyle={[style.footerBtnIcon]} onPress={() => {
+                    props.navigation.navigate("Wallet")
+                }} />
             </View>
         </View>
     )

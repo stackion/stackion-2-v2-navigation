@@ -8,9 +8,9 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import InAppHBF from "../components/in-app-h-b-f";
 
-const ReceiveViaOffline = () => {
+const ReceiveViaOffline = (props) => {
     return (
-        <InAppHBF headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF navigation={props.navigation} headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
                 <Text style={{
                     fontSize : 16,

@@ -11,9 +11,9 @@ import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import InAppHBF from "../components/in-app-h-b-f";
 
-const ReceiveViaOnline = () => {
+const ReceiveViaOnline = (props) => {
     return (
-        <InAppHBF headerTitleText={"Receive"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF navigation={props.navigation} headerTitleText={"Receive"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.View}>
                 <Text style={{
                     fontSize : 32,
