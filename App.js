@@ -22,6 +22,10 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
 import { faCancel } from '@fortawesome/free-solid-svg-icons/faCancel';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons/faPaperPlane';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons/faArrowDown';
+import { faMoneyCheck } from '@fortawesome/free-solid-svg-icons/faMoneyCheck';
+import { faMoneyBill } from '@fortawesome/free-solid-svg-icons/faMoneyBill';
 
 import Colors from "./src/styles/colors";
 
@@ -41,7 +45,8 @@ import ScanToSendOffline from "./src/pages/scan-to-send";
 import SendOffline from "./src/pages/send-offline";
 import OfflineTransactionStateNotifierDisplay from "./src/pages/offline-transaction-state-notifier-display";
 
-library.add(faHome, faWallet, faPlus, faUser, faExchange, faArrowRight, faEye, faEyeSlash, faCancel);
+library.add(faHome, faWallet, faPlus, faUser, faExchange, faArrowRight,
+  faEye, faEyeSlash, faCancel, faPaperPlane, faArrowDown, faMoneyCheck, faMoneyBill);
 
 const Stack = createStackNavigator();
 

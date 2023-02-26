@@ -66,7 +66,16 @@ const Dashboard = (props) => {
                 <View style={[style.quickActionBtn, {
                             backgroundColor : "#0052cc"
                     }]} >
-                    <Btn text="Send" style={[
+                    <Btn text={
+                        (
+                            <>
+                            <Text style={style.quickActionBtnTextContents}>Send</Text>
+                            <Text style={style.quickActionBtnTextContents} >
+                                <FontAwesomeIcon icon="paper-plane" size={20} color={Colors.white} />
+                            </Text>
+                            </>
+                        )
+                    } style={[
                         DefaultStyle.WHSpanParent,
                         {
                             padding : 12,
@@ -174,7 +183,10 @@ const style = StyleSheet.create({
         fontSize : 16,
         color : Colors.white,
         fontWeight : 300,
-        fontFamily : "Comfortaa-Medium"
+        fontFamily : "Comfortaa-Medium",
+    },
+    quickActionBtnTextContents : {
+        margin : 2
     }
 })
 
