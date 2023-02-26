@@ -27,7 +27,7 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons/faArrowDown';
 import { faMoneyCheck } from '@fortawesome/free-solid-svg-icons/faMoneyCheck';
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons/faMoneyBill';
 import { faMoneyBillAlt } from '@fortawesome/free-solid-svg-icons/faMoneyBillAlt';
-import { faGems } from '@fortawesome/free-solid-svg-icons/faGems';
+import { faGem } from '@fortawesome/free-solid-svg-icons/faGem';
 
 import Colors from "./src/styles/colors";
 
@@ -39,6 +39,7 @@ import VerifyEmail from "./src/pages/verify-email";
 import SetupPin from "./src/pages/setup-pin";
 import Dashboard from "./src/pages/dashboard";
 import Wallet from "./src/pages/wallet";
+import TransactionHistory from "./src/pages/transaction-history";
 import SendViaInternet from "./src/pages/send-via-internet";
 import ConfirmTransaction from "./src/pages/confirm-transaction";
 import ReceiveViaOnline from "./src/pages/receive-via-online";
@@ -49,7 +50,7 @@ import OfflineTransactionStateNotifierDisplay from "./src/pages/offline-transact
 
 library.add(faHome, faWallet, faPlus, faUser, faExchange, faArrowRight,
   faEye, faEyeSlash, faCancel, faPaperPlane, faArrowDown, faMoneyCheck, faMoneyBill,
-  faMoneyBillAlt, faGems);
+  faMoneyBillAlt, faGem);
 
 const Stack = createStackNavigator();
 
@@ -81,6 +82,7 @@ const App = () => {
         <Stack.Screen name="SetupPin" component={SetupPin} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Wallet" component={Wallet} />
+        <Stack.Screen name="TransactionHistory" component={TransactionHistory} />
         <Stack.Screen name="SendViaInternet" component={SendViaInternet} />
         <Stack.Screen name="ConfirmTransaction" component={ConfirmTransaction} />
         <Stack.Screen name="ReceiveViaOnline" component={ReceiveViaOnline} />
