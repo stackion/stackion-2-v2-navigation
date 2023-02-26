@@ -69,10 +69,8 @@ const Dashboard = (props) => {
                     <Btn text={
                         (
                             <>
-                            <Text style={style.quickActionBtnTextContents}>Send</Text>
-                            <Text style={style.quickActionBtnTextContents} >
-                                <FontAwesomeIcon icon="paper-plane" size={20} color={Colors.white} />
-                            </Text>
+                            <Text>Send{"\n\n"}</Text>
+                            <FontAwesomeIcon icon="paper-plane" size={20} color={Colors.white} />
                             </>
                         )
                     } style={[
@@ -87,7 +85,14 @@ const Dashboard = (props) => {
                 <View  style={[style.quickActionBtn, {
                                 backgroundColor : "#4da6ff"
                     }]} >
-                    <Btn text="Receive" style={[
+                    <Btn text={
+                        (
+                            <>
+                            <Text>Receive{"\n\n"}</Text>
+                            <FontAwesomeIcon icon="arrow-down" size={20} color={Colors.white} />
+                            </>
+                        )
+                    } style={[
                             DefaultStyle.WHSpanParent,
                             {
                                 padding : 12,
@@ -99,7 +104,14 @@ const Dashboard = (props) => {
                 <View  style={[style.quickActionBtn, {
                                 backgroundColor : "#0066ff"
                     }]} >
-                    <Btn text="Deposit" style={[
+                    <Btn text={
+                        (
+                            <>
+                            <Text>Deposit{"\n\n"}</Text>
+                            <FontAwesomeIcon icon="money-check" size={20} color={Colors.white} />
+                            </>
+                        )
+                    } style={[
                             DefaultStyle.WHSpanParent,
                             {
                                 padding : 12,
@@ -109,7 +121,14 @@ const Dashboard = (props) => {
                 <View  style={[style.quickActionBtn, {
                                 backgroundColor : "#0047b3"
                     }]} >
-                    <Btn text="Withdrawl" style={[
+                    <Btn text={
+                        (
+                            <>
+                            <Text>Withdrawl{"\n\n"}</Text>
+                            <FontAwesomeIcon icon="money-bill" size={20} color={Colors.white} />
+                            </>
+                        )
+                    } style={[
                             DefaultStyle.WHSpanParent,
                             {
                                 padding : 12,
@@ -184,9 +203,6 @@ const style = StyleSheet.create({
         color : Colors.white,
         fontWeight : 300,
         fontFamily : "Comfortaa-Medium",
-    },
-    quickActionBtnTextContents : {
-        margin : 2
     }
 })
 

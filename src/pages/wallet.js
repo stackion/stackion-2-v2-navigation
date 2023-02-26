@@ -49,72 +49,6 @@ const Wallet = (props) => {
             </View>
             <View style={[style.historyContentSection, DefaultStyle.centeredXY, style.contentsInBodyCont]} >
                 {/*the content would be displayed based on state / other */}
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Received
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        $ 2,000 from @johndoe. -Offline token(s)
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Deposited
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        $ 2,000 via crypto
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Withdrew
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        $ 2,000 to external account.
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Sent
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        $ 2,000 to @johndoe. -Offline token(s)
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Sent
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        $ 2,000 to @johndoe. -Fiat
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Received
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        $ 2,000 from @johndoe. -Fiat
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
                 <Text style={{fontSize : 12, color : Colors.black46, fontFamily : "Roboto-Regular"}}>
                     No History
                 </Text>
@@ -130,13 +64,13 @@ const style = StyleSheet.create({
         maxWidth : 340,
     },
     dashboardAssetValueDisplayRect : {
-    //    backgroundColor : Colors.blackF2,
-        height : 154,
+        backgroundColor : Colors.blackF2,
+        height : 204,
         padding : 15,
-        borderRadius : 15,
+        borderRadius : 5,
     },
     balanceAmountTextAndDisplayCont : {
-        height : "50%",
+        height : "58%",
         justifyContent : "space-between"
     },
     Balance : {
@@ -157,7 +91,7 @@ const style = StyleSheet.create({
     walletContentDecriptorTitle : {
         fontSize : 16,
         fontWeight : 400,
-        color : Colors.black46,
+        color : Colors.black31,
         fontFamily : "Roboto-Medium",
     },
     walletContentDecriptorAmount : {
@@ -169,6 +103,8 @@ const style = StyleSheet.create({
     historySectionTitle : {
         marginTop : 50,
         height : 40,
+        borderBottomColor : Colors.blackF2,
+        borderBottomWidth : 3,
     },
     historySectionTitleText : {
         fontSize : 20,
@@ -188,14 +124,6 @@ const style = StyleSheet.create({
         borderColor : Colors.blackF2,
         borderWidth : 0.6,
         borderStyle : "solid",
-        shadowColor: Colors.black,
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 1,
     },
     historyTitle : {
         fontSize : 12,
