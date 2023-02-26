@@ -22,6 +22,11 @@ const DefaultStyle = StyleSheet.create({
         alignItems : "center",
         justifyContent : "space-between",
     },
+    centeredYSpaceAroundX : {
+        flexDirection : "row",
+        alignItems : "center",
+        justifyContent : "space-around"
+    },
     WHSpanParent : {
         width : "100%",
         height : "100%"

@@ -2,7 +2,7 @@ const Colors = {
     defaultBlue : "#0066FF",
     black : "#000000",
     white : "#ffffff",
-    blackF2 : "rgba(244, 244, 244, 1)",
+    blackF2 : "#F6F6F6",
     black46 : "#848383",
     black31 : "#313131",
     blue2 : "#0896E5",

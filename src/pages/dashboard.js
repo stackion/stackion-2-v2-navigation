@@ -44,21 +44,13 @@ const Dashboard = (props) => {
   
     return (
         <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={"Hey, John!"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
-            <View style={[style.dashboardAssetValueDisplayRect, DefaultStyle.centeredYSpaceBetweenX, style.contentsInBodyCont]}>
-                <View style={[style.balanceAmountTextAndDisplayCont]}>
-                    <View style={[DefaultStyle.centeredYSpaceBetweenX]}>
-                        <Text style={[style.Balance]}>Balance</Text>
-                        <Btn text={(
-                            <FontAwesomeIcon icon="eye" color={Colors.black31} size={18} />
-                        )} onPress={() => Alert.alert("Change balance visibility ?")} />
-                    </View>
-                    <View>
-                        <Text style={[style.balanceAmount]}>$ 1,000,000.00</Text>
-                    </View>
+            <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
+                <View style={[DefaultStyle.centeredX]}>
+                    <Text style={[style.Balance]}>Balance</Text>
                 </View>
-                <Btn text={(
-                    <FontAwesomeIcon icon="arrow-right" color={Colors.black31} size={21} />
-                )} onPress={() => props.navigation.navigate("Wallet")} />
+                <View style={[DefaultStyle.centeredX]}>
+                    <Text style={[style.balanceAmount]}>$ 1,000,000.00</Text>
+                </View>
             </View>
             <View style={[
                 DefaultStyle.centeredY,
@@ -71,7 +63,9 @@ const Dashboard = (props) => {
                 style.quickActionsSectionCont,
                 style.contentsInBodyCont
             ]}>
-                <View style={style.quickActionBtn}>
+                <View style={[style.quickActionBtn, {
+                            backgroundColor : "#0052cc"
+                    }]} >
                     <Btn text="Send" style={[
                         DefaultStyle.WHSpanParent,
                         {
@@ -81,7 +75,9 @@ const Dashboard = (props) => {
                         props.navigation.navigate("SendViaInternet")
                     }} />
                 </View>
-                <View  style={style.quickActionBtn} >
+                <View  style={[style.quickActionBtn, {
+                                backgroundColor : "#4da6ff"
+                    }]} >
                     <Btn text="Receive" style={[
                             DefaultStyle.WHSpanParent,
                             {
@@ -91,7 +87,9 @@ const Dashboard = (props) => {
                         props.navigation.navigate("ReceiveViaOnline")
                     }}  />
                 </View>
-                <View  style={style.quickActionBtn} >
+                <View  style={[style.quickActionBtn, {
+                                backgroundColor : "#0066ff"
+                    }]} >
                     <Btn text="Deposit" style={[
                             DefaultStyle.WHSpanParent,
                             {
@@ -99,7 +97,9 @@ const Dashboard = (props) => {
                             }
                     ]} textStyle={style.quickActionBtnText} />
                 </View>
-                <View  style={style.quickActionBtn} >
+                <View  style={[style.quickActionBtn, {
+                                backgroundColor : "#0047b3"
+                    }]} >
                     <Btn text="Withdrawl" style={[
                             DefaultStyle.WHSpanParent,
                             {
@@ -119,15 +119,11 @@ const style = StyleSheet.create({
         maxWidth : 340,
     },
     dashboardAssetValueDisplayRect : {
-        backgroundColor : Colors.blackF2,
         height : 124,
         padding : 10,
-        borderRadius : 15,
-    },
-    balanceAmountTextAndDisplayCont : {
-        height : "80%",
-        flexGrow : 0.7,
-        justifyContent : "space-between"
+        borderRadius : 5,
+        justifyContent : "center",
+        backgroundColor : Colors.blackF2
     },
     Balance : {
         fontSize : 16,
@@ -158,26 +154,25 @@ const style = StyleSheet.create({
         marginTop : 30,
         flexDirection : "row",
         flexWrap : "wrap",
-        justifyContent : "space-around"
+        justifyContent : "center"
     },
     quickActionBtn : {
         height : 104,
         width : 121,
-        margin : 15,
+        margin : 15.5,
         borderRadius : 7,
-        backgroundColor : Colors.blackF2,
-        shadowColor: Colors.black,
+     /*   shadowColor: Colors.black,
         shadowOffset: {
           width: 0,
           height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 1,
+        elevation: 1, */
     },
     quickActionBtnText : {
         fontSize : 16,
-        color : Colors.black46,
+        color : Colors.white,
         fontWeight : 300,
         fontFamily : "Comfortaa-Medium"
     }

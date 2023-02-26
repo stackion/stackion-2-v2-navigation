@@ -130,7 +130,7 @@ const style = StyleSheet.create({
         maxWidth : 340,
     },
     dashboardAssetValueDisplayRect : {
-        backgroundColor : Colors.blackF2,
+    //    backgroundColor : Colors.blackF2,
         height : 154,
         padding : 15,
         borderRadius : 15,
