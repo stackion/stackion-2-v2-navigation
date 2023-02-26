@@ -20,7 +20,7 @@ const SendViaInternet = (props) => {
                         Fiat balance
                     </Text>
                     <Text style={[style.introText]}>
-                        $ 900,000
+                        N 900,000
                     </Text>
                 </View>
                 <View style={style.inputCont}>

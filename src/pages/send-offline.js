@@ -20,7 +20,7 @@ const SendOffline = (props) => {
                         Offline token balance
                     </Text>
                     <Text style={[style.introText]}>
-                        $ 900,000
+                        N 900,000
                     </Text>
                     <View style={{marginTop : 48}}>
                         <Text style={[{textAlign : "center",

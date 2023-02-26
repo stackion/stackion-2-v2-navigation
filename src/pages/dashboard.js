@@ -49,7 +49,7 @@ const Dashboard = (props) => {
                     <Text style={[style.Balance]}>Balance</Text>
                 </View>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.balanceAmount]}>$ 1,000,000.00</Text>
+                    <Text style={[style.balanceAmount]}>N 1,000,000.00</Text>
                 </View>
             </View>
             <View style={[

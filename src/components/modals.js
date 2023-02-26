@@ -24,7 +24,7 @@ export const QuickMenu = props => {
             height : "22%",
         },
         quickMenuBtns : {
-            height : `${100/3}%`,
+            height : `N{100/3}%`,
             borderBottomWidth : 0.8,
             borderBottomColor : Colors.blackF2,
             borderBottomStyle : "solid",

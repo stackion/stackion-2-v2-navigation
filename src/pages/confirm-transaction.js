@@ -17,7 +17,7 @@ const ConfirmTransaction = (props) => {
             <View style={style.formView}>
                 <View>
                     <Text style={[style.introText]}>
-                        $ 900,000
+                        N 900,000
                     </Text>
                     <Text style={[style.introText]}>
                         to {'@johndoe - offline tokens | fiat'}

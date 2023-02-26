@@ -26,6 +26,8 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons/faPaperPlane';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons/faArrowDown';
 import { faMoneyCheck } from '@fortawesome/free-solid-svg-icons/faMoneyCheck';
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons/faMoneyBill';
+import { faMoneyBillAlt } from '@fortawesome/free-solid-svg-icons/faMoneyBillAlt';
+import { faGems } from '@fortawesome/free-solid-svg-icons/faGems';
 
 import Colors from "./src/styles/colors";
 
@@ -46,7 +48,8 @@ import SendOffline from "./src/pages/send-offline";
 import OfflineTransactionStateNotifierDisplay from "./src/pages/offline-transaction-state-notifier-display";
 
 library.add(faHome, faWallet, faPlus, faUser, faExchange, faArrowRight,
-  faEye, faEyeSlash, faCancel, faPaperPlane, faArrowDown, faMoneyCheck, faMoneyBill);
+  faEye, faEyeSlash, faCancel, faPaperPlane, faArrowDown, faMoneyCheck, faMoneyBill,
+  faMoneyBillAlt, faGems);
 
 const Stack = createStackNavigator();
 

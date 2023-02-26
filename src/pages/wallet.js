@@ -15,14 +15,14 @@ const Wallet = (props) => {
         <InAppHBF activePage="wallet" navigation={props.navigation} headerTitleText={"Wallet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.Balance]}>Balance</Text>
+                    <Text style={[style.Balance]}>Total balance</Text>
                 </View>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.balanceAmount]}>$ 1,000,000.00</Text>
+                    <Text style={[style.balanceAmount]}>N 1,000,000.00</Text>
                 </View>
             </View>
             <View style={[style.contentsInBodyCont, style.historySectionTitle ]} >
-                <Text style={[style.historySectionTitleText]} >
+                <Text style={[style.historySectionTitleText, {textAlign : "center"}]} >
                     Assets
                 </Text>
             </View>
@@ -54,7 +54,7 @@ const Wallet = (props) => {
             </View>
             <View style={[style.contentsInBodyCont, style.historySectionTitle ]} >
                 <Text style={[style.historySectionTitleText]} >
-                    History
+                    Transaction History
                 </Text>
             </View>
             <View style={[style.historyContentSection, DefaultStyle.centeredXY, style.contentsInBodyCont]} >
@@ -64,7 +64,7 @@ const Wallet = (props) => {
                         Received
                     </Text>
                     <Text style={[style.historyText]}>
-                        $ 2,000 from @johndoe. -Offline token(s)
+                        N 2,000 from @johndoe. -Offline token(s)
                     </Text>
                     <Text style={[style.historyDate]}>
                         {new Date().toUTCString()}
@@ -75,7 +75,7 @@ const Wallet = (props) => {
                         Deposited
                     </Text>
                     <Text style={[style.historyText]}>
-                        $ 2,000 via crypto
+                        N 2,000 via crypto
                     </Text>
                     <Text style={[style.historyDate]}>
                         {new Date().toUTCString()}
@@ -86,7 +86,7 @@ const Wallet = (props) => {
                         Withdrew
                     </Text>
                     <Text style={[style.historyText]}>
-                        $ 2,000 to external account.
+                        N 2,000 to external account.
                     </Text>
                     <Text style={[style.historyDate]}>
                         {new Date().toUTCString()}
@@ -97,7 +97,7 @@ const Wallet = (props) => {
                         Sent
                     </Text>
                     <Text style={[style.historyText]}>
-                        $ 2,000 to @johndoe. -Offline token(s)
+                        N 2,000 to @johndoe. -Offline token(s)
                     </Text>
                     <Text style={[style.historyDate]}>
                         {new Date().toUTCString()}
@@ -108,7 +108,7 @@ const Wallet = (props) => {
                         Sent
                     </Text>
                     <Text style={[style.historyText]}>
-                        $ 2,000 to @johndoe. -Fiat
+                        N 2,000 to @johndoe. -Fiat
                     </Text>
                     <Text style={[style.historyDate]}>
                         {new Date().toUTCString()}
@@ -119,7 +119,7 @@ const Wallet = (props) => {
                         Received
                     </Text>
                     <Text style={[style.historyText]}>
-                        $ 2,000 from @johndoe. -Fiat
+                        N 2,000 from @johndoe. -Fiat
                     </Text>
                     <Text style={[style.historyDate]}>
                         {new Date().toUTCString()}
@@ -158,19 +158,27 @@ const style = StyleSheet.create({
         fontFamily : "Roboto-Medium",
     },
     assetCont : {
-        backgroundColor : Colors.blackF2,
+        backgroundColor : Colors.white,
         height : 70,
-        padding : 4,
-        marginTop : 10
+        padding : 24,
+        marginTop : 10,
+        shadowColor: Colors.black,
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 1,
     },
     assetsInfo : {
-        fontWeight : "bold",
-        fontFamily : "Roboto-Bold",
+        fontWeight : 200,
+        fontFamily : "Roboto-Medium",
         color : Colors.black31,
         fontSize : 16
     },
     historySectionTitle : {
-        marginTop : 50,
+        marginTop : 60,
         height : 40,
         borderBottomColor : Colors.blackF2,
         borderBottomWidth : 3,
