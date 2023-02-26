@@ -26,14 +26,18 @@ const Wallet = (props) => {
                     Assets
                 </Text>
             </View>
-            <View>
-                <View style={[DefaultStyle.centeredYSpaceBetweenX]}>
-                    <Text>
-                        Fiat
-                    </Text>
-                    <Text>
-                        Fiat
-                    </Text>
+            <View style={style.contentsInBodyCont}>
+                <View style={[DefaultStyle.centeredYSpaceBetweenX, DefaultStyle.WSpanParent]}>
+                    <View>
+                        <Text style={style.assetsInfo}>
+                            Fiat
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={style.assetsInfo}>
+                            N 900000
+                        </Text>
+                    </View>
                 </View>
             </View>
             <View style={[style.contentsInBodyCont, style.historySectionTitle ]} >
@@ -140,6 +144,12 @@ const style = StyleSheet.create({
         fontSize : 30,
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
+    },
+    assetsInfo : {
+        fontWeight : "bold",
+        fontFamily : "Roboto-Bold",
+        color : Colors.black31,
+        fontSize : 20
     },
     historySectionTitle : {
         marginTop : 50,
