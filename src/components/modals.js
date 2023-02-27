@@ -3,7 +3,7 @@ import {
     StyleSheet,
     useWindowDimensions
 } from "react-native";
-import { BottomModal, ModalFooter } from 'react-native-modals';
+import { BottomModal, ModalFooter } from "react-native-modals";
 import { Btn } from "./button";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
