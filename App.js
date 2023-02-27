@@ -28,6 +28,7 @@ import { faMoneyCheck } from '@fortawesome/free-solid-svg-icons/faMoneyCheck';
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons/faMoneyBill';
 import { faMoneyBillAlt } from '@fortawesome/free-solid-svg-icons/faMoneyBillAlt';
 import { faGem } from '@fortawesome/free-solid-svg-icons/faGem';
+import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
 
 import Colors from "./src/styles/colors";
 
@@ -50,7 +51,7 @@ import OfflineTransactionStateNotifierDisplay from "./src/pages/offline-transact
 
 library.add(faHome, faWallet, faPlus, faUser, faExchange, faArrowRight,
   faEye, faEyeSlash, faCancel, faPaperPlane, faArrowDown, faMoneyCheck, faMoneyBill,
-  faMoneyBillAlt, faGem);
+  faMoneyBillAlt, faGem, faCopy);
 
 const Stack = createStackNavigator();
 

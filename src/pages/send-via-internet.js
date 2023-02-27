@@ -62,7 +62,8 @@ const style = StyleSheet.create({
         fontWeight : 400,
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
-        marginBottom : 4
+        marginBottom : 4,
+        textAlign : "center"
     },
     inputCont : {
         marginTop : 37

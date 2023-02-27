@@ -4,6 +4,7 @@ import {
     View,
     ScrollView,
     StyleSheet,
+    Alert
 } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {Btn} from "./button";
@@ -12,7 +13,6 @@ import Colors from "../styles/colors";
 import { QuickMenu } from "./modals"
 
 export const InAppHB = props => {
-    const [quickMenuVisibility, setQuickMenuVisibility] = useState(false);
     /*
     // props properties
     

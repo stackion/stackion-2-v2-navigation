@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Alert
 } from "react-native";
+import Toast from "react-native-toast-message";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
@@ -30,9 +31,13 @@ const ReceiveViaOnline = (props) => {
                 </View>
                 <View style={[style.btnsCont]}>
                     <Btn text=""/>
-                    <Btn text="Copy" style={style.copyBtn} textStyle={style.copyBtnText} onPress={() => {
+                    <Btn text={(<Text>Copy   <FontAwesomeIcon icon="copy" color={Colors.white} size={20} /></Text>)} style={style.copyBtn} textStyle={style.copyBtnText} onPress={() => {
                         Clipboard.setString("@john2023");
-                        Alert.alert("copied");
+                        Toast.show({
+                            type: 'success',
+                            text1: 'Copied!',
+                            text2: 'Have a great day champ ✌'
+                        });
                     }}/>
                 </View>
                 <View style={{marginTop : 35}}>

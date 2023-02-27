@@ -43,7 +43,7 @@ const Dashboard = (props) => {
     );
   
     return (
-        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={"Hey, John!"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={"Hey, John! 😎"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[DefaultStyle.centeredX]}>
                     <Text style={[style.Balance]}>Balance</Text>

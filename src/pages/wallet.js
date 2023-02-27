@@ -52,6 +52,12 @@ const Wallet = (props) => {
                     </View>
                 </View>
             </View>
+            <View style={[
+                style.contentsInBodyCont
+            ]}>
+                <Btn text="View Transaction History" textStyle={style.goToHistoryBtnText} style={[style.goToHistoryBtn, 
+                DefaultStyle.WSpanParent]}  onPress={() => props.navigation.navigate("TransactionHistory")} />
+            </View>
         </InAppHBF>
     )
 }
@@ -108,10 +114,22 @@ const style = StyleSheet.create({
     },
     SectionTitleText : {
         fontSize : 16,
-        fontWeight : 100,
+        fontWeight : 800,
         color : Colors.black46,
         fontFamily : "Roboto-Medium",
     },
+    goToHistoryBtn : {
+        height : 60,
+        backgroundColor : Colors.defaultBlue,
+        marginTop : 50,
+        justifyContent : "center",
+        borderRadius : 10
+    },
+    goToHistoryBtnText : {
+        textAlign : "center",
+        color : Colors.white,
+        fontSize : 16
+    }
 })
 
 export default Wallet;
