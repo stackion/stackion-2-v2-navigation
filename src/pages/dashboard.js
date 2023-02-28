@@ -63,14 +63,12 @@ const Dashboard = (props) => {
                 style.quickActionsSectionCont,
                 style.contentsInBodyCont
             ]}>
-                <View style={[style.quickActionBtn, {
-                            backgroundColor : "#0052cc"
-                    }]} >
+                <View style={[style.quickActionBtn]} >
                     <Btn text={
                         (
                             <>
                             <Text>Send{"\n\n"}</Text>
-                            <FontAwesomeIcon icon="paper-plane" size={20} color={Colors.white} />
+                            <FontAwesomeIcon icon="paper-plane" size={20} color="#0052cc" />
                             </>
                         )
                     } style={[
@@ -82,14 +80,12 @@ const Dashboard = (props) => {
                         props.navigation.navigate("SendViaInternet")
                     }} />
                 </View>
-                <View  style={[style.quickActionBtn, {
-                                backgroundColor : "#4da6ff"
-                    }]} >
+                <View  style={[style.quickActionBtn]} >
                     <Btn text={
                         (
                             <>
                             <Text>Receive{"\n\n"}</Text>
-                            <FontAwesomeIcon icon="arrow-down" size={20} color={Colors.white} />
+                            <FontAwesomeIcon icon="arrow-down" size={20} color="#4da6ff" />
                             </>
                         )
                     } style={[
@@ -101,14 +97,12 @@ const Dashboard = (props) => {
                         props.navigation.navigate("ReceiveViaOnline")
                     }}  />
                 </View>
-                <View  style={[style.quickActionBtn, {
-                                backgroundColor : "#0066ff"
-                    }]} >
+                <View  style={[style.quickActionBtn]} >
                     <Btn text={
                         (
                             <>
                             <Text>Deposit{"\n\n"}</Text>
-                            <FontAwesomeIcon icon="money-check" size={20} color={Colors.white} />
+                            <FontAwesomeIcon icon="money-check" size={20} color="#0066ff" />
                             </>
                         )
                     } style={[
@@ -118,14 +112,12 @@ const Dashboard = (props) => {
                             }
                     ]} textStyle={style.quickActionBtnText} />
                 </View>
-                <View  style={[style.quickActionBtn, {
-                                backgroundColor : "#0047b3"
-                    }]} >
+                <View  style={[style.quickActionBtn]} >
                     <Btn text={
                         (
                             <>
                             <Text>Withdrawl{"\n\n"}</Text>
-                            <FontAwesomeIcon icon="money-bill" size={20} color={Colors.white} />
+                            <FontAwesomeIcon icon="money-bill" size={20} color="#0047b3" />
                             </>
                         )
                     } style={[
@@ -189,6 +181,7 @@ const style = StyleSheet.create({
         width : 121,
         margin : 15.5,
         borderRadius : 7,
+        backgroundColor : Colors.blackF2
      /*   shadowColor: Colors.black,
         shadowOffset: {
           width: 0,
@@ -200,7 +193,7 @@ const style = StyleSheet.create({
     },
     quickActionBtnText : {
         fontSize : 16,
-        color : Colors.white,
+        color : Colors.black31,
         fontWeight : 300,
         fontFamily : "Comfortaa-Medium",
     }

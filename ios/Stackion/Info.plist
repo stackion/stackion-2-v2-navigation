@@ -71,5 +71,11 @@
 		<string>Roboto-Thin.ttf</string>
 		<string>Roboto-ThinItalic.ttf</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Grant access to your camera to scan QR-code</string>
+
+	<!-- Include this only if you are planning to use the camera roll -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Grant access to your photo library to scan QR-code via a photo on your device</string>
 </dict>
 </plist>
