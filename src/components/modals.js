@@ -8,22 +8,6 @@ import { Btn } from "./button";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 
-/*
-
-            <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibility(false)} />
-
-                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Send offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
-                        props.closeModalBtnPressed();
-                        props.navigation.navigate("SendOffline")
-                    }}  />
-                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Receive offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
-                        props.closeModalBtnPressed();
-                        props.navigation.navigate("ReceiveViaOffline")
-                    }}   />
-                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Convert" textStyle={[style.quickMenuBtnsText]} />
-            
-            */
-
 export const QuickMenu = props => {
 
     const {height} = useWindowDimensions();
@@ -64,7 +48,7 @@ export const QuickMenu = props => {
                 <View style={[DefaultStyle.WSpanParent, style.quickMenuTopper]}>
                     <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Send offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
                         props.closeModalBtnPressed();
-                        props.navigation.navigate("SendOffline")
+                        props.navigation.navigate("ScanToSendOffline")
                     }}  />
                     <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Receive offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
                         props.closeModalBtnPressed();

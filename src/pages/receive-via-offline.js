@@ -4,9 +4,11 @@ import {
     StyleSheet,
     Alert
 } from "react-native";
+import QRCode from 'react-native-qrcode-svg';
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {InAppHB} from "../components/in-app-h-b-f";
+import { Btn } from "../components/button";
 
 const ReceiveViaOffline = (props) => {
     return (
@@ -20,12 +22,21 @@ const ReceiveViaOffline = (props) => {
                 }} >
                     {'@john2023'}
                 </Text>
-                <View style={[style.qrCodeContainer, DefaultStyle.blayout, DefaultStyle.centeredXY, style.contentsInBodyCont]}></View>
+                <View style={[style.qrCodeContainer, DefaultStyle.centeredXY, style.contentsInBodyCont]}>
+                    <QRCode value="hello" size={250} color={Colors.blue2}
+                    logo={require("../../assets/images/favicon.png")}
+                    backgroundColor={Colors.white}
+                    logoBackgroundColor={Colors.white}
+                    enableLinearGradient={true}
+                    linearGradient={[Colors.defaultBlue,Colors.blue2]} />
+                </View>
                 <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
                     <Text style={style.instructionTextInPage}>
                         Ask the sender to scan the QR-code with their app.
                     </Text>
                 </View>
+                <Btn style={[style.contentsInBodyCont, DefaultStyle.centeredXY, style.scanToReceiveBtn]}
+                text="Scan to receive" textStyle={style.scanToReceiveBtnText} />
             </View>
         </InAppHB>
     )
@@ -55,6 +66,16 @@ const style = StyleSheet.create({
         fontSize : 12,
         fontFamily : "Roboto-Regular"
     },
+    scanToReceiveBtn : {
+        height : 40,
+        backgroundColor : Colors.defaultBlue,
+        marginTop : "14%",
+        borderRadius : 8,
+    },
+    scanToReceiveBtnText : {
+        color : Colors.white,
+        fontSize : 16,
+    }
 })
 
 export default ReceiveViaOffline;

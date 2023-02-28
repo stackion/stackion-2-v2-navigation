@@ -128,7 +128,8 @@ const style = StyleSheet.create({
     goToHistoryBtnText : {
         textAlign : "center",
         color : Colors.white,
-        fontSize : 16
+        fontSize : 16,
+        fontFamily : "Comfortaa-Regular"
     }
 })
 
