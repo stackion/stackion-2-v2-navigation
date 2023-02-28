@@ -1,52 +1,40 @@
 import {
     Text,
-    View,
-    StyleSheet,
-    Alert
 } from "react-native";
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import { RNCamera } from 'react-native-camera';
+import Toast from "react-native-toast-message";
 import Colors from "../styles/colors";
-import DefaultStyle from "../styles/defaults";
-import {InAppHB} from "../components/in-app-h-b-f";
 
 const ScanToSendOffline = (props) => {
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Scan to send"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
-            <View style={style.View}>
-                <View style={[style.qrCodeScannerContainer, DefaultStyle.blayout, DefaultStyle.centeredXY, style.contentsInBodyCont]}></View>
-                <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
-                    <Text style={style.instructionTextInPage}>
-                        Scan the QR-code on the receiver’s screen.
-                    </Text>
-                </View>
-            </View>
-        </InAppHB>
+        <QRCodeScanner
+        onRead={() =>{
+                Toast.show({
+                    type: 'success',
+                    text1: 'Scanned',
+                    text2: 'Your have received offline tokens 🙌'
+                });
+        }}
+        containerStyle={{backgroundColor : Colors.white}}
+        permissionDialogTitle="😪"
+        permissionDialogMessage="Need camera permission to scan"
+        showMarker={true}
+        markerStyle={{
+            borderColor : Colors.defaultBlue,
+            borderRadius : 10
+        }}
+        flashMode={RNCamera.Constants.FlashMode.auto}
+        topContent={
+            <Text style={{textAlign : "center"}}>
+                Scan the QR-code receipt on the sender's screen
+            </Text>
+        }
+        topViewStyle={{
+            padding : 0
+        }}
+        />
     )
 }
-
-const style = StyleSheet.create({
-    contentsInBodyCont : {
-        width : "100%",
-        minWidth : 289,
-        maxWidth : 340,
-    },
-    View : {
-        maxHeight : 650,
-        width : "100%",
-        maxWidth : 320,
-        minWidth : 200,
-        padding : 10,
-    },
-    qrCodeScannerContainer : {
-        marginTop : 46,
-        marginBottom : 46,
-        height : "60%",
-        maxHeight : 260,
-    },
-    instructionTextInPage : {
-        color : Colors.black46,
-        fontSize : 12,
-        fontFamily : "Roboto-Regular"
-    },
-})
 
 export default ScanToSendOffline;
