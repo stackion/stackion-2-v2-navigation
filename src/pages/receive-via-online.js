@@ -1,10 +1,10 @@
 import {
     Text,
     View,
-    Clipboard, //TODO in the future, clipboard would be removed from react native core. It should be imported from the react-native-clipboard/clipboard
     StyleSheet,
     Alert
 } from "react-native";
+import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from "react-native-toast-message";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Colors from "../styles/colors";
