@@ -63,6 +63,7 @@ const InAppHBF = props => {
    */
     return (
         <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
+            <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibility(false)} />
             <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
                 <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="user" color={Colors.blue2} />

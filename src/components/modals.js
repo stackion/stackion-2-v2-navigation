@@ -11,6 +11,17 @@ import DefaultStyle from "../styles/defaults";
 /*
 
             <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibility(false)} />
+
+                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Send offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
+                        props.closeModalBtnPressed();
+                        props.navigation.navigate("SendOffline")
+                    }}  />
+                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Receive offline" textStyle={[style.quickMenuBtnsText]} onPress={() => {
+                        props.closeModalBtnPressed();
+                        props.navigation.navigate("ReceiveViaOffline")
+                    }}   />
+                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Convert" textStyle={[style.quickMenuBtnsText]} />
+            
             */
 
 export const QuickMenu = props => {
@@ -29,7 +40,7 @@ export const QuickMenu = props => {
             height : "22%",
         },
         quickMenuBtns : {
-            height : `N{100/3}%`,
+            height : `${100/3}%`,
             borderBottomWidth : 0.8,
             borderBottomColor : Colors.blackF2,
             borderBottomStyle : "solid",
@@ -41,7 +52,8 @@ export const QuickMenu = props => {
             fontFamily : "Comfortaa-Regular"
         }
     })
-//TODO add button press feature for the convert page
+//TODO add button press feature for the convert page 
+          // 
     return (
         <BottomModal
           visible={props.visibility}
