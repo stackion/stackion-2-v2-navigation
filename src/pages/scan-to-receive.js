@@ -10,7 +10,7 @@ import DefaultStyle from "../styles/defaults";
 import {InAppHB} from "../components/in-app-h-b-f";
 import { Btn } from "../components/button";
 
-const ReceiveViaOffline = (props) => {
+const ScanToReceive = (props) => {
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
@@ -36,8 +36,7 @@ const ReceiveViaOffline = (props) => {
                     </Text>
                 </View>
                 <Btn style={[style.contentsInBodyCont, DefaultStyle.centeredXY, style.scanToReceiveBtn]}
-                text="Scan to receive" textStyle={style.scanToReceiveBtnText}
-                onPress={() => props.navigation.navigate("ScanToReceive")} />
+                text="Scan to receive" textStyle={style.scanToReceiveBtnText} />
             </View>
         </InAppHB>
     )
@@ -80,4 +79,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default ReceiveViaOffline;
+export default ScanToReceive;

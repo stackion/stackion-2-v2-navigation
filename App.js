@@ -45,6 +45,7 @@ import SendViaInternet from "./src/pages/send-via-internet";
 import ConfirmTransaction from "./src/pages/confirm-transaction";
 import ReceiveViaOnline from "./src/pages/receive-via-online";
 import ReceiveViaOffline from "./src/pages/receive-via-offline";
+import ScanToReceive from "./src/pages/scan-to-receive";
 import ScanToSendOffline from "./src/pages/scan-to-send";
 import SendOffline from "./src/pages/send-offline";
 import OfflineTransactionStateNotifierDisplay from "./src/pages/offline-transaction-state-notifier-display";
@@ -88,6 +89,7 @@ const App = () => {
         <Stack.Screen name="ConfirmTransaction" component={ConfirmTransaction} />
         <Stack.Screen name="ReceiveViaOnline" component={ReceiveViaOnline} />
         <Stack.Screen name="ReceiveViaOffline" component={ReceiveViaOffline} />
+        <Stack.Screen name="ScanToReceive" component={ScanToReceive} />
         <Stack.Screen name="ScanToSendOffline" component={ScanToSendOffline} />
         <Stack.Screen name="SendOffline" component={SendOffline} />
         <Stack.Screen name="OfflineTransactionStateNotifierDisplay" component={OfflineTransactionStateNotifierDisplay} />
