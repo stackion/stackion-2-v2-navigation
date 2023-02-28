@@ -46,7 +46,7 @@ const Dashboard = (props) => {
         <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={"Hey, John!"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.Balance]}>Balance</Text>
+                    <Text style={[style.Balance]}>Total Balance</Text>
                 </View>
                 <View style={[DefaultStyle.centeredX]}>
                     <Text style={[style.balanceAmount]}>N 1,000,000.00</Text>

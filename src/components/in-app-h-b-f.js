@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {Btn} from "./button";
 import DefaultStyle from "../styles/defaults";
 import Colors from "../styles/colors";
-import { QuickMenu } from "./modals"
+import { QuickMenu } from "./modals";
 
 export const InAppHB = props => {
     /*
@@ -28,7 +28,7 @@ export const InAppHB = props => {
    */
     return (
         <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
-            <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
+            <View style={[DefaultStyle.WSpanParent, style.headerCont, props.headerStyle]}>
                 <Text style={[style.headerTitleText, {
                     textAlign : "center"
                 }]}>
@@ -63,7 +63,6 @@ const InAppHBF = props => {
    */
     return (
         <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
-            <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibility(false)} />
             <View style={[DefaultStyle.WSpanParent, style.headerCont]}>
                 <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="user" color={Colors.blue2} />
@@ -85,7 +84,7 @@ const InAppHBF = props => {
                     props.navigation.navigate("Dashboard")
                 }} />
                 <Btn style={[style.footerBtns, style.quickMenuDisplayBtn, DefaultStyle.centeredXY]} text={(
-                    <FontAwesomeIcon icon="exchange" size={16} color={Colors.black}/>
+                    <FontAwesomeIcon icon="exchange" size={16} color={Colors.white}/>
                 )} textStyle={[style.footerBtnIcon]} onPress={() => setQuickMenuVisibility(true)} />
                 <Btn style={[style.footerBtns, DefaultStyle.centeredXY]} text={(
                     <FontAwesomeIcon icon="wallet" size={16} color={props.activePage == "wallet" ? Colors.black : Colors.black46}/>

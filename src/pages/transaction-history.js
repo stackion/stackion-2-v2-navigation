@@ -12,7 +12,7 @@ import {InAppHB} from "../components/in-app-h-b-f";
 
 const TransactionHistory = (props) => {
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Transaction History"} >
+        <InAppHB navigation={props.navigation} headerStyle={{justifyContent : "center", paddingLeft : 0}} headerTitleText={"Transaction History"} >
             <View style={[style.historyContentSection, DefaultStyle.centeredXY, style.contentsInBodyCont]} >
                 {/*the content would be displayed based on state / other */}
                 <View style={[style.contentsInBodyCont, style.historyContentCont]}>

@@ -8,9 +8,14 @@ import { Btn } from "./button";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 
+/*
+
+            <QuickMenu navigation={props.navigation} visibility={quickMenuVisibility} closeModalBtnPressed={() => setQuickMenuVisibility(false)} />
+            */
+
 export const QuickMenu = props => {
 
-    const {height , width} = useWindowDimensions();
+    const {height} = useWindowDimensions();
     const style = StyleSheet.create({
         BottomModalContent : {
             height : height / 2,
