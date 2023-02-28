@@ -27,7 +27,7 @@ const ScanToSendOffline = (props) => {
         flashMode={RNCamera.Constants.FlashMode.auto}
         topContent={
             <Text style={{textAlign : "center"}}>
-                Scan the QR-code receipt on the sender's screen
+                Scan the QR-code on the receiver's screen
             </Text>
         }
         topViewStyle={{

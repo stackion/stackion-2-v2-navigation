@@ -113,13 +113,13 @@ const style = StyleSheet.create({
         borderBottomWidth : 3,
     },
     SectionTitleText : {
-        fontSize : 16,
+        fontSize : 20,
         fontWeight : 800,
-        color : Colors.black46,
+        color : Colors.black31,
         fontFamily : "Roboto-Medium",
     },
     goToHistoryBtn : {
-        height : 60,
+        height : 50,
         backgroundColor : Colors.defaultBlue,
         marginTop : 50,
         justifyContent : "center",
