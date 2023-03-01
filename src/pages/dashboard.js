@@ -32,6 +32,7 @@ const Dashboard = (props) => {
             }, 2000);
             return true;
           } else {
+            BackHandler.exitApp();
             return false;
           }
         };

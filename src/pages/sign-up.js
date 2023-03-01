@@ -12,7 +12,7 @@ import {Btn, Anchor} from "../components/button";
 
 const termsURL = "https://google.com";
 
-const SignUp = () => {
+const SignUp = (props) => {
     return (
         <View style={
             [

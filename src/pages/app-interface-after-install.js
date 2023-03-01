@@ -11,7 +11,7 @@ import {Btn, Anchor} from "../components/button";
 
 const termsURL = "https://google.com";
 
-const AppInterfaceAfterInstallation = () => {
+const AppInterfaceAfterInstallation = (props) => {
     return (
         <View style={
             [
@@ -20,18 +20,18 @@ const AppInterfaceAfterInstallation = () => {
             ]
         }>
             <Image style={[style.logo]} source={require("../../assets/images/favicon.png")}/>
-            <Text style={[style.STACKION, DefaultStyle.black46, {
-                fontFamily : "Comfortaa-Bold",}]}>
+            <Text style={[style.STACKION, {
+                fontFamily : "Comfortaa-Bold", color : Colors.black31}]}>
                 STACKION
             </Text>
             <Text style={[DefaultStyle.black46, {
-                fontFamily : "Comfortaa-Bold", padding : 13, textAlign : "center"}]}>
+                fontFamily : "Comfortaa-Bold", padding : 13, textAlign : "center", color : Colors.black31}]}>
                 Not your regular Fintech app,
                 {"\n"}
                 This is the future.
             </Text>
             <View style={[DefaultStyle.WSpanParent, DefaultStyle.centeredXY, style.buttonsCont]}>
-                <Btn text="Get started" onPress={() => {Alert.alert("Sign up")}} style={
+                <Btn text="Get started" onPress={() => {props.navigation.navigate("SignUp")}} style={
                     [
                         style.buttons,
                         DefaultStyle.centeredXY,
@@ -40,7 +40,7 @@ const AppInterfaceAfterInstallation = () => {
                         }, DefaultStyle.ComfortaaBold
                     ]
                 } textStyle={[style.buttonText, {color : Colors.white , fontSize : 16,}]}/>
-                <Btn text="Sign in" onPress={() => {Alert.alert("Sign in")}} style={
+                <Btn text="Sign in" onPress={() =>{props.navigation.navigate("SignIn")}} style={
                     [
                         style.buttons,
                         DefaultStyle.centeredXY,
