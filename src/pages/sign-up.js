@@ -6,6 +6,7 @@ import {
     TextInput,
     Alert
 } from "react-native";
+import Toast from "react-native-toast-message";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
@@ -37,7 +38,7 @@ const SignUp = (props) => {
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Retype Password"/>
                     </View>
                     <View style={[style.btnsCont]}>
-                        <Btn text="Sign in" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => Alert.alert("Sign in ?")}/>
+                        <Btn text="Sign in" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignIn")}/>
                         <Btn text="Sign up" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Sign up ?")}/>
                     </View>
                     <View style={{marginTop : 35}}>

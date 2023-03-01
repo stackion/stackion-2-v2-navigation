@@ -11,7 +11,7 @@ import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
 
 
-const SignIn = () => {
+const SignIn = (props) => {
     return (
         <View style={
             [
@@ -37,7 +37,7 @@ const SignIn = () => {
                         <Btn onPress={() => Alert.alert("Change password ?")} style={{marginTop : 20}} text="forgot password ?" textStyle={{color : Colors.blue2, fontFamily : "Roboto-Regular", fontSize : 12}}/>
                     </View>
                     <View style={[style.btnsCont]}>
-                        <Btn text="Sign up" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => Alert.alert("Sign up ?")}/>
+                        <Btn text="Sign up" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignUp")}/>
                         <Btn text="Sign in" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Sign in ?")}/>
                     </View>
                 </ScrollView>

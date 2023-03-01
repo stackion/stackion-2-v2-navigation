@@ -35,7 +35,7 @@ const Splash = (props) => {
                         else {
                             props.navigation.replace("AppInterfaceAfterInstallation");
                         }
-                    }, 2000);
+                    }, 4000);
                     return () => clearTimeout(navigationDelay);
                 }
                 else {
