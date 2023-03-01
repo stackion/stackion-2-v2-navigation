@@ -13,7 +13,7 @@ const ScanToSendOffline = (props) => {
                 Toast.show({
                     type: 'success',
                     text1: 'Scanned',
-                    text2: 'Your have received offline tokens 🙌'
+                    text2: 'You are ready to send offline tokens 🙌'
                 });
         }}
         containerStyle={{backgroundColor : Colors.white}}
