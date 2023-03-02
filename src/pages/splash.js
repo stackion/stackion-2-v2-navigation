@@ -26,7 +26,7 @@ const Splash = (props) => {
         const getSessionAndNavigate = ( async () => {
             try {
                 const userSession = await EncryptedStorage.getItem("user_session");
-                if(userSession !== "undefined") {
+                if(userSession) {
                     let parsedSession = JSON.parse(userSession);
                     let navigationDelay = setTimeout(() => {
                         if(parsedSession.loggedIn === true) {
@@ -35,7 +35,7 @@ const Splash = (props) => {
                         else {
                             props.navigation.replace("AppInterfaceAfterInstallation");
                         }
-                    }, 4000);
+                    }, 2000);
                     return () => clearTimeout(navigationDelay);
                 }
                 else {

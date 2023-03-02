@@ -23,6 +23,7 @@
     "react-native-camera": "^4.2.1",
     "react-native-encrypted-storage": "^4.0.3",
     "react-native-gesture-handler": "^2.9.0",
+    "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-modals": "^0.22.3",
     "react-native-navigation-bar-color": "^2.0.2",
     "react-native-permissions": "^3.7.2",

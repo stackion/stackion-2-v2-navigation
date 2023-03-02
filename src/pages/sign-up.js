@@ -7,6 +7,7 @@ import {
     Alert
 } from "react-native";
 import Toast from "react-native-toast-message";
+import Spinner from 'react-native-loading-spinner-overlay';
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
@@ -22,6 +23,12 @@ const SignUp = (props) => {
             ]
         }>
             <View style={style.formView}>
+                <Spinner
+                visible={true}
+                textContent={'processing...'}
+                textStyle={{color : Colors.white}}
+                cancelable = {true}
+                />
                 <ScrollView>
                     <View>
                         <Text style={[style.introText]}>
@@ -32,7 +39,7 @@ const SignUp = (props) => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Name" inputMode="text"/>
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="First name" inputMode="text"/>
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Email" inputMode="email"/>
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Password"/>
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Retype Password"/>
