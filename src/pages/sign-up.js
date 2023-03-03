@@ -9,9 +9,11 @@ import {
 } from "react-native";
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
+
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
+import {checkIfDataListIsEmpty} from "../functions/form-validator";
 
 const termsURL = "https://google.com";
 
@@ -21,6 +23,21 @@ const SignUp = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [retypedPassword, setRetypedPassword] = useState("");
+    const [formSubmitable, setFormSubmitableState] = useState(false);
+    const [submitBtnBgColor, setSubmitBtnBgColor] = useState(Colors.blackF2);
+
+    const validateForm = () => {
+        if(checkIfDataListIsEmpty([firstName, email, password]) && retypedPassword == password) {
+            setFormSubmitableState(true);
+            setSubmitBtnBgColor(Colors.defaultBlue);
+            Alert.alert("hey")
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnBgColor(Colors.blackF2);
+        }
+    }
+
     return (
         <View style={
             [
@@ -44,14 +61,26 @@ const SignUp = (props) => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="First name" inputMode="text"/>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Email" inputMode="email"/>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Password"/>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Retype Password"/>
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="First name" inputMode="text" onChangeText={value => {
+                            setFirstName(value.trim());
+                            validateForm();
+                        }} />
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Email" inputMode="email" onChangeText={value => {
+                            setEmail(value.trim());
+                            validateForm();
+                        }} />
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Password" onChangeText={value => {
+                            setPassword(value.trim());
+                            validateForm();
+                        }} />
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Retype Password" onChangeText={value => {
+                            setRetypedPassword(value.trim());
+                            validateForm();
+                        }} />
                     </View>
                     <View style={[style.btnsCont]}>
                         <Btn text="Sign in" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignIn")}/>
-                        <Btn text="Sign up" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Sign up ?")}/>
+                        <Btn text="Sign up" style={[style.submitBtn, {backgroundColor : submitBtnBgColor }]} textStyle={style.submitBtnText} onPress={() => Alert.alert("Sign up ?")}/>
                     </View>
                     <View style={{marginTop : 35}}>
                         <Text style={{fontSize : 12,
