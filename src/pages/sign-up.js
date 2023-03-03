@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {
     ScrollView,
     View,
@@ -15,6 +16,11 @@ import {Btn, Anchor} from "../components/button";
 const termsURL = "https://google.com";
 
 const SignUp = (props) => {
+    const [loaderIsVisibile, setLoaderVisibility] = useState(false);
+    const [firstName, setFirstName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [retypedPassword, setRetypedPassword] = useState("");
     return (
         <View style={
             [
@@ -24,10 +30,9 @@ const SignUp = (props) => {
         }>
             <View style={style.formView}>
                 <Spinner
-                visible={true}
+                visible={loaderIsVisibile}
                 textContent={'processing...'}
                 textStyle={{color : Colors.white}}
-                cancelable = {true}
                 />
                 <ScrollView>
                     <View>
