@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {
     ScrollView,
     View,
@@ -6,11 +7,82 @@ import {
     TextInput,
     Alert
 } from "react-native";
+import Toast from "react-native-toast-message";
+import Spinner from 'react-native-loading-spinner-overlay';
+import axios from "axios";
+import EncryptedStorage from 'react-native-encrypted-storage';
+
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
+import {checkIfDataListIsEmpty} from "../functions/form-validator";
 
 const VerifyEmail = () => {
+    const [loaderIsVisibile, setLoaderVisibility] = useState(false);
+    const [code, setCode] = useState("");
+    const [formSubmitable, setFormSubmitableState] = useState(false);
+    const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
+
+    const validateForm = () => {
+        if(checkIfDataListIsEmpty([code]) && code.length >= 5 ) {
+            setFormSubmitableState(true);
+            setSubmitBtnOpacity(1);
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnOpacity(0.5);
+        }
+    }
+    const sendForm = () => {
+        try {
+            const userSession = await EncryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                axios.post("https://a174-102-89-33-127.eu.ngrok.io/verify-email", {
+                    user_access_token : parsedSession.user_access_token,
+                    verification_code : code
+                })
+                .then(async res => {
+                    setLoaderVisibility(false);
+                    let responseText = res.data;
+                    if(responseText.status !== "success") {
+                        Toast.show({
+                            type : "error",
+                            text1 : "wrong code",
+                            text2 : "Incorrect verification code. Try again."
+                        })
+                    }
+                    else{
+                        try {
+                            await EncryptedStorage.setItem(
+                                "user_session",
+                                JSON.stringify({
+                                    loggedIn : true,
+                                    user_access_token : responseText.user_access_token,
+                                    verified_email : 0
+                                })
+                            );
+                            props.navigation.navigate("VerifyEmail");
+                        } catch (error) {
+                            // There was an error on the native side
+                        }
+                    }
+                })
+                .catch(err => {
+                    setLoaderVisibility(false)
+                    Toast.show({
+                        type : "error",
+                        text1 : "Connection error",
+                        text2 : "poor or no internet connection"
+                    })
+                })
+            }
+        } catch (error) {
+            // There was an error on the native side
+        }
+        setLoaderVisibility(true)
+    }
+
     return (
         <View style={
             [
@@ -19,6 +91,11 @@ const VerifyEmail = () => {
             ]
         }>
             <View style={style.formView}>
+                <Spinner
+                visible={loaderIsVisibile}
+                textContent={'processing...'}
+                textStyle={{color : Colors.white}}
+                />
                 <ScrollView>
                     <View>
                         <Text style={[style.introText]}>
@@ -29,11 +106,19 @@ const VerifyEmail = () => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Verification code" inputMode="numeric" keyboardType="numeric" maxLength={6}/>
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Verification code" inputMode="numeric" keyboardType="numeric" maxLength={5} onChangeText={value => {
+                            setCode(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
                     </View>
                     <View style={[style.btnsCont]}>
                         <Btn text="Resend code" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => Alert.alert("Resend code ?")}/>
-                        <Btn text="Verify" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Verify ?")}/>
+                        <Btn text="Verify" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
+                            if(formSubmitable) {
+                                sendForm();
+                            }
+                        }}/>
                     </View>
                     <View style={{marginTop : 35}}>
                         <Text style={{fontSize : 12,

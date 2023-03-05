@@ -29,8 +29,11 @@ const Splash = (props) => {
                 if(userSession) {
                     let parsedSession = JSON.parse(userSession);
                     let navigationDelay = setTimeout(() => {
-                        if(parsedSession.loggedIn === true) {
+                        if(parsedSession.loggedIn === true && parsedSession.verified_email !== 0) {
                             props.navigation.replace("Dashboard");
+                        }
+                        else if(parsedSession.verified_email === 0) {
+                            props.navigation.replace("VerifyEmail");
                         }
                         else {
                             props.navigation.replace("AppInterfaceAfterInstallation");

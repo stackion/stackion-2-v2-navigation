@@ -16,9 +16,28 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
+import {checkIfDataListIsEmpty} from "../functions/form-validator";
 
 
 const SignIn = (props) => {
+    const [loaderIsVisibile, setLoaderVisibility] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [formSubmitable, setFormSubmitableState] = useState(false);
+    const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
+
+    //TODO fix this code
+    const validateForm = () => {
+         if(checkIfDataListIsEmpty([email, password]) && (retypedPassword === password) && password.length >= 6 ) {
+             setFormSubmitableState(true);
+             setSubmitBtnOpacity(1);
+            // Alert.alert("hey")
+         }
+         else {
+             setFormSubmitableState(false);
+             setSubmitBtnOpacity(0.5);
+         }
+    }
     return (
         <View style={
             [
@@ -27,6 +46,11 @@ const SignIn = (props) => {
             ]
         }>
             <View style={style.formView}>
+                <Spinner
+                visible={loaderIsVisibile}
+                textContent={'processing...'}
+                textStyle={{color : Colors.white}}
+                />
                 <ScrollView>
                     <View>
                         <Text style={[style.introText]}>
@@ -37,15 +61,23 @@ const SignIn = (props) => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Email" inputMode="email"/>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Password"/>
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Email" inputMode="email" onChangeText={value => {
+                            setEmail(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Password" onChangeText={value => {
+                            setPassword(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
                     </View>
                     <View>
                         <Btn onPress={() => Alert.alert("Change password ?")} style={{marginTop : 20}} text="forgot password ?" textStyle={{color : Colors.blue2, fontFamily : "Roboto-Regular", fontSize : 12}}/>
                     </View>
                     <View style={[style.btnsCont]}>
                         <Btn text="Sign up" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignUp")}/>
-                        <Btn text="Sign in" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Sign in ?")}/>
+                        <Btn text="Sign in" style={[style.submitBtn, {opacity : 0.3 }]} textStyle={style.submitBtnText} onPress={() => Alert.alert("Sign in ?")}/>
                     </View>
                 </ScrollView>
             </View>

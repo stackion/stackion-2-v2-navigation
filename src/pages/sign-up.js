@@ -29,11 +29,9 @@ const SignUp = (props) => {
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
     const validateForm = () => {
-       // Alert.alert(JSON.stringify({res : checkIfDataListIsEmpty([firstName, email, password])}))
         if(checkIfDataListIsEmpty([firstName, email, password]) && (retypedPassword === password) && password.length >= 6 ) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
-           // Alert.alert("hey")
         }
         else {
             setFormSubmitableState(false);
