@@ -10,6 +10,7 @@ import {
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
@@ -40,15 +41,39 @@ const SignUp = (props) => {
         }
     }
     const sendForm = () => {
-        axios.post("http://localhost:4000/append-user", {
+        axios.post("https://a174-102-89-33-127.eu.ngrok.io/append-user", {
             first_name : firstName,
             email : email,
             password : password
         })
-        .then(res => {
-            console.log(res.data)
+        .then(async res => {
+            setLoaderVisibility(false);
+            let responseText = res.data;
+            if(responseText.status === "account-exists") {
+                Toast.show({
+                    type : "error",
+                    text1 : "Account exists",
+                    text2 : "An account alredy exists for this info, try signing in."
+                })
+            }
+            else{
+                try {
+                    await EncryptedStorage.setItem(
+                        "user_session",
+                        JSON.stringify({
+                            loggedIn : true,
+                            user_access_token : responseText.user_access_token,
+                            verified_email : 0
+                        })
+                    );
+                    props.navigation.navigate("VerifyEmail");
+                } catch (error) {
+                    // There was an error on the native side
+                }
+            }
         })
         .catch(err => {
+            setLoaderVisibility(false)
             Toast.show({
                 type : "error",
                 text1 : "Connection error",
