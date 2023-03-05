@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
+import axios from "axios";
 
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
@@ -39,6 +40,21 @@ const SignUp = (props) => {
         }
     }
     const sendForm = () => {
+        axios.post("http://localhost:4000/append-user", {
+            first_name : firstName,
+            email : email,
+            password : password
+        })
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            Toast.show({
+                type : "error",
+                text1 : "Connection error",
+                text2 : "poor or no internet connection"
+            })
+        })
         setLoaderVisibility(true)
     }
 
