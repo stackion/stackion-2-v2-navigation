@@ -24,18 +24,22 @@ const SignUp = (props) => {
     const [password, setPassword] = useState("");
     const [retypedPassword, setRetypedPassword] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
-    const [submitBtnBgColor, setSubmitBtnBgColor] = useState(Colors.blackF2);
+    const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
     const validateForm = () => {
-        if(checkIfDataListIsEmpty([firstName, email, password]) && retypedPassword == password) {
+       // Alert.alert(JSON.stringify({res : checkIfDataListIsEmpty([firstName, email, password])}))
+        if(checkIfDataListIsEmpty([firstName, email, password]) && (retypedPassword === password)) {
             setFormSubmitableState(true);
-            setSubmitBtnBgColor(Colors.defaultBlue);
-            Alert.alert("hey")
+            setSubmitBtnOpacity(1);
+           // Alert.alert("hey")
         }
         else {
             setFormSubmitableState(false);
-            setSubmitBtnBgColor(Colors.blackF2);
+            setSubmitBtnOpacity(0.5);
         }
+    }
+    const sendForm = () => {
+        setLoaderVisibility(true)
     }
 
     return (
@@ -80,7 +84,11 @@ const SignUp = (props) => {
                     </View>
                     <View style={[style.btnsCont]}>
                         <Btn text="Sign in" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignIn")}/>
-                        <Btn text="Sign up" style={[style.submitBtn, {backgroundColor : submitBtnBgColor }]} textStyle={style.submitBtnText} onPress={() => Alert.alert("Sign up ?")}/>
+                        <Btn text="Sign up" style={[style.submitBtn, {opacity : submitBtnOpacity }]} textStyle={style.submitBtnText} onPress={() => {
+                            if(formSubmitable) {
+                                sendForm();
+                            }
+                        }}/>
                     </View>
                     <View style={{marginTop : 35}}>
                         <Text style={{fontSize : 12,
@@ -138,9 +146,9 @@ const style = StyleSheet.create({
     },
     submitBtn : {
         padding : 14,
-        backgroundColor : Colors.defaultBlue,
         width : 124,
-        borderRadius : 40
+        borderRadius : 40,
+        backgroundColor : Colors.defaultBlue
     },
     submitBtnText : {
         color : Colors.white,
