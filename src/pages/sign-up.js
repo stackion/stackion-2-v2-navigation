@@ -28,7 +28,7 @@ const SignUp = (props) => {
 
     const validateForm = () => {
        // Alert.alert(JSON.stringify({res : checkIfDataListIsEmpty([firstName, email, password])}))
-        if(checkIfDataListIsEmpty([firstName, email, password]) && (retypedPassword === password)) {
+        if(checkIfDataListIsEmpty([firstName, email, password]) && (retypedPassword === password) && password.length >= 6 ) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
            // Alert.alert("hey")
@@ -68,19 +68,23 @@ const SignUp = (props) => {
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="First name" inputMode="text" onChangeText={value => {
                             setFirstName(value.trim());
                             validateForm();
-                        }} />
+                        }}
+                        onEndEditing={() => validateForm() } />
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Email" inputMode="email" onChangeText={value => {
                             setEmail(value.trim());
                             validateForm();
-                        }} />
+                        }}
+                        onEndEditing={() => validateForm() } />
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Password" onChangeText={value => {
                             setPassword(value.trim());
                             validateForm();
-                        }} />
+                        }}
+                        onEndEditing={() => validateForm() } />
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholder="Retype Password" onChangeText={value => {
                             setRetypedPassword(value.trim());
                             validateForm();
-                        }} />
+                        }}
+                        onEndEditing={() => validateForm() } />
                     </View>
                     <View style={[style.btnsCont]}>
                         <Btn text="Sign in" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignIn")}/>
