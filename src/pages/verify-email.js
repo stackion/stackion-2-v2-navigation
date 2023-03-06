@@ -22,6 +22,7 @@ const VerifyEmail = () => {
     const [code, setCode] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
+    const [resendCodeBtnTextContent, setResendCodeBtnTextContent] = useState("Resend code");
 
     const validateForm = () => {
         if(checkIfDataListIsEmpty([code]) && code.length >= 5 ) {
@@ -33,7 +34,7 @@ const VerifyEmail = () => {
             setSubmitBtnOpacity(0.5);
         }
     }
-    const sendForm = () => {
+    const sendForm = async () => {
         try {
             const userSession = await EncryptedStorage.getItem("user_session");
             if(userSession) {
@@ -58,11 +59,11 @@ const VerifyEmail = () => {
                                 "user_session",
                                 JSON.stringify({
                                     loggedIn : true,
-                                    user_access_token : responseText.user_access_token,
-                                    verified_email : 0
+                                    user_access_token : parsedSession.user_access_token,
+                                    verified_email : responseText.verified_email
                                 })
                             );
-                            props.navigation.navigate("VerifyEmail");
+                            props.navigation.navigate("SetupPin");
                         } catch (error) {
                             // There was an error on the native side
                         }
@@ -113,7 +114,31 @@ const VerifyEmail = () => {
                         onEndEditing={() => validateForm() } />
                     </View>
                     <View style={[style.btnsCont]}>
-                        <Btn text="Resend code" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => Alert.alert("Resend code ?")}/>
+                        <Btn text={resendCodeBtnTextContent} textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => {
+                            setResendCodeBtnTextContent("Resending...");
+                            const userSession = await EncryptedStorage.getItem("user_session");
+                            if(userSession) {
+                                let parsedSession = JSON.parse(userSession);
+                                axios.post("https://a174-102-89-33-127.eu.ngrok.io/resend-verification-code", {
+                                    user_access_token : parsedSession.user_access_token
+                                })
+                                .then(res => {
+                                    Toast.show({
+                                        type : "success",
+                                        text1 : "Code resent",
+                                        text2 : "Check your Email inbox for the verification code"
+                                    })
+                                    setResendCodeBtnTextContent("Resend code");
+                                })
+                                .catch(err => {
+                                    Toast.show({
+                                        type : "error",
+                                        text1 : "Connection error",
+                                        text2 : "poor or no internet connection"
+                                    })
+                                })
+                            }
+                        }}/>
                         <Btn text="Verify" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
                             if(formSubmitable) {
                                 sendForm();

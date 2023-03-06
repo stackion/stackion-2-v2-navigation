@@ -28,15 +28,67 @@ const SignIn = (props) => {
 
     //TODO fix this code
     const validateForm = () => {
-         if(checkIfDataListIsEmpty([email, password]) && (retypedPassword === password) && password.length >= 6 ) {
-             setFormSubmitableState(true);
-             setSubmitBtnOpacity(1);
-            // Alert.alert("hey")
-         }
-         else {
-             setFormSubmitableState(false);
-             setSubmitBtnOpacity(0.5);
-         }
+        if(checkIfDataListIsEmpty([email, password]) && password.length >= 6 ) {
+            setFormSubmitableState(true);
+            setSubmitBtnOpacity(1);
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnOpacity(0.5);
+        }
+    }
+    const sendForm = () => {
+        axios.post("https://a174-102-89-33-127.eu.ngrok.io/log-user", {
+            email : email,
+            password : password
+        })
+        .then(async res => {
+            setLoaderVisibility(false);
+            let responseText = res.data;
+            if(responseText.status === "wrong-email") {
+                Toast.show({
+                    type : "error",
+                    text1 : "Account not found",
+                    text2 : "An account with this email address not found"
+                })
+            }
+            else if(responseText.status === "wrong-password") {
+                Toast.show({
+                    type : "error",
+                    text1 : "Wrong password",
+                    text2 : "The password you provided is incorrect"
+                })
+            }
+            else{
+                try {
+                    await EncryptedStorage.setItem(
+                        "user_session",
+                        JSON.stringify({
+                            loggedIn : true,
+                            user_access_token : responseText.user_access_token,
+                            verified_email : responseText.verified_email
+                        })
+                    );
+                    if(responseText.verified_email == 0) {
+                        props.navigation.replace("VerifyEmail");
+                    }
+                    else {
+                        props.navigation.replace("Dashboard");
+                    }
+                } catch (error) {
+                    // There was an error on the native side
+                }
+            }
+        })
+        .catch(err => {
+            setLoaderVisibility(false)
+            Toast.show({
+                type : "error",
+                text1 : "Connection error",
+                text2 : "poor or no internet connection"
+            })
+        })
+        setLoaderVisibility(true)
     }
     return (
         <View style={
@@ -77,7 +129,11 @@ const SignIn = (props) => {
                     </View>
                     <View style={[style.btnsCont]}>
                         <Btn text="Sign up" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignUp")}/>
-                        <Btn text="Sign in" style={[style.submitBtn, {opacity : 0.3 }]} textStyle={style.submitBtnText} onPress={() => Alert.alert("Sign in ?")}/>
+                        <Btn text="Sign in" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
+                            if(formSubmitable) {
+                                sendForm();
+                            }
+                        }}/>
                     </View>
                 </ScrollView>
             </View>
