@@ -8,8 +8,8 @@ import {
     Alert
 } from "react-native";
 import Toast from "react-native-toast-message";
-import EncryptedStorage from 'react-native-encrypted-storage';
 
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
@@ -30,18 +30,13 @@ const SetupPin = (props) => {
         }
     }
 
-    const savePin = async () => {
-        try {
-            const userSession = await EncryptedStorage.getItem("user_session");
-            if(userSession) {
-                let parsedSession = JSON.parse(userSession);
-                parsedSession.transaction_pin = pin;
-                await EncryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
-                props.navigation.replace("Dashboard");
-            }
-        }
-        catch(err) {
-            //
+    const savePin = () => {
+        const userSession = encryptedStorage.getItem("user_session");
+        if(userSession) {
+            let parsedSession = JSON.parse(userSession);
+            parsedSession.transaction_pin = pin;
+            encryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
+            props.navigation.replace("Dashboard");
         }
     }
 

@@ -3,7 +3,8 @@ import {
     View,
     Image
 } from "react-native";
-import EncryptedStorage from 'react-native-encrypted-storage';
+
+import * as encryptedStorage from "../functions/encrypted-storage";
 import DefaultStyles from "../styles/defaults.js";
 import Colors from "../styles/colors";
 
@@ -11,42 +12,34 @@ import Colors from "../styles/colors";
 const Splash = (props) => {
     //TODO check login state before any navigation;
     useEffect( () => {
-        const setInitialSessionAfterInstall = async () => {
-            try {
-                await EncryptedStorage.setItem(
-                    "user_session",
-                    JSON.stringify({
-                        logged_in : false
-                    })
-                );
-            } catch (error) {
-                // There was an error on the native side
-            }
+        const setInitialSessionAfterInstall = () => {
+            encryptedStorage.setItem(
+                "user_session",
+                JSON.stringify({
+                    logged_in : false
+                })
+            );
         }
-        const getSessionAndNavigate = ( async () => {
-            try {
-                const userSession = await EncryptedStorage.getItem("user_session");
-                if(userSession) {
-                    let parsedSession = JSON.parse(userSession);
-                    let navigationDelay = setTimeout(() => {
-                        if(parsedSession.logged_in === true && parsedSession.verified_email !== 0) {
-                            props.navigation.replace("Dashboard");
-                        }
-                        else if(parsedSession.verified_email === 0) {
-                            props.navigation.replace("VerifyEmail");
-                        }
-                        else {
-                            props.navigation.replace("AppInterfaceAfterInstallation");
-                        }
-                    }, 2000);
-                    return () => clearTimeout(navigationDelay);
-                }
-                else {
-                    setInitialSessionAfterInstall();
-                    getSessionAndNavigate();
-                }
-            } catch (error) {
-                // There was an error on the native side
+        const getSessionAndNavigate = ( () => {
+            const userSession = encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                let navigationDelay = setTimeout(() => {
+                    if(parsedSession.logged_in === true && parsedSession.verified_email !== 0) {
+                        props.navigation.replace("Dashboard");
+                    }
+                    else if(parsedSession.verified_email === 0) {
+                        props.navigation.replace("VerifyEmail");
+                    }
+                    else {
+                        props.navigation.replace("AppInterfaceAfterInstallation");
+                    }
+                }, 2000);
+                return () => clearTimeout(navigationDelay);
+            }
+            else {
+                setInitialSessionAfterInstall();
+                getSessionAndNavigate();
             }
         })();
     }, []);

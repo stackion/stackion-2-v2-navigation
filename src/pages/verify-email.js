@@ -10,8 +10,8 @@ import {
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
-import EncryptedStorage from 'react-native-encrypted-storage';
 
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
@@ -34,52 +34,44 @@ const VerifyEmail = (props) => {
             setSubmitBtnOpacity(0.5);
         }
     }
-    const sendForm = async () => {
-        try {
-            const userSession = await EncryptedStorage.getItem("user_session");
-            if(userSession) {
-                let parsedSession = JSON.parse(userSession);
-                axios.post("https://a174-102-89-33-127.eu.ngrok.io/verify-email", {
-                    user_access_token : parsedSession.user_access_token,
-                    verification_code : code
-                })
-                .then(async res => {
-                    setLoaderVisibility(false);
-                    let responseText = res.data;
-                    if(responseText.status !== "success") {
-                        Toast.show({
-                            type : "error",
-                            text1 : "wrong code",
-                            text2 : "Incorrect verification code. Try again."
-                        })
-                    }
-                    else{
-                        try {
-                            await EncryptedStorage.setItem(
-                                "user_session",
-                                JSON.stringify({
-                                    logged_in : true,
-                                    user_access_token : parsedSession.user_access_token,
-                                    verified_email : responseText.verified_email
-                                })
-                            );
-                            props.navigation.replace("SetupPin");
-                        } catch (error) {
-                            // There was an error on the native side
-                        }
-                    }
-                })
-                .catch(err => {
-                    setLoaderVisibility(false)
+    const sendForm = () => {
+        const userSession = encryptedStorage.getItem("user_session");
+        if(userSession) {
+            let parsedSession = JSON.parse(userSession);
+            axios.post("https://a174-102-89-33-127.eu.ngrok.io/verify-email", {
+                user_access_token : parsedSession.user_access_token,
+                verification_code : code
+            })
+            .then(res => {
+                setLoaderVisibility(false);
+                let responseText = res.data;
+                if(responseText.status !== "success") {
                     Toast.show({
                         type : "error",
-                        text1 : "Connection error",
-                        text2 : "poor or no internet connection"
+                        text1 : "wrong code",
+                        text2 : "Incorrect verification code. Try again."
                     })
+                }
+                else{
+                    encryptedStorage.setItem(
+                        "user_session",
+                        JSON.stringify({
+                            logged_in : true,
+                            user_access_token : parsedSession.user_access_token,
+                            verified_email : responseText.verified_email
+                        })
+                    );
+                    props.navigation.replace("SetupPin");
+                }
+            })
+            .catch(err => {
+                setLoaderVisibility(false)
+                Toast.show({
+                    type : "error",
+                    text1 : "Connection error",
+                    text2 : "poor or no internet connection"
                 })
-            }
-        } catch (error) {
-            // There was an error on the native side
+            })
         }
         setLoaderVisibility(true)
     }
@@ -116,7 +108,7 @@ const VerifyEmail = (props) => {
                     <View style={[style.btnsCont]}>
                         <Btn text={resendCodeBtnTextContent} textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => {
                             setResendCodeBtnTextContent("Resending...");
-                            const userSession = await EncryptedStorage.getItem("user_session");
+                            const userSession = encryptedStorage.getItem("user_session");
                             if(userSession) {
                                 let parsedSession = JSON.parse(userSession);
                                 axios.post("https://a174-102-89-33-127.eu.ngrok.io/resend-verification-code", {

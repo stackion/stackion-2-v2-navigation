@@ -10,8 +10,8 @@ import {
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
-import EncryptedStorage from 'react-native-encrypted-storage';
 
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
@@ -44,7 +44,7 @@ const SignUp = (props) => {
             email : email,
             password : password
         })
-        .then(async res => {
+        .then(res => {
             setLoaderVisibility(false);
             let responseText = res.data;
             if(responseText.status === "account-exists") {
@@ -55,19 +55,15 @@ const SignUp = (props) => {
                 })
             }
             else{
-                try {
-                    await EncryptedStorage.setItem(
-                        "user_session",
-                        JSON.stringify({
-                            logged_in : true,
-                            user_access_token : responseText.user_access_token,
-                            verified_email : 0
-                        })
-                    );
-                    props.navigation.replace("VerifyEmail");
-                } catch (error) {
-                    // There was an error on the native side
-                }
+                encryptedStorage.setItem(
+                    "user_session",
+                    JSON.stringify({
+                        logged_in : true,
+                        user_access_token : responseText.user_access_token,
+                        verified_email : 0
+                    })
+                );
+                props.navigation.replace("VerifyEmail");
             }
         })
         .catch(err => {

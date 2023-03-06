@@ -10,9 +10,8 @@ import {
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
-import EncryptedStorage from 'react-native-encrypted-storage';
 
-
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
@@ -42,7 +41,7 @@ const SignIn = (props) => {
             email : email,
             password : password
         })
-        .then(async res => {
+        .then(res => {
             setLoaderVisibility(false);
             let responseText = res.data;
             if(responseText.status === "wrong-email") {
@@ -60,23 +59,19 @@ const SignIn = (props) => {
                 })
             }
             else{
-                try {
-                    await EncryptedStorage.setItem(
-                        "user_session",
-                        JSON.stringify({
-                            logged_in : true,
-                            user_access_token : responseText.user_access_token,
-                            verified_email : responseText.verified_email
-                        })
-                    );
-                    if(responseText.verified_email == 0) {
-                        props.navigation.replace("VerifyEmail");
-                    }
-                    else {
-                        props.navigation.replace("Dashboard");
-                    }
-                } catch (error) {
-                    // There was an error on the native side
+                encryptedStorage.setItem(
+                    "user_session",
+                    JSON.stringify({
+                        logged_in : true,
+                        user_access_token : responseText.user_access_token,
+                        verified_email : responseText.verified_email
+                    })
+                );
+                if(responseText.verified_email == 0) {
+                    props.navigation.replace("VerifyEmail");
+                }
+                else {
+                    props.navigation.replace("Dashboard");
                 }
             }
         })
