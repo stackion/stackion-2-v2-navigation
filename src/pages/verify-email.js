@@ -17,7 +17,7 @@ import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
 import {checkIfDataListIsEmpty} from "../functions/form-validator";
 
-const VerifyEmail = () => {
+const VerifyEmail = (props) => {
     const [loaderIsVisibile, setLoaderVisibility] = useState(false);
     const [code, setCode] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
@@ -58,7 +58,7 @@ const VerifyEmail = () => {
                             await EncryptedStorage.setItem(
                                 "user_session",
                                 JSON.stringify({
-                                    loggedIn : true,
+                                    logged_in : true,
                                     user_access_token : parsedSession.user_access_token,
                                     verified_email : responseText.verified_email
                                 })

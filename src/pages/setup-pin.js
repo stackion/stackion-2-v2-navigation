@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {
     ScrollView,
     View,
@@ -6,11 +7,44 @@ import {
     TextInput,
     Alert
 } from "react-native";
+import Toast from "react-native-toast-message";
+import EncryptedStorage from 'react-native-encrypted-storage';
+
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
 
-const SetupPin = () => {
+const SetupPin = (props) => {
+    const [pin, setPin] = useState("");
+    const [formSubmitable, setFormSubmitableState] = useState(false);
+    const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
+
+    const validateForm = () => {
+        if(pin.length === 4 ) {
+            setFormSubmitableState(true);
+            setSubmitBtnOpacity(1);
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnOpacity(0.5);
+        }
+    }
+
+    const savePin = async () => {
+        try {
+            const userSession = await EncryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                parsedSession.transaction_pin = pin;
+                await EncryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
+                props.navigation.navigate("Dashboard");
+            }
+        }
+        catch(err) {
+            //
+        }
+    }
+
     return (
         <View style={
             [
@@ -29,11 +63,19 @@ const SetupPin = () => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="4 digit pin" inputMode="numeric" keyboardType="numeric" maxLength={4}/>
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="4 digit pin" inputMode="numeric" keyboardType="numeric" maxLength={4} onChangeText={value => {
+                            setPin(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
                     </View>
                     <View style={[style.btnsCont]}>
                         <Btn text=""/>
-                        <Btn text="Setup" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Setup ?")}/>
+                        <Btn text="Setup" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
+                            if(formSubmitable) {
+                                savePin();
+                            }
+                        }}/>
                     </View>
                     <View style={{marginTop : 35}}>
                         <Text style={{fontSize : 12,

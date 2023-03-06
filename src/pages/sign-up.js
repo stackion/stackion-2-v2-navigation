@@ -59,7 +59,7 @@ const SignUp = (props) => {
                     await EncryptedStorage.setItem(
                         "user_session",
                         JSON.stringify({
-                            loggedIn : true,
+                            logged_in : true,
                             user_access_token : responseText.user_access_token,
                             verified_email : 0
                         })

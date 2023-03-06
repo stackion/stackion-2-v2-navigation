@@ -16,7 +16,7 @@ const Splash = (props) => {
                 await EncryptedStorage.setItem(
                     "user_session",
                     JSON.stringify({
-                        loggedIn : false
+                        logged_in : false
                     })
                 );
             } catch (error) {
@@ -29,7 +29,7 @@ const Splash = (props) => {
                 if(userSession) {
                     let parsedSession = JSON.parse(userSession);
                     let navigationDelay = setTimeout(() => {
-                        if(parsedSession.loggedIn === true && parsedSession.verified_email !== 0) {
+                        if(parsedSession.logged_in === true && parsedSession.verified_email !== 0) {
                             props.navigation.replace("Dashboard");
                         }
                         else if(parsedSession.verified_email === 0) {
