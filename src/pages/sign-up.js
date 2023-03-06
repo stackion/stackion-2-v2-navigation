@@ -64,7 +64,7 @@ const SignUp = (props) => {
                             verified_email : 0
                         })
                     );
-                    props.navigation.navigate("VerifyEmail");
+                    props.navigation.replace("VerifyEmail");
                 } catch (error) {
                     // There was an error on the native side
                 }

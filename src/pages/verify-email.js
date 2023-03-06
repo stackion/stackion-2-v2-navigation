@@ -63,7 +63,7 @@ const VerifyEmail = (props) => {
                                     verified_email : responseText.verified_email
                                 })
                             );
-                            props.navigation.navigate("SetupPin");
+                            props.navigation.replace("SetupPin");
                         } catch (error) {
                             // There was an error on the native side
                         }
