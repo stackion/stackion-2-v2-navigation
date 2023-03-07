@@ -12,13 +12,33 @@ import Colors from "../styles/colors";
 const Splash = (props) => {
     //TODO check login state before any navigation;
     useEffect( () => {
+        const random_number = (e)  => {
+            let generated_value = [];
+            for (let i = 1; i <= e; i++) {
+                generated_value.push(Math.floor(Math.random() * 10));
+            }
+            return generated_value.join("");
+        };
         const setInitialSessionAfterInstall = async () => {
             await encryptedStorage.setItem(
                 "user_session",
                 JSON.stringify({
-                    logged_in : false
+                    transaction_pin : "0000",
+                    logged_in : false,
+                    user_access_token : "",
+                    verified_email : 0,
+                    user_online_data : {
+                        name : "",
+                        username : "",
+                        fiat_balance : 0,
+                        transaction_records_db : []
+                    },
+                    ofline_token_balance : 0,
+                    device_id : random_number(12),
+                    receipts_db : []
                 })
             );
+            console.log("this is the setting function");//TODO ELIMINATE THE UNHANDLED PROMISE REJECTION SHIT
         }
         const getSessionAndNavigate = (async () => {
             const userSession = await encryptedStorage.getItem("user_session");
@@ -28,7 +48,7 @@ const Splash = (props) => {
                     if(parsedSession.logged_in === true && parsedSession.verified_email !== 0) {
                         props.navigation.replace("Dashboard");
                     }
-                    else if(parsedSession.verified_email === 0) {
+                    else if(parsedSession.logged_in === true && parsedSession.verified_email === 0) {
                         props.navigation.replace("VerifyEmail");
                     }
                     else {

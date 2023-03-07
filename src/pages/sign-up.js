@@ -55,15 +55,18 @@ const SignUp = (props) => {
                 })
             }
             else{
-                await encryptedStorage.setItem(
-                    "user_session",
-                    JSON.stringify({
-                        logged_in : true,
-                        user_access_token : responseText.user_access_token,
-                        verified_email : 0
-                    })
-                );
-                props.navigation.replace("VerifyEmail");
+                const userSession = await encryptedStorage.getItem("user_session");
+                if(userSession) {
+                    let parsedSession = JSON.parse(userSession);
+                    parsedSession.logged_in = true;
+                    parsedSession.user_access_token = responseText.user_access_token;
+                    parsedSession.verified_email = 0;
+                    await encryptedStorage.setItem(
+                        "user_session",
+                        JSON.stringify(parsedSession)
+                    );
+                    props.navigation.replace("VerifyEmail");
+                }
             }
         })
         .catch(err => {

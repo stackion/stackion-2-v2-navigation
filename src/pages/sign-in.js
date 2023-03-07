@@ -59,19 +59,24 @@ const SignIn = (props) => {
                 })
             }
             else{
-                await encryptedStorage.setItem(
-                    "user_session",
-                    JSON.stringify({
-                        logged_in : true,
-                        user_access_token : responseText.user_access_token,
-                        verified_email : responseText.verified_email
-                    })
-                );
-                if(responseText.verified_email == 0) {
-                    props.navigation.replace("VerifyEmail");
-                }
-                else {
-                    props.navigation.replace("Dashboard");
+                const userSession = await encryptedStorage.getItem("user_session");
+                if(userSession) {
+                    let parsedSession = JSON.parse(userSession);
+                    parsedSession.logged_in = true;
+                    parsedSession.user_access_token = responseText.user_access_token;
+                    parsedSession.verified_email = responseText.verified_email;
+
+                    await encryptedStorage.setItem(
+                        "user_session",
+                        JSON.stringify(parsedSession)
+                    );
+
+                    if(responseText.verified_email == 0) {
+                        props.navigation.replace("VerifyEmail");
+                    }
+                    else {
+                        props.navigation.replace("Dashboard");
+                    }
                 }
             }
         })

@@ -53,15 +53,19 @@ const VerifyEmail = (props) => {
                     })
                 }
                 else{
-                    await encryptedStorage.setItem(
-                        "user_session",
-                        JSON.stringify({
-                            logged_in : true,
-                            user_access_token : parsedSession.user_access_token,
-                            verified_email : responseText.verified_email
-                        })
-                    );
-                    props.navigation.replace("SetupPin");
+                    const userSession = await encryptedStorage.getItem("user_session");
+                    if(userSession) {
+                        let parsedSession = JSON.parse(userSession);
+                        
+                        parsedSession.verified_email = responseText.verified_email;
+    
+                        await encryptedStorage.setItem(
+                            "user_session",
+                            JSON.stringify(parsedSession)
+                        );
+    
+                        props.navigation.replace("SetupPin");
+                    }
                 }
             })
             .catch(err => {

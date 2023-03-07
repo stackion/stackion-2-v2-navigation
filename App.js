@@ -71,7 +71,7 @@ const App = () => {
       <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
       <Stack.Navigator initialRouteName="Splash" screenOptions={{
         headerShown: false,
-        gestureEnabled: true,
+        gestureEnabled: false,
         gestureDirection: 'horizontal',
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}

@@ -8,13 +8,13 @@ export const fetchAndSaveData = async (callback) => {
     if(userSession) {
         let parsedSession = JSON.parse(userSession);
         //TODO change the baseUrl for this request
-        axios.post("/fetch-data", {
+        axios.post("https://381e-102-89-22-32.eu.ngrok.io/fetch-data", {
             user_access_token : parsedSession.user_access_token,
         })
         .then(res => {
             let response = res.data;
             if(response.status === "success") {
-                parsedSession.userOnlineData = response.data;
+                parsedSession.user_online_data = response.data;
                 callback();
             }
         })
@@ -22,7 +22,7 @@ export const fetchAndSaveData = async (callback) => {
             Toast.show({
                 type : "error",
                 text1 : "Connection error",
-                text2 : "poor or no internet connection"
+                text2 : "Using offline mode. Only offline balance is reflected"
             })
         })
     }

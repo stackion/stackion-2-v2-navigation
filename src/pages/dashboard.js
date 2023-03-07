@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 import {
     Text,
     View,
@@ -45,15 +45,39 @@ const Dashboard = (props) => {
         return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
       }, [])
     );
+
+    const [name, setName] = useState("Dear User");
+    const [totalBalance, setTotalBalance] = useState(0);
+    const [isOnline, setIsOnline] = useState(true);
+
+    useEffect( ()=> {
+        const asynchronousFunction = (async () => {
+            fetcher.fetchAndSaveData();
+            const userSession = await encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                setName(parsedSession.user_online_data.name);
+                if(isOnline) {
+                    setTotalBalance(
+                        Number(
+                            parsedSession.user_online_data.fiat_balance
+                            +
+                            parsedSession.ofline_token_balance
+                        ).toFixed(2)
+                    );
+                }
+            }
+        })();
+    },[])
   
     return (
-        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={"Hey, John!"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={`Hey, ${name}!`} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[DefaultStyle.centeredX]}>
                     <Text style={[style.Balance]}>Total Balance</Text>
                 </View>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.balanceAmount]}>N 1,000,000.00</Text>
+                    <Text style={[style.balanceAmount]}>N {totalBalance}</Text>
                 </View>
             </View>
             <View style={[
