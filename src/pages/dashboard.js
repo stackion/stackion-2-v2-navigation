@@ -9,15 +9,15 @@ import {
 import Toast from 'react-native-toast-message';
 import { useFocusEffect } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import axios from "axios";
-import Toast from "react-native-toast-message";
 
+import * as encryptedStorage from "../functions/encrypted-storage";
+import * as fetcher from "../functions/user-data-fetcher";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import InAppHBF from "../components/in-app-h-b-f";
 
-const Dashboard = (props) => {
+const Dashboard = (props) => {  
     let backPressCount = 0;
   
     useFocusEffect(

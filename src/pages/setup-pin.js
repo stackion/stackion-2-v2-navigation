@@ -30,12 +30,12 @@ const SetupPin = (props) => {
         }
     }
 
-    const savePin = () => {
-        const userSession = encryptedStorage.getItem("user_session");
+    const savePin = async () => {
+        const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
             let parsedSession = JSON.parse(userSession);
             parsedSession.transaction_pin = pin;
-            encryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
+            await encryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
             props.navigation.replace("Dashboard");
         }
     }

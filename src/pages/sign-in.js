@@ -41,7 +41,7 @@ const SignIn = (props) => {
             email : email,
             password : password
         })
-        .then(res => {
+        .then(async res => {
             setLoaderVisibility(false);
             let responseText = res.data;
             if(responseText.status === "wrong-email") {
@@ -59,7 +59,7 @@ const SignIn = (props) => {
                 })
             }
             else{
-                encryptedStorage.setItem(
+                await encryptedStorage.setItem(
                     "user_session",
                     JSON.stringify({
                         logged_in : true,

@@ -12,16 +12,16 @@ import Colors from "../styles/colors";
 const Splash = (props) => {
     //TODO check login state before any navigation;
     useEffect( () => {
-        const setInitialSessionAfterInstall = () => {
-            encryptedStorage.setItem(
+        const setInitialSessionAfterInstall = async () => {
+            await encryptedStorage.setItem(
                 "user_session",
                 JSON.stringify({
                     logged_in : false
                 })
             );
         }
-        const getSessionAndNavigate = ( () => {
-            const userSession = encryptedStorage.getItem("user_session");
+        const getSessionAndNavigate = (async () => {
+            const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
                 let navigationDelay = setTimeout(() => {

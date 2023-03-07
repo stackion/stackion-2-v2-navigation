@@ -44,7 +44,7 @@ const SignUp = (props) => {
             email : email,
             password : password
         })
-        .then(res => {
+        .then(async res => {
             setLoaderVisibility(false);
             let responseText = res.data;
             if(responseText.status === "account-exists") {
@@ -55,7 +55,7 @@ const SignUp = (props) => {
                 })
             }
             else{
-                encryptedStorage.setItem(
+                await encryptedStorage.setItem(
                     "user_session",
                     JSON.stringify({
                         logged_in : true,

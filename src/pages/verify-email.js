@@ -34,15 +34,15 @@ const VerifyEmail = (props) => {
             setSubmitBtnOpacity(0.5);
         }
     }
-    const sendForm = () => {
-        const userSession = encryptedStorage.getItem("user_session");
+    const sendForm = async () => {
+        const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
             let parsedSession = JSON.parse(userSession);
             axios.post("https://a174-102-89-33-127.eu.ngrok.io/verify-email", {
                 user_access_token : parsedSession.user_access_token,
                 verification_code : code
             })
-            .then(res => {
+            .then(async res => {
                 setLoaderVisibility(false);
                 let responseText = res.data;
                 if(responseText.status !== "success") {
@@ -53,7 +53,7 @@ const VerifyEmail = (props) => {
                     })
                 }
                 else{
-                    encryptedStorage.setItem(
+                    await encryptedStorage.setItem(
                         "user_session",
                         JSON.stringify({
                             logged_in : true,
@@ -106,9 +106,9 @@ const VerifyEmail = (props) => {
                         onEndEditing={() => validateForm() } />
                     </View>
                     <View style={[style.btnsCont]}>
-                        <Btn text={resendCodeBtnTextContent} textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => {
+                        <Btn text={resendCodeBtnTextContent} textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={async () => {
                             setResendCodeBtnTextContent("Resending...");
-                            const userSession = encryptedStorage.getItem("user_session");
+                            const userSession = await encryptedStorage.getItem("user_session");
                             if(userSession) {
                                 let parsedSession = JSON.parse(userSession);
                                 axios.post("https://a174-102-89-33-127.eu.ngrok.io/resend-verification-code", {
