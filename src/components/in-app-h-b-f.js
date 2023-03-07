@@ -38,7 +38,7 @@ export const InAppHB = props => {
             <View style={[ DefaultStyle.WSpanParent, style.bodyCont, DefaultStyle.centeredX, {
                 marginTop : 40
             }]}>
-                <ScrollView contentContainerStyle={[DefaultStyle.centeredX]} style={[DefaultStyle.WSpanParent, /*, style.bodyContScrollView*/]}>
+                <ScrollView contentContainerStyle={[DefaultStyle.centeredX]} style={[DefaultStyle.WSpanParent, /*, style.bodyContScrollView*/]} refreshControl={props.refreshControl}>
                     {props.children}
                 </ScrollView>
             </View>
@@ -73,7 +73,7 @@ const InAppHBF = props => {
                 </Text>
             </View>
             <View style={[ DefaultStyle.WSpanParent, style.bodyCont, DefaultStyle.centeredX]}>
-                <ScrollView contentContainerStyle={[DefaultStyle.centeredX]} style={[DefaultStyle.WSpanParent, {paddingTop : 30, marginBottom : 50}, /*, style.bodyContScrollView*/]}>
+                <ScrollView contentContainerStyle={[DefaultStyle.centeredX]} style={[DefaultStyle.WSpanParent, {paddingTop : 30, marginBottom : 50}, /*, style.bodyContScrollView*/]} refreshControl={props.refreshControl}>
                     {props.children}
                     <View style={{height : 200}}></View>
                 </ScrollView>

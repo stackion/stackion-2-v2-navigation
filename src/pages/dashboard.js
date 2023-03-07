@@ -50,29 +50,43 @@ const Dashboard = (props) => {
     const [name, setName] = useState("Dear User");
     const [totalBalance, setTotalBalance] = useState(0);
     const [isOnline, setIsOnline] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
 
-    useEffect( ()=> {
-        const asynchronousFunction = (async () => {
-            fetcher.fetchAndSaveData();
-            const userSession = await encryptedStorage.getItem("user_session");
-            if(userSession) {
-                let parsedSession = JSON.parse(userSession);
-                setName(parsedSession.user_online_data.name);
-                if(isOnline) {
-                    setTotalBalance(
-                        Number(
-                            parsedSession.user_online_data.fiat_balance
-                            +
-                            parsedSession.ofline_token_balance
-                        ).toFixed(2)
-                    );
-                }
+    const reflectUserData = async () => {
+        const gottenUserData = fetcher.fetchAndSaveData();
+        gottenUserData ? setIsOnline(true) : setIsOnline(false);
+        const userSession = await encryptedStorage.getItem("user_session");
+        if(userSession) {
+            let parsedSession = JSON.parse(userSession);
+            setName(parsedSession.user_online_data.name);
+            if(isOnline) {
+                setTotalBalance(
+                    Number(
+                        parsedSession.user_online_data.fiat_balance
+                        +
+                        parsedSession.ofline_token_balance
+                    ).toFixed(2)
+                );
             }
-        })();
+            else {
+                setTotalBalance(
+                    Number(
+                        parsedSession.ofline_token_balance
+                    ).toFixed(2)
+                );
+            }
+        }
+    };
+    useEffect( ()=> {
+        reflectUserData();
     },[])
-  
+
     return (
-        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={`Hey, ${name}!`} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={`Hey, ${name}!`} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} refreshControl={
+            <RefreshControl refreshing={refreshing}
+            colors={["#ff0000","#00ff00","#0000ff"]}
+            progressBackgroundColor="#ffffff" onRefresh={() => reflectUserData()} />
+            } >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[DefaultStyle.centeredX]}>
                     <Text style={[style.Balance]}>Total Balance</Text>
