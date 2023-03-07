@@ -4,7 +4,8 @@ import {
     View,
     StyleSheet,
     Alert,
-    BackHandler
+    BackHandler,
+    RefreshControl
 } from "react-native";
 import Toast from 'react-native-toast-message';
 import { useFocusEffect } from '@react-navigation/native';

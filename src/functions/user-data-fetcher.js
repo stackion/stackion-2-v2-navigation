@@ -6,6 +6,7 @@ import * as encryptedStorage from "./encrypted-storage";
 export const fetchAndSaveData = async (callback) => {
     const userSession = await encryptedStorage.getItem("user_session");
     if(userSession) {
+        let resolvement = true;
         let parsedSession = JSON.parse(userSession);
         //TODO change the baseUrl for this request
         axios.post("https://381e-102-89-22-32.eu.ngrok.io/fetch-data", {
@@ -22,8 +23,10 @@ export const fetchAndSaveData = async (callback) => {
             Toast.show({
                 type : "error",
                 text1 : "Connection error",
-                text2 : "Using offline mode. Only offline balance is reflected"
+                text2 : "Using offline mode. Only offline balance is shown"
             })
+            resolvement = false;
         })
+        return resolvement;
     }
 }
