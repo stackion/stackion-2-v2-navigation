@@ -19,10 +19,10 @@ const ReceiveViaOnline = (props) => {
     const [username, setUsername] = useState("");
     useEffect(() => {
         (async () => {
-            const userSession = await encryptedStorage.getItem("session");
+            const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
-                setUsername(parsedSession.user_online_data.username)
+                setUsername(parsedSession.user_online_data.username);
             }
         })();
     },[])
