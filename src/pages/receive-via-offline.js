@@ -15,12 +15,14 @@ import { Btn } from "../components/button";
 
 const ReceiveViaOffline = (props) => {
     const [username, setUsername] = useState("");
+    const [deviceId, setDeviceID] = useState(0);
     useEffect(() => {
         (async () => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
                 setUsername(parsedSession.user_online_data.username);
+                setDeviceID(parsedSession.device_id);
             }
         })();
     },[])
@@ -36,7 +38,10 @@ const ReceiveViaOffline = (props) => {
                     @{username}
                 </Text>
                 <View style={[style.qrCodeContainer, DefaultStyle.centeredXY, style.contentsInBodyCont]}>
-                    <QRCode value="hello" size={250} color={Colors.blue2}
+                    <QRCode value={JSON.stringify({
+                        receiverUsername : username,
+                        receiverDeviceId : deviceId
+                    })} size={250} color={Colors.blue2}
                     logo={require("../../assets/images/favicon.png")}
                     backgroundColor={Colors.white}
                     logoBackgroundColor={Colors.white}
