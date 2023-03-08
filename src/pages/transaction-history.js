@@ -1,3 +1,4 @@
+import {useState, useEffect} from "react";
 import {
     Text,
     View,
@@ -5,16 +6,29 @@ import {
     Alert
 } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
 
 const TransactionHistory = (props) => {
-    return (
-        <InAppHB navigation={props.navigation} headerStyle={{justifyContent : "center", paddingLeft : 0}} headerTitleText={"Transaction History"} >
-            <View style={[style.historyContentSection, DefaultStyle.centeredXY, style.contentsInBodyCont]} >
-                {/*the content would be displayed based on state / other */}
+    const [historyContent, setHistoryContent] = useState(
+        <Text style={{fontSize : 12, color : Colors.black46, fontFamily : "Roboto-Regular"}}>
+            No History
+        </Text>
+        );
+    useEffect(() => {
+        (async () => {
+            const userSession = await encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                let onlineTransactionHistory = parsedSession.user_online_data.transaction_records_db;
+                if(onlineTransactionHistory.length > 0) {
+                    //the value of the history data should be set in accordance
+                    //set the history content
+                    /*
                 <View style={[style.contentsInBodyCont, style.historyContentCont]}>
                     <Text style={[style.historyTitle]}>
                         Received
@@ -81,9 +95,21 @@ const TransactionHistory = (props) => {
                         {new Date().toUTCString()}
                     </Text>
                 </View>
-                <Text style={{fontSize : 12, color : Colors.black46, fontFamily : "Roboto-Regular"}}>
-                    No History
-                </Text>
+                */
+                } else {
+                    setHistoryContent(
+                        <Text style={{fontSize : 12, color : Colors.black46, fontFamily : "Roboto-Regular"}}>
+                            No History
+                        </Text>
+                    )
+                }
+            }
+        })();
+    }, [])
+    return (
+        <InAppHB navigation={props.navigation} headerStyle={{justifyContent : "center", paddingLeft : 0}} headerTitleText={"Transaction History"} >
+            <View style={[style.historyContentSection, DefaultStyle.centeredXY, style.contentsInBodyCont]} >
+                {historyContent}
             </View>
         </InAppHB>
     )

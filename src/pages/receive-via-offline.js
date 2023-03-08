@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
     Text,
     View,
@@ -5,12 +6,24 @@ import {
     Alert
 } from "react-native";
 import QRCode from 'react-native-qrcode-svg';
+
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {InAppHB} from "../components/in-app-h-b-f";
 import { Btn } from "../components/button";
 
 const ReceiveViaOffline = (props) => {
+    const [username, setUsername] = useState("");
+    useEffect(() => {
+        (async () => {
+            const userSession = await encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                setUsername(parsedSession.user_online_data.username);
+            }
+        })();
+    },[])
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
@@ -20,7 +33,7 @@ const ReceiveViaOffline = (props) => {
                     fontFamily : "Roboto-Regular",
                     textAlign : "center"
                 }} >
-                    {'@john2023'}
+                    @{username}
                 </Text>
                 <View style={[style.qrCodeContainer, DefaultStyle.centeredXY, style.contentsInBodyCont]}>
                     <QRCode value="hello" size={250} color={Colors.blue2}

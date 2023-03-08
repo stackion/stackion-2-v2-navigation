@@ -10,10 +10,6 @@ TODO App logo in users app launcher
 + reduce the size of the app logo
 + ios support
 
-TODO App https requests baseURL
-+ set the http base url for all requests when moved to production
-+ refreshControl{}prop of in-app-h-b-f component=>
-            <RefreshControl refreshing={true}
-            colors={["#ff0000","#00ff00","#0000ff"]}
-            progressBackgroundColor="#ffffff" onRefresh={() =>  fetcher.fetchAndSaveData()} />
+TODO App user-data :username
++ when the app is in stable version, set the user's username to just the username instead of prepending the @ symbol to it
 */
