@@ -1,24 +1,72 @@
+import { useState, useEffect } from "react";
 import {
     Text,
     View,
     StyleSheet,
-    Alert
+    Alert,
+    RefreshControl
 } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+
+import * as encryptedStorage from "../functions/encrypted-storage";
+import * as fetcher from "../functions/user-data-fetcher";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import InAppHBF from "../components/in-app-h-b-f";
 
 const Wallet = (props) => {
+    const [totalBalance, setTotalBalance] = useState(0);
+    const [fiatBalance, setFiatBalance] = useState(0);
+    const [offlineTokenBalance, setOfflineTokenBalance] = useState(0);
+    const [isOnline, setIsOnline] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const reflectUserData = async () => {
+        const gottenUserData = await fetcher.fetchAndSaveData();
+        gottenUserData ? setIsOnline(true) : setIsOnline(false);
+        const userSession = await encryptedStorage.getItem("user_session");
+        if(userSession) {
+            let parsedSession = JSON.parse(userSession);
+            if(isOnline) {
+                console.log("online mode...")
+                setTotalBalance(
+                    Number(
+                        parsedSession.user_online_data.fiat_balance
+                        +
+                        parsedSession.ofline_token_balance
+                    ).toFixed(2)
+                );
+                setFiatBalance(Number(parsedSession.user_online_data.fiat_balance).toFixed(2));
+                setOfflineTokenBalance(Number(parsedSession.ofline_token_balance).toFixed(2))
+            }
+            else {
+                console.log("offline mode")
+                setTotalBalance(
+                    Number(
+                        parsedSession.ofline_token_balance
+                    ).toFixed(2)
+                );
+                setFiatBalance(Number(0).toFixed(2));
+                setOfflineTokenBalance(Number(parsedSession.ofline_token_balance).toFixed(2))
+            }
+        }
+    };
+    useEffect( ()=> {
+        reflectUserData();
+    },[])
     return (
-        <InAppHBF activePage="wallet" navigation={props.navigation} headerTitleText={"Wallet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHBF activePage="wallet" navigation={props.navigation} headerTitleText={"Wallet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} refreshControl={
+            <RefreshControl refreshing={refreshing}
+            colors={["#ff0000","#00ff00","#0000ff"]}
+            progressBackgroundColor="#ffffff" onRefresh={() => reflectUserData()} />
+            } >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[DefaultStyle.centeredX]}>
                     <Text style={[style.Balance]}>Total balance</Text>
                 </View>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.balanceAmount]}>N 1,000,000.00</Text>
+                    <Text style={[style.balanceAmount]}>N {totalBalance}</Text>
                 </View>
             </View>
             <View style={[style.contentsInBodyCont, style.SectionTitle ]} >
@@ -35,7 +83,7 @@ const Wallet = (props) => {
                     </View>
                     <View>
                         <Text style={style.assetsInfo}>
-                            N 900000
+                            N {fiatBalance}
                         </Text>
                     </View>
                 </View>
@@ -47,7 +95,7 @@ const Wallet = (props) => {
                     </View>
                     <View>
                         <Text style={style.assetsInfo}>
-                            N 100000
+                            N {offlineTokenBalance}
                         </Text>
                     </View>
                 </View>

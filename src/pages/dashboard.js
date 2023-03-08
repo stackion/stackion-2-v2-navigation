@@ -53,7 +53,7 @@ const Dashboard = (props) => {
     const [refreshing, setRefreshing] = useState(false);
 
     const reflectUserData = async () => {
-        const gottenUserData = fetcher.fetchAndSaveData();
+        const gottenUserData = await fetcher.fetchAndSaveData();
         gottenUserData ? setIsOnline(true) : setIsOnline(false);
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
