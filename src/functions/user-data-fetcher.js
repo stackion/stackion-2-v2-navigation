@@ -8,22 +8,29 @@ export const fetchAndSaveData = async () => {
     if(userSession) {
         let parsedSession = JSON.parse(userSession);
         //TODO change the baseUrl for this request
-        return (axios.post(" https://00f9-102-89-42-44.eu.ngrok.io/fetch-data", {
-            user_access_token : parsedSession.user_access_token,
-        })
-        .then(async res => {
+        try {
+            const res = await axios.post(" https://00f9-102-89-42-44.eu.ngrok.io/fetch-data", {
+                user_access_token : parsedSession.user_access_token,
+            })
             let response = res.data;
             if(response.status === "success") {
                 parsedSession.user_online_data = response.data;
                 await encryptedStorage.setItem("user_session",JSON.stringify(parsedSession));
+                Toast.show({
+                    type : "success",
+                    text1 : "Online mode",
+                    text2 : "Using online mode. All balance are shown"
+                })
+                return true;
             }
-        })
-        .catch(err => {
+        }
+        catch(err) {
             Toast.show({
                 type : "error",
                 text1 : "Connection error",
                 text2 : "Using offline mode. Only offline balance is shown"
             })
-        }))
+            return false;
+        }
     }
 }

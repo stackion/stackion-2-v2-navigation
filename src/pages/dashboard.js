@@ -49,19 +49,15 @@ const Dashboard = (props) => {
 
     const [name, setName] = useState("Dear User");
     const [totalBalance, setTotalBalance] = useState(0);
-    const [isOnline, setIsOnline] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
 
     const reflectUserData = async () => {
         const gottenUserData = await fetcher.fetchAndSaveData();
-        gottenUserData ? setIsOnline(true) : setIsOnline(false);
-        console.log(gottenUserData)
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
-            console.log("online mode...")
             let parsedSession = JSON.parse(userSession);
             setName(parsedSession.user_online_data.name);
-            if(isOnline) {
+            if(gottenUserData) {
                 setTotalBalance(
                     Number(
                         parsedSession.user_online_data.fiat_balance
@@ -71,7 +67,6 @@ const Dashboard = (props) => {
                 );
             }
             else {
-                console.log("offline mode")
                 setTotalBalance(
                     Number(
                         parsedSession.ofline_token_balance

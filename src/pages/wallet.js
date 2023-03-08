@@ -19,17 +19,14 @@ const Wallet = (props) => {
     const [totalBalance, setTotalBalance] = useState(0);
     const [fiatBalance, setFiatBalance] = useState(0);
     const [offlineTokenBalance, setOfflineTokenBalance] = useState(0);
-    const [isOnline, setIsOnline] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
 
     const reflectUserData = async () => {
         const gottenUserData = await fetcher.fetchAndSaveData();
-        gottenUserData ? setIsOnline(true) : setIsOnline(false);
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
             let parsedSession = JSON.parse(userSession);
-            if(isOnline) {
-                console.log("online mode...")
+            if(gottenUserData) {
                 setTotalBalance(
                     Number(
                         parsedSession.user_online_data.fiat_balance
@@ -41,7 +38,6 @@ const Wallet = (props) => {
                 setOfflineTokenBalance(Number(parsedSession.ofline_token_balance).toFixed(2))
             }
             else {
-                console.log("offline mode")
                 setTotalBalance(
                     Number(
                         parsedSession.ofline_token_balance
