@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
     Text,
     View,
@@ -7,12 +8,24 @@ import {
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from "react-native-toast-message";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
 
 const ReceiveViaOnline = (props) => {
+    const [username, setUsername] = useState("");
+    useEffect(() => {
+        (async () => {
+            const userSession = await encryptedStorage.getItem("session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                setUsername(parsedSession.user_online_data.username)
+            }
+        })();
+    },[])
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Receive"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.View}>
@@ -26,13 +39,13 @@ const ReceiveViaOnline = (props) => {
                 </Text>
                 <View style={style.inputCont}>
                     <Text style={[style.input, DefaultStyle.centeredXY]}>
-                        @john2023
+                        @{username}
                     </Text>
                 </View>
                 <View style={[style.btnsCont]}>
                     <Btn text=""/>
                     <Btn text={(<Text>Copy   <FontAwesomeIcon icon="copy" color={Colors.white} size={20} /></Text>)} style={style.copyBtn} textStyle={style.copyBtnText} onPress={() => {
-                        Clipboard.setString("@john2023");
+                        Clipboard.setString(`@${username}`);
                         Toast.show({
                             type: 'success',
                             text1: 'Copied!',

@@ -55,8 +55,10 @@ const Dashboard = (props) => {
     const reflectUserData = async () => {
         const gottenUserData = await fetcher.fetchAndSaveData();
         gottenUserData ? setIsOnline(true) : setIsOnline(false);
+        console.log(gottenUserData)
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
+            console.log("online mode...")
             let parsedSession = JSON.parse(userSession);
             setName(parsedSession.user_online_data.name);
             if(isOnline) {
@@ -69,6 +71,7 @@ const Dashboard = (props) => {
                 );
             }
             else {
+                console.log("offline mode")
                 setTotalBalance(
                     Number(
                         parsedSession.ofline_token_balance
