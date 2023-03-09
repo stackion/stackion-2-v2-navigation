@@ -38,9 +38,8 @@ const Splash = (props) => {
                     receipts_db : []
                 })
             );
-            console.log("this is the setting function");//TODO ELIMINATE THE UNHANDLED PROMISE REJECTION SHIT
         }
-        const getSessionAndNavigate = (async () => {
+        const getSessionAndNavigate = async () => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
@@ -61,7 +60,8 @@ const Splash = (props) => {
                 setInitialSessionAfterInstall();
                 getSessionAndNavigate();
             }
-        })();
+        };
+        getSessionAndNavigate();
     }, []);
     return (
         <View style={[
