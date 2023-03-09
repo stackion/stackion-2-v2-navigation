@@ -56,7 +56,9 @@ const Dashboard = (props) => {
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
             let parsedSession = JSON.parse(userSession);
-            setName(parsedSession.user_online_data.name);
+            if(parsedSession.user_online_data.name !== "") {
+                setName(parsedSession.user_online_data.name);
+            }
             if(gottenUserData) {
                 setTotalBalance(
                     Number(
