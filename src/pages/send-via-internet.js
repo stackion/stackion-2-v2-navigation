@@ -45,7 +45,7 @@ const SendViaInternet = (props) => {
     const navigateToConfirmationPage = () => {
         props.navigation.navigate("ConfirmTransaction", {
             username : username,
-            amount : amount,
+            amount : Number(amount),
             type : "fiat"
         })
     }
@@ -77,7 +77,7 @@ const SendViaInternet = (props) => {
                     <Btn text=""/>
                     <Btn text="Next" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
                             if(formSubmitable) {
-                                //sendForm();
+                                navigateToConfirmationPage();
                             }
                         }}/>
                 </View>
