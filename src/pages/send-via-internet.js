@@ -1,3 +1,4 @@
+import {useState, useEffect} from "react";
 import {
     Text,
     View,
@@ -6,12 +7,49 @@ import {
     Alert
 } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
+import {checkIfDataListIsEmpty} from "../functions/form-validator";
 import {InAppHB} from "../components/in-app-h-b-f";
 
 const SendViaInternet = (props) => {
+    const [fiatBalance, setFiatBalance] = useState(0);
+    const [username, setUsername] = useState("");
+    const [amount, setAmount] = useState("");
+    const [formSubmitable, setFormSubmitableState] = useState(false);
+    const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
+
+    const validateForm = () => {
+        if(checkIfDataListIsEmpty([username, amount])) {
+            setFormSubmitableState(true);
+            setSubmitBtnOpacity(1);
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnOpacity(0.5);
+        }
+    }
+    useEffect(() => {
+        (async () => {
+            const userSession = await encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                setFiatBalance(Number(parsedSession.user_online_data.fiat_balance).toFixed(2));
+            }
+        })();
+    },[])
+
+    const navigateToConfirmationPage = () => {
+        props.navigation.navigate("ConfirmTransaction", {
+            username : username,
+            amount : amount,
+            type : "fiat"
+        })
+    }
+
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Send Via Internet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
@@ -20,16 +58,28 @@ const SendViaInternet = (props) => {
                         Fiat balance
                     </Text>
                     <Text style={[style.introText]}>
-                        N 900,000
+                        N {fiatBalance}
                     </Text>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Username" inputMode="text"/>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount"/>
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Receiver's username" inputMode="text" onChangeText={value => {
+                            setUsername(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
+                            setAmount(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
                 </View>
                 <View style={[style.btnsCont]}>
                     <Btn text=""/>
-                    <Btn text="Next" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Next ?")}/>
+                    <Btn text="Next" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
+                            if(formSubmitable) {
+                                //sendForm();
+                            }
+                        }}/>
                 </View>
                 <View style={{marginTop : 35}}>
                     <Text style={style.instructionTextInPage}>

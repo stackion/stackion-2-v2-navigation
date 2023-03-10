@@ -9,7 +9,7 @@ export const fetchAndSaveData = async () => {
         let parsedSession = JSON.parse(userSession);
         //TODO change the baseUrl for this request
         try {
-            const res = await axios.post(" https://00f9-102-89-42-44.eu.ngrok.io/fetch-data", {
+            const res = await axios.post("https://0ce2-102-89-23-169.eu.ngrok.io/fetch-data", {
                 user_access_token : parsedSession.user_access_token,
             })
             let response = res.data;
