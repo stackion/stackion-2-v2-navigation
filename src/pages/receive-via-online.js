@@ -39,13 +39,13 @@ const ReceiveViaOnline = (props) => {
                 </Text>
                 <View style={style.inputCont}>
                     <Text style={[style.input, DefaultStyle.centeredXY]}>
-                        @{username}
+                        {username}
                     </Text>
                 </View>
                 <View style={[style.btnsCont]}>
                     <Btn text=""/>
                     <Btn text={(<Text>Copy   <FontAwesomeIcon icon="copy" color={Colors.white} size={20} /></Text>)} style={style.copyBtn} textStyle={style.copyBtnText} onPress={() => {
-                        Clipboard.setString(`@${username}`);
+                        Clipboard.setString(`${username}`);
                         Toast.show({
                             type: 'success',
                             text1: 'Copied!',

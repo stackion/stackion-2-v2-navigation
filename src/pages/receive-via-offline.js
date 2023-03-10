@@ -35,7 +35,7 @@ const ReceiveViaOffline = (props) => {
                     fontFamily : "Roboto-Regular",
                     textAlign : "center"
                 }} >
-                    @{username}
+                    {username}
                 </Text>
                 <View style={[style.qrCodeContainer, DefaultStyle.centeredXY, style.contentsInBodyCont]}>
                     <QRCode value={JSON.stringify({
