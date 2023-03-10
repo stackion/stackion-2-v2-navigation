@@ -48,6 +48,7 @@ const Dashboard = (props) => {
     );
 
     const [name, setName] = useState("Dear User");
+    const [balanceLegend, setBalanceLegend] = useState("Total Balance");
     const [totalBalance, setTotalBalance] = useState(0);
     const [refreshing, setRefreshing] = useState(false);
 
@@ -67,6 +68,7 @@ const Dashboard = (props) => {
                         parsedSession.ofline_token_balance
                     ).toFixed(2)
                 );
+                setBalanceLegend("Total Balance");
             }
             else {
                 setTotalBalance(
@@ -74,6 +76,7 @@ const Dashboard = (props) => {
                         parsedSession.ofline_token_balance
                     ).toFixed(2)
                 );
+                setBalanceLegend("Offline Balance");
             }
         }
     };
@@ -89,7 +92,7 @@ const Dashboard = (props) => {
             } >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.Balance]}>Total Balance</Text>
+                    <Text style={[style.Balance]}>{balanceLegend}</Text>
                 </View>
                 <View style={[DefaultStyle.centeredX]}>
                     <Text style={[style.balanceAmount]}>N {totalBalance}</Text>

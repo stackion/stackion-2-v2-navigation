@@ -16,6 +16,7 @@ import {Btn} from "../components/button";
 import InAppHBF from "../components/in-app-h-b-f";
 
 const Wallet = (props) => {
+    const [balanceLegend, setBalanceLegend] = useState("Total Balance");
     const [totalBalance, setTotalBalance] = useState(0);
     const [fiatBalance, setFiatBalance] = useState(0);
     const [offlineTokenBalance, setOfflineTokenBalance] = useState(0);
@@ -35,7 +36,8 @@ const Wallet = (props) => {
                     ).toFixed(2)
                 );
                 setFiatBalance(Number(parsedSession.user_online_data.fiat_balance).toFixed(2));
-                setOfflineTokenBalance(Number(parsedSession.ofline_token_balance).toFixed(2))
+                setOfflineTokenBalance(Number(parsedSession.ofline_token_balance).toFixed(2));
+                setBalanceLegend("Total Balance");
             }
             else {
                 setTotalBalance(
@@ -44,7 +46,8 @@ const Wallet = (props) => {
                     ).toFixed(2)
                 );
                 setFiatBalance(Number(0).toFixed(2));
-                setOfflineTokenBalance(Number(parsedSession.ofline_token_balance).toFixed(2))
+                setOfflineTokenBalance(Number(parsedSession.ofline_token_balance).toFixed(2));
+                setBalanceLegend("Offline Balance");
             }
         }
     };
@@ -59,7 +62,7 @@ const Wallet = (props) => {
             } >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.Balance]}>Total balance</Text>
+                    <Text style={[style.Balance]}>{balanceLegend}</Text>
                 </View>
                 <View style={[DefaultStyle.centeredX]}>
                     <Text style={[style.balanceAmount]}>N {totalBalance}</Text>
