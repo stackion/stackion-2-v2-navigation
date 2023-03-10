@@ -1,3 +1,4 @@
+import {useState, useEffect} from "react";
 import {
     Text,
     View,
@@ -6,29 +7,80 @@ import {
     Alert
 } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import Spinner from 'react-native-loading-spinner-overlay';
+import axios from "axios";
+
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
 
 const ConfirmTransaction = (props) => {
+    const [loaderIsVisibile, setLoaderVisibility] = useState(false);
+    const [formSubmitable, setFormSubmitableState] = useState(false);
+    const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
+    const [pin, setPin] = useState("");
+
+    const {username, amount, type} = props.route.params;
+
+    const [storedPin, setStoredPin] = useState("");
+
+    useEffect(() => {
+        (async () => {
+            const userSession = await encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                setStoredPin(parsedSession.transaction_pin);
+            }
+        })()
+    },[])
+
+    const validateForm = () => {
+        console.log(storedPin)
+        if(pin !== "" && pin === storedPin && storedPin !== "") {
+            setFormSubmitableState(true);
+            setSubmitBtnOpacity(1);
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnOpacity(0.5);
+        }
+    }
+
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
+                <Spinner
+                visible={loaderIsVisibile}
+                textContent={'processing...'}
+                textStyle={{color : Colors.white}}
+                />
                 <View>
                     <Text style={[style.introText]}>
-                        N 900,000
+                        N {amount}
                     </Text>
                     <Text style={[style.introText]}>
-                        to {'@johndoe - offline tokens | fiat'}
+                        to {username} - {type}
+                    </Text>
+                    <Text style={[style.introText]}>
+                        Transaction fee : N {(2/100) * amount}
                     </Text>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Transaction pin"/>
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Transaction pin" maxLength={4} secureTextEntry={true} onChangeText={value => {
+                            setPin(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() }  />
                 </View>
                 <View style={[style.btnsCont]}>
                     <Btn text=""/>
-                    <Btn text="Send" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Send ?")}/>
+                    <Btn text="Send" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
+                            if(formSubmitable) {
+                                //sendForm();
+                            }
+                        }}/>
                 </View>
                     <View style={{marginTop : 35}}>
                         <Text style={style.instructionTextInPage}>
