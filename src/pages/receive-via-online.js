@@ -16,6 +16,7 @@ import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
 
 const ReceiveViaOnline = (props) => {
+    const [name, setName] = useState("Dear User");
     const [username, setUsername] = useState("");
     useEffect(() => {
         (async () => {
@@ -23,6 +24,7 @@ const ReceiveViaOnline = (props) => {
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
                 setUsername(parsedSession.user_online_data.username);
+                setName(parsedSession.user_online_data.name);
             }
         })();
     },[])
@@ -35,7 +37,7 @@ const ReceiveViaOnline = (props) => {
                     fontFamily : "Comfortaa-Regular",
                     textAlign : "center"
                 }} >
-                    Hey, {'John!'}
+                    Hey {name}!
                 </Text>
                 <View style={style.inputCont}>
                     <Text style={[style.input, DefaultStyle.centeredXY]}>
