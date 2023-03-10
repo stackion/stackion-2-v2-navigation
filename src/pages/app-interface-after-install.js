@@ -26,9 +26,9 @@ const AppInterfaceAfterInstallation = (props) => {
             </Text>
             <Text style={[DefaultStyle.black46, {
                 fontFamily : "Comfortaa-Bold", padding : 13, textAlign : "center", color : Colors.black31}]}>
-                Not your regular Fintech app,
+                Not your regular Fintech app
                 {"\n"}
-                This is the future.
+                This is the future
             </Text>
             <View style={[DefaultStyle.WSpanParent, DefaultStyle.centeredXY, style.buttonsCont]}>
                 <Btn text="Get started" onPress={() => {props.navigation.navigate("SignUp")}} style={

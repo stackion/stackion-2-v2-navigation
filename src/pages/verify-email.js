@@ -38,7 +38,7 @@ const VerifyEmail = (props) => {
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
             let parsedSession = JSON.parse(userSession);
-            axios.post("https://5fad-102-89-23-55.eu.ngrok.io/verify-email", {
+            axios.post("https://4439-102-89-34-38.eu.ngrok.io/verify-email", {
                 user_access_token : parsedSession.user_access_token,
                 verification_code : code
             })
@@ -115,7 +115,7 @@ const VerifyEmail = (props) => {
                             const userSession = await encryptedStorage.getItem("user_session");
                             if(userSession) {
                                 let parsedSession = JSON.parse(userSession);
-                                axios.post("https://5fad-102-89-23-55.eu.ngrok.io/resend-verification-code", {
+                                axios.post("https://4439-102-89-34-38.eu.ngrok.io/resend-verification-code", {
                                     user_access_token : parsedSession.user_access_token
                                 })
                                 .then(res => {

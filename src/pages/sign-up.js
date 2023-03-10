@@ -39,7 +39,7 @@ const SignUp = (props) => {
         }
     }
     const sendForm = () => {
-        axios.post("https://5fad-102-89-23-55.eu.ngrok.io/append-user", {
+        axios.post("https://4439-102-89-34-38.eu.ngrok.io/append-user", {
             first_name : firstName,
             email : email,
             password : password
