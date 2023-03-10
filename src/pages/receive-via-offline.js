@@ -45,6 +45,7 @@ const ReceiveViaOffline = (props) => {
                     logo={require("../../assets/images/favicon.png")}
                     backgroundColor={Colors.white}
                     logoBackgroundColor={Colors.white}
+                    logoBorderRadius={100}
                     enableLinearGradient={true}
                     linearGradient={[Colors.defaultBlue,Colors.blue2]} />
                 </View>

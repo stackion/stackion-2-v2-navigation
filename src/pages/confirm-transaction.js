@@ -68,7 +68,7 @@ const ConfirmTransaction = (props) => {
                     </Text>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Transaction pin" maxLength={4} secureTextEntry={true} onChangeText={value => {
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Transaction pin" maxLength={4} secureTextEntry={true}  onChangeText={value => {
                             setPin(value.trim());
                             validateForm();
                         }}

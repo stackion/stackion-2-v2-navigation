@@ -58,7 +58,7 @@ const SetupPin = (props) => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="4 digit pin" inputMode="numeric" keyboardType="numeric" maxLength={4} secureTextEntry={true} onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="4 digit pin" inputMode="numeric" keyboardType="numeric" maxLength={4} onChangeText={value => {
                             setPin(value.trim());
                             validateForm();
                         }}
