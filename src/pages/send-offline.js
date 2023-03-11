@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
     Text,
     View,
@@ -5,13 +6,51 @@ import {
     StyleSheet,
     Alert
 } from "react-native";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
+import {checkIfDataListIsEmpty} from "../functions/form-validator";
+import encryptedStorage from "../functions/encrypted-storage";
 
 const SendOffline = (props) => {
+    const [offlineBalance, setOfflineBalance] = useState(0);
+    const [amount, setAmount] = useState("");
+    const [formSubmitable, setFormSubmitableState] = useState(false);
+    const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
+
+    const {receiverUsername, receiverDeviceId} = props.route.params.qrdata;
+
+    useEffect(() => {
+        (async () => {
+            const userSession = await encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                setOfflineBalance(Number(parsedSession.ofline_token_balance).toFixed(2));
+            }
+        })();
+    },[])
+
+    const validateForm = () => {
+        if(checkIfDataListIsEmpty([amount])) {
+            setFormSubmitableState(true);
+            setSubmitBtnOpacity(1);
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnOpacity(0.5);
+        }
+    }
+
+    const navigateToConfirmationPage = () => {
+        props.navigation.navigate("ConfirmTransaction", {
+            username : receiverUsername,
+            amount : Number(amount),
+            type : "offline tokens",
+            receiverDeviceId : receiverDeviceId
+        })
+    }
+
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Send offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
@@ -20,23 +59,31 @@ const SendOffline = (props) => {
                         Offline token balance
                     </Text>
                     <Text style={[style.introText]}>
-                        N 900,000
+                        N {offlineBalance}
                     </Text>
                     <View style={{marginTop : 48}}>
                         <Text style={[{textAlign : "center",
                             fontWeight : 400,
                             color : Colors.black31,
                             fontFamily : "Roboto-Medium",}]}>
-                            Sending to {'john2010'} offline
+                            Sending to {receiverUsername} - offline
                         </Text>
                     </View>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount"/>
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
+                            setAmount(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
                 </View>
                 <View style={[style.btnsCont]}>
                     <Btn text=""/>
-                    <Btn text="Next" style={style.submitBtn} textStyle={style.submitBtnText} onPress={() => Alert.alert("Next ?")}/>
+                    <Btn text="Next" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
+                            if(formSubmitable) {
+                                //navigateToConfirmationPage();
+                            }
+                        }} />
                 </View>
             </View>
         </InAppHB>

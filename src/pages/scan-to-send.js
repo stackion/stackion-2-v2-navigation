@@ -9,12 +9,13 @@ import Colors from "../styles/colors";
 const ScanToSendOffline = (props) => {
     return (
         <QRCodeScanner
-        onRead={() =>{
+        onRead={(e) =>{
                 Toast.show({
                     type: 'success',
                     text1: 'Scanned',
                     text2: 'You are ready to send offline tokens 🙌'
                 });
+                props.navigation.navigate("SendOffline",{qrdata : JSON.parse(e)});
         }}
         containerStyle={{backgroundColor : Colors.white}}
         permissionDialogTitle="😪"

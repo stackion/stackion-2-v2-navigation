@@ -36,8 +36,7 @@ const ConfirmTransaction = (props) => {
         })()
     },[])
 
-    const validateForm = () => {
-        console.log(storedPin)
+    const validateForm = () => { 
         if(pin !== "" && pin === storedPin && storedPin !== "") {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
