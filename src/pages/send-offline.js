@@ -81,7 +81,7 @@ const SendOffline = (props) => {
                     <Btn text=""/>
                     <Btn text="Next" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
                             if(formSubmitable) {
-                                //navigateToConfirmationPage();
+                                navigateToConfirmationPage();
                             }
                         }} />
                 </View>
