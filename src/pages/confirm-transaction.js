@@ -64,7 +64,7 @@ const ConfirmTransaction = (props) => {
                         to {username} - {type}
                     </Text>
                     <Text style={[style.introText]}>
-                        Transaction fee : N {(2/100) * amount}
+                        Transaction fee : N {type === "fiat" ? (2/100) * amount : 0}
                     </Text>
                 </View>
                 <View style={style.inputCont}>
