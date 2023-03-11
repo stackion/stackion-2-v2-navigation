@@ -1,13 +1,51 @@
 import {
     View,
     StyleSheet,
-    useWindowDimensions
+    useWindowDimensions,
+    Text
 } from "react-native";
-import { BottomModal, ModalFooter } from "react-native-modals";
+import { BottomModal, ModalFooter, ModalContent } from "react-native-modals";
 import { Btn } from "./button";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 
+export const afterTransactionPopUp = props => {
+
+    const {height} = useWindowDimensions();
+    const style = StyleSheet.create({
+        ModalContent : {
+            height : height * (3/4),
+            maxHeight : 260,
+            backgroundColor : Colors.white,
+        },
+        bottomBtn : {
+            height : 40,
+            width : 270,
+            backgroundColor : Colors.defaultBlue,
+            margin : 8,
+            borderRadius : 5
+        },
+        bottomBtnText : {
+            color : Colors.white,
+            fontSize : 16,
+            fontFamily : "Comfortaa-Regular"
+        }
+    })
+//TODO add button press feature for the convert page 
+          // 
+    return (
+        <BottomModal
+          visible={props.visibility}
+        >
+            <ModalContent style={[style.ModalContent, DefaultStyle.WSpanParent, DefaultStyle.centeredXY]} >
+                {props.children}
+            </ModalContent>
+            <ModalFooter style={[DefaultStyle.centeredXY]}>
+                <Btn text="Done" style={[style.bottomBtn, DefaultStyle.centeredXY]} textStyle={style.bottomBtnText} onclick={props.onBottomBtnClicked} />
+            </ModalFooter>
+        </BottomModal>
+    )
+}
 export const QuickMenu = props => {
 
     const {height} = useWindowDimensions();
