@@ -9,7 +9,7 @@ import { Btn } from "./button";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 
-export const afterTransactionPopUp = props => {
+export const AfterTransactionPopUp = props => {
 
     const {height} = useWindowDimensions();
     const style = StyleSheet.create({

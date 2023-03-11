@@ -15,6 +15,7 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
+import {AfterTransactionPopUp} from "../components/modals";
 
 const ConfirmTransaction = (props) => {
     const [loaderIsVisibile, setLoaderVisibility] = useState(false);
