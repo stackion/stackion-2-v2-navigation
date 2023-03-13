@@ -59,6 +59,13 @@ const ConfirmTransaction = (props) => {
                             Transaction Successful
                         </Text>
                     </View>
+                    <View style={style.contForOfflineTransactionDetails}>
+                    {type == "fiat" ? 
+                        <Text style={[style.introText]}>
+                            N {amount}
+                        </Text>
+                    : null}
+                    </View>
                     <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
                         <Text style={[style.introText]}>
                             N {amount}
@@ -125,9 +132,13 @@ const style = StyleSheet.create({
         minWidth : 200,
         padding : 10,
     },
+    contForOfflineTransactionDetails : {
+        marginTop : 10,
+        marginBottom : 60
+    },
     popupTitleCont : {
         margin : 8,
-        marginBottom : 20
+        marginBottom : 40
     },
     popupTitle : {
         fontSize : 24,
