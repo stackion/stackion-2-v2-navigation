@@ -6,6 +6,7 @@ const Colors = {
     black46 : "#848383",
     black31 : "#313131",
     blue2 : "#0896E5",
+    green : "#40ff89",
     transparents : {
         black : "#000000ac",
         black2 : "rgba(0, 0, 0, 0.33)"

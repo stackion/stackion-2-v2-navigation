@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
+import Toast from "react-native-toast-message";
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -22,6 +23,7 @@ const ConfirmTransaction = (props) => {
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
     const [pin, setPin] = useState("");
+    const [popUpVisibility, setPopUpVisibility] = useState(true);
 
     const {username, amount, type} = props.route.params;
 
@@ -51,12 +53,15 @@ const ConfirmTransaction = (props) => {
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
+                <AfterTransactionPopUp visibility={popUpVisibility} onBottomBtnClicked={() => props.navigation.navigate("Dashboard")} >
+                    <Text>Hello world</Text>
+                </AfterTransactionPopUp>
                 <Spinner
                 visible={loaderIsVisibile}
                 textContent={'processing...'}
                 textStyle={{color : Colors.white}}
                 />
-                <View>
+                <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
                     <Text style={[style.introText]}>
                         N {amount}
                     </Text>
@@ -104,6 +109,14 @@ const style = StyleSheet.create({
         maxWidth : 320,
         minWidth : 200,
         padding : 10,
+    },
+    transactionDataCont : {
+        padding : 12,
+        borderLeftWidth : 3,
+        borderLeftColor : Colors.green,
+        borderLeftStyle : "solid",
+        borderRadius : 5,
+        backgroundColor : Colors.blackF2
     },
     introText : {
         fontSize : 16,

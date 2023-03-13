@@ -37,11 +37,13 @@ export const AfterTransactionPopUp = props => {
         <BottomModal
           visible={props.visibility}
         >
-            <ModalContent style={[style.ModalContent, DefaultStyle.WSpanParent, DefaultStyle.centeredXY]} >
+            <ModalContent>
+                <View  style={[style.ModalContent, DefaultStyle.WSpanParent, DefaultStyle.centeredXY]} >
                 {props.children}
+                </View>
             </ModalContent>
             <ModalFooter style={[DefaultStyle.centeredXY]}>
-                <Btn text="Done" style={[style.bottomBtn, DefaultStyle.centeredXY]} textStyle={style.bottomBtnText} onclick={props.onBottomBtnClicked} />
+                <Btn text="Done" style={[style.bottomBtn, DefaultStyle.centeredXY]} textStyle={style.bottomBtnText} onPress={props.onBottomBtnClicked} />
             </ModalFooter>
         </BottomModal>
     )
