@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
 import Toast from "react-native-toast-message";
+import QRCode from 'react-native-qrcode-svg';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -25,9 +26,10 @@ const ConfirmTransaction = (props) => {
     const [pin, setPin] = useState("");
     const [popUpVisibility, setPopUpVisibility] = useState(true);
 
-    const {username, amount, type} = props.route.params;
+    const {username, amount, type, receiverDeviceId} = props.route.params;
 
     const [storedPin, setStoredPin] = useState("");
+    const [senderUsername, setSenderUsername] = useState("");
 
     useEffect(() => {
         (async () => {
@@ -35,6 +37,7 @@ const ConfirmTransaction = (props) => {
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
                 setStoredPin(parsedSession.transaction_pin);
+                setSenderUsername(parsedSession.user_online_data.username)
             }
         })()
     },[])
@@ -50,6 +53,14 @@ const ConfirmTransaction = (props) => {
         }
     }
 
+    const random_number = (e)  => {
+        let generated_value = [];
+        for (let i = 1; i <= e; i++) {
+            generated_value.push(Math.floor(Math.random() * 10));
+        }
+        return generated_value.join("");
+    };
+
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
@@ -61,9 +72,19 @@ const ConfirmTransaction = (props) => {
                     </View>
                     <View style={style.contForOfflineTransactionDetails}>
                     {type == "fiat" ? 
-                        <Text style={[style.introText]}>
-                            N {amount}
-                        </Text>
+                        <QRCode value={JSON.stringify({
+                            senderUsername : senderUsername,
+                            receiverDeviceId : "receiverDeviceId",
+                            amount : amount,
+                            username : username,
+                            receiptId : random_number(6)
+                        })} size={200} color={Colors.black}
+                        logo={require("../../assets/images/favicon.png")}
+                        backgroundColor={Colors.white}
+                        logoBackgroundColor={Colors.white}
+                        logoBorderRadius={100}
+                        enableLinearGradient={true}
+                        linearGradient={[Colors.defaultBlue,Colors.blue2]} />
                     : null}
                     </View>
                     <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
@@ -74,7 +95,7 @@ const ConfirmTransaction = (props) => {
                             to {username} - {type}
                         </Text>
                         <Text style={[style.introText]}>
-                            Transaction fee : N {type === "fiat" ? (2/100) * amount : 0}
+                            Transaction fee : N {type === "fiat" ? Number((2/100) * amount).toFixed(2) : 0}
                         </Text>
                     </View>
                 </AfterTransactionPopUp>
@@ -91,7 +112,7 @@ const ConfirmTransaction = (props) => {
                         to {username} - {type}
                     </Text>
                     <Text style={[style.introText]}>
-                        Transaction fee : N {type === "fiat" ? (2/100) * amount : 0}
+                        Transaction fee : N {type === "fiat" ? Number((2/100) * amount).toFixed(2) : 0}
                     </Text>
                 </View>
                 <View style={style.inputCont}>

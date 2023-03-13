@@ -4,7 +4,7 @@ import {
     useWindowDimensions,
     Text
 } from "react-native";
-import { BottomModal, ModalFooter, ModalContent } from "react-native-modals";
+import { BottomModal, ModalFooter, ModalContent} from "react-native-modals";
 import { Btn } from "./button";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
@@ -15,7 +15,6 @@ export const AfterTransactionPopUp = props => {
     const style = StyleSheet.create({
         ModalContent : {
             height : height * (3/4),
-            maxHeight : 260,
             backgroundColor : Colors.white,
         },
         bottomBtn : {
@@ -37,10 +36,8 @@ export const AfterTransactionPopUp = props => {
         <BottomModal
           visible={props.visibility}
         >
-            <ModalContent>
-                <View  style={[style.ModalContent, DefaultStyle.WSpanParent, DefaultStyle.centeredXY]} >
+            <ModalContent style={[style.ModalContent, DefaultStyle.WSpanParent, DefaultStyle.centeredXY]}>
                 {props.children}
-                </View>
             </ModalContent>
             <ModalFooter style={[DefaultStyle.centeredXY]}>
                 <Btn text="Done" style={[style.bottomBtn, DefaultStyle.centeredXY]} textStyle={style.bottomBtnText} onPress={props.onBottomBtnClicked} />
