@@ -72,6 +72,8 @@ const ConfirmTransaction = (props) => {
                     </View>
                     <View style={style.contForOfflineTransactionDetails}>
                     {type == "fiat" ? 
+                        <>
+                        <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
                         <QRCode value={JSON.stringify({
                             senderUsername : senderUsername,
                             receiverDeviceId : "receiverDeviceId",
@@ -85,6 +87,16 @@ const ConfirmTransaction = (props) => {
                         logoBorderRadius={100}
                         enableLinearGradient={true}
                         linearGradient={[Colors.defaultBlue,Colors.blue2]} />
+                        </View>
+                        <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
+                            <Text style={style.instructionTextInPage}>
+                                Ask the receiver to scan the QR-code to receive.
+                            </Text>
+                            <Text style={style.instructionTextInPage}>
+                                Screenshot this QR-receipt if there are issues.
+                            </Text>
+                        </View>
+                        </>
                     : null}
                     </View>
                     <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
@@ -165,6 +177,11 @@ const style = StyleSheet.create({
         fontSize : 24,
         fontFamily : "Roboto-Bold",
         color : Colors.black31
+    },
+    instructionTextInPage : {
+        color : Colors.black46,
+        fontSize : 12,
+        fontFamily : "Roboto-Regular"
     },
     transactionDataCont : {
         padding : 12,
