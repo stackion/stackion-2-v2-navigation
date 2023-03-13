@@ -54,7 +54,22 @@ const ConfirmTransaction = (props) => {
         <InAppHB navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
                 <AfterTransactionPopUp visibility={popUpVisibility} onBottomBtnClicked={() => props.navigation.navigate("Dashboard")} >
-                    <Text>Hello world</Text>
+                    <View style={style.popupTitleCont}>
+                        <Text style={style.popupTitle}>
+                            Transaction Successful
+                        </Text>
+                    </View>
+                    <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
+                        <Text style={[style.introText]}>
+                            N {amount}
+                        </Text>
+                        <Text style={[style.introText]}>
+                            to {username} - {type}
+                        </Text>
+                        <Text style={[style.introText]}>
+                            Transaction fee : N {type === "fiat" ? (2/100) * amount : 0}
+                        </Text>
+                    </View>
                 </AfterTransactionPopUp>
                 <Spinner
                 visible={loaderIsVisibile}
@@ -109,6 +124,15 @@ const style = StyleSheet.create({
         maxWidth : 320,
         minWidth : 200,
         padding : 10,
+    },
+    popupTitleCont : {
+        margin : 8,
+        marginBottom : 20
+    },
+    popupTitle : {
+        fontSize : 24,
+        fontFamily : "Roboto-Bold",
+        color : Colors.black31
     },
     transactionDataCont : {
         padding : 12,
