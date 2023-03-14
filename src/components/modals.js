@@ -36,7 +36,7 @@ export const AfterTransactionPopUp = props => {
         <BottomModal
           visible={props.visibility}
         >
-            <ModalContent style={[style.ModalContent, DefaultStyle.WSpanParent, DefaultStyle.centeredXY]}>
+            <ModalContent style={[style.ModalContent, DefaultStyle.WSpanParent, DefaultStyle.centeredX]}>
                 {props.children}
             </ModalContent>
             <ModalFooter style={[DefaultStyle.centeredXY]}>

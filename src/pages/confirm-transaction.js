@@ -64,14 +64,17 @@ const ConfirmTransaction = (props) => {
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
-                <AfterTransactionPopUp visibility={popUpVisibility} onBottomBtnClicked={() => props.navigation.navigate("Dashboard")} >
+                <AfterTransactionPopUp visibility={popUpVisibility} onBottomBtnClicked={() => {
+                    setPopUpVisibility(false);
+                    props.navigation.navigate("Dashboard")
+                    }} >
                     <View style={style.popupTitleCont}>
                         <Text style={style.popupTitle}>
                             Transaction Successful
                         </Text>
                     </View>
                     <View style={style.contForOfflineTransactionDetails}>
-                    {type == "fiat" ? 
+                    {type !== "fiat" ? 
                         <>
                         <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
                         <QRCode value={JSON.stringify({
@@ -84,9 +87,7 @@ const ConfirmTransaction = (props) => {
                         logo={require("../../assets/images/favicon.png")}
                         backgroundColor={Colors.white}
                         logoBackgroundColor={Colors.white}
-                        logoBorderRadius={100}
-                        enableLinearGradient={true}
-                        linearGradient={[Colors.defaultBlue,Colors.blue2]} />
+                        logoBorderRadius={100} />
                         </View>
                         <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
                             <Text style={style.instructionTextInPage}>
@@ -97,7 +98,7 @@ const ConfirmTransaction = (props) => {
                             </Text>
                         </View>
                         </>
-                    : null}
+                    : null /*display an icon illustration of success or checkbox*/}
                     </View>
                     <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
                         <Text style={[style.introText]}>
