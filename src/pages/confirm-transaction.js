@@ -4,7 +4,7 @@ import {
     View,
     TextInput,
     StyleSheet,
-    Alert
+    Alert,
 } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Spinner from 'react-native-loading-spinner-overlay';
