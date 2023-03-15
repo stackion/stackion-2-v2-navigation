@@ -85,6 +85,9 @@ const SendOffline = (props) => {
                             }
                         }} />
                 </View>
+                <Btn style={[style.contentsInBodyCont, DefaultStyle.centeredXY, style.ViewLastReceiptBtn]}
+                text="Scan to receive" textStyle={style.scanToReceiveBtnText}
+                 />{/*TODO add a function that reads the offline transactions and displays the last one. */}
             </View>
         </InAppHB>
     )
@@ -145,6 +148,12 @@ const style = StyleSheet.create({
         color : Colors.white,
         fontSize : 16,
         fontFamily : "Comfortaa-Regular"
+    },
+    ViewLastReceiptBtn : {
+        height : 40,
+        backgroundColor : Colors.defaultBlue,
+        marginTop : "14%",
+        borderRadius : 8,
     },
 })
 
