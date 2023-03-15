@@ -2,8 +2,7 @@ import {
     View,
     StyleSheet,
     useWindowDimensions,
-    Text,
-    ScrollView
+    Text
 } from "react-native";
 import { BottomModal, ModalFooter, ModalContent} from "react-native-modals";
 import { Btn } from "./button";
@@ -38,10 +37,7 @@ export const AfterTransactionPopUp = props => {
           visible={props.visibility}
         >
             <ModalContent style={[style.ModalContent, DefaultStyle.WSpanParent, DefaultStyle.centeredX]}>
-            <ScrollView>
                 {props.children}
-                <View style={{height : 200}}></View>
-            </ScrollView>
             </ModalContent>
             <ModalFooter style={[DefaultStyle.centeredXY]}>
                 <Btn text="Done" style={[style.bottomBtn, DefaultStyle.centeredXY]} textStyle={style.bottomBtnText} onPress={props.onBottomBtnClicked} />

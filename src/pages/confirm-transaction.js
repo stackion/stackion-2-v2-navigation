@@ -5,6 +5,7 @@ import {
     TextInput,
     StyleSheet,
     Alert,
+    ScrollView
 } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -73,44 +74,47 @@ const ConfirmTransaction = (props) => {
                             Transaction Successful
                         </Text>
                     </View>
-                    <View style={style.contForOfflineTransactionDetails}>
-                    {type !== "fiat" ? 
-                        <>
-                        <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
-                        <QRCode value={JSON.stringify({
-                            senderUsername : senderUsername,
-                            receiverDeviceId : "receiverDeviceId",
-                            amount : amount,
-                            username : username,
-                            receiptId : random_number(6)
-                        })} size={200} color={Colors.black}
-                        logo={require("../../assets/images/favicon.png")}
-                        backgroundColor={Colors.white}
-                        logoBackgroundColor={Colors.white}
-                        logoBorderRadius={100} />
+                    <ScrollView>
+                        <View style={style.contForOfflineTransactionDetails}>
+                        {type == "fiat" ? 
+                            <>
+                            <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
+                            <QRCode value={JSON.stringify({
+                                senderUsername : senderUsername,
+                                receiverDeviceId : "receiverDeviceId",
+                                amount : amount,
+                                username : username,
+                                receiptId : random_number(6)
+                            })} size={200} color={Colors.black}
+                            logo={require("../../assets/images/favicon.png")}
+                            backgroundColor={Colors.white}
+                            logoBackgroundColor={Colors.white}
+                            logoBorderRadius={100} />
+                            </View>
+                            <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
+                                <Text style={style.instructionTextInPage}>
+                                    Ask the receiver to scan the QR-code to receive.
+                                </Text>
+                                <Text style={style.instructionTextInPage}>
+                                    Screenshot this QR-receipt if there are issues.
+                                </Text>
+                            </View>
+                            </>
+                        : null /*display an icon illustration of success or checkbox*/}
                         </View>
-                        <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
-                            <Text style={style.instructionTextInPage}>
-                                Ask the receiver to scan the QR-code to receive.
+                        <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
+                            <Text style={[style.introText]}>
+                                N {amount}
                             </Text>
-                            <Text style={style.instructionTextInPage}>
-                                Screenshot this QR-receipt if there are issues.
+                            <Text style={[style.introText]}>
+                                to {username} - {type}
+                            </Text>
+                            <Text style={[style.introText]}>
+                                Transaction fee : N {type === "fiat" ? Number((2/100) * amount).toFixed(2) : 0}
                             </Text>
                         </View>
-                        </>
-                    : null /*display an icon illustration of success or checkbox*/}
-                    </View>
-                    <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
-                        <Text style={[style.introText]}>
-                            N {amount}
-                        </Text>
-                        <Text style={[style.introText]}>
-                            to {username} - {type}
-                        </Text>
-                        <Text style={[style.introText]}>
-                            Transaction fee : N {type === "fiat" ? Number((2/100) * amount).toFixed(2) : 0}
-                        </Text>
-                    </View>
+                    <View style={{height : 200}}></View>
+                    </ScrollView>
                 </AfterTransactionPopUp>
                 <Spinner
                 visible={loaderIsVisibile}
