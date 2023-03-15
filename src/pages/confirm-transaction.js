@@ -74,7 +74,7 @@ const ConfirmTransaction = (props) => {
                             Transaction Successful
                         </Text>
                     </View>
-                    <ScrollView>
+                    <>
                         <View style={style.contForOfflineTransactionDetails}>
                         {type == "fiat" ? 
                             <>
@@ -113,8 +113,7 @@ const ConfirmTransaction = (props) => {
                                 Transaction fee : N {type === "fiat" ? Number((2/100) * amount).toFixed(2) : 0}
                             </Text>
                         </View>
-                    <View style={{height : 200}}></View>
-                    </ScrollView>
+                    </>
                 </AfterTransactionPopUp>
                 <Spinner
                 visible={loaderIsVisibile}
@@ -175,12 +174,12 @@ const style = StyleSheet.create({
         marginBottom : 60
     },
     popupTitleCont : {
-        margin : 8,
+        margin : "5%",
         marginBottom : 40
     },
     popupTitle : {
         fontSize : 24,
-        fontFamily : "Roboto-Bold",
+        fontFamily : "Comfortaa-Bold",
         color : Colors.black31
     },
     instructionTextInPage : {

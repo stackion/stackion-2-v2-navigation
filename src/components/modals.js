@@ -14,7 +14,7 @@ export const AfterTransactionPopUp = props => {
     const {height} = useWindowDimensions();
     const style = StyleSheet.create({
         ModalContent : {
-            height : height * (3/4),
+            height : height - 40,
             backgroundColor : Colors.white,
         },
         bottomBtn : {
@@ -35,6 +35,7 @@ export const AfterTransactionPopUp = props => {
     return (
         <BottomModal
           visible={props.visibility}
+          onMove={(e) => e.preventDefault()}
         >
             <ModalContent style={[style.ModalContent, DefaultStyle.WSpanParent, DefaultStyle.centeredX]}>
                 {props.children}
