@@ -198,7 +198,7 @@ const style = StyleSheet.create({
     introText : {
         fontSize : 16,
         fontWeight : 400,
-        color : Colors.black31,
+        color : Colors.black10trans,
         fontFamily : "Roboto-Medium"
     },
     inputCont : {

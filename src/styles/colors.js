@@ -5,6 +5,7 @@ const Colors = {
     blackF2 : "#F6F6F6",
     black46 : "#848383",
     black31 : "#313131",
+    black10trans : "#101010ac",
     blue2 : "#0896E5",
     green : "#40ff89",
     transparents : {
