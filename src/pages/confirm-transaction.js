@@ -76,12 +76,12 @@ const ConfirmTransaction = (props) => {
                     </View>
                     <ScrollView>
                         <View style={style.contForOfflineTransactionDetails}>
-                        {type == "fiat" ? 
+                        {type !== "fiat" ? 
                             <>
                             <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
                             <QRCode value={JSON.stringify({
                                 senderUsername : senderUsername,
-                                receiverDeviceId : "receiverDeviceId",
+                                receiverDeviceId : receiverDeviceId,
                                 amount : amount,
                                 username : username,
                                 receiptId : random_number(6)
