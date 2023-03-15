@@ -74,7 +74,7 @@ const ConfirmTransaction = (props) => {
                             Transaction Successful
                         </Text>
                     </View>
-                    <>
+                    <ScrollView>
                         <View style={style.contForOfflineTransactionDetails}>
                         {type == "fiat" ? 
                             <>
@@ -113,7 +113,8 @@ const ConfirmTransaction = (props) => {
                                 Transaction fee : N {type === "fiat" ? Number((2/100) * amount).toFixed(2) : 0}
                             </Text>
                         </View>
-                    </>
+                        <View style={{height : 100}}></View>
+                    </ScrollView>
                 </AfterTransactionPopUp>
                 <Spinner
                 visible={loaderIsVisibile}

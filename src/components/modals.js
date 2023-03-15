@@ -4,7 +4,7 @@ import {
     useWindowDimensions,
     Text
 } from "react-native";
-import { BottomModal, ModalFooter, ModalContent} from "react-native-modals";
+import { Modal, BottomModal, ModalFooter, ModalContent} from "react-native-modals";
 import { Btn } from "./button";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
@@ -33,7 +33,7 @@ export const AfterTransactionPopUp = props => {
 //TODO add button press feature for the convert page 
           // 
     return (
-        <BottomModal
+        <Modal
           visible={props.visibility}
           onMove={(e) => e.preventDefault()}
         >
@@ -43,7 +43,7 @@ export const AfterTransactionPopUp = props => {
             <ModalFooter style={[DefaultStyle.centeredXY]}>
                 <Btn text="Done" style={[style.bottomBtn, DefaultStyle.centeredXY]} textStyle={style.bottomBtnText} onPress={props.onBottomBtnClicked} />
             </ModalFooter>
-        </BottomModal>
+        </Modal>
     )
 }
 export const QuickMenu = props => {
