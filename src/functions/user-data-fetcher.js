@@ -2,6 +2,7 @@ import axios from "axios";
 import Toast from "react-native-toast-message";
 
 import * as encryptedStorage from "./encrypted-storage";
+import {backendUrls} from "./config";
 
 export const fetchAndSaveData = async () => {
     const userSession = await encryptedStorage.getItem("user_session");
@@ -9,7 +10,7 @@ export const fetchAndSaveData = async () => {
         let parsedSession = JSON.parse(userSession);
         //TODO change the baseUrl for this request
         try {
-            const res = await axios.post("https://0ce2-102-89-23-169.eu.ngrok.io/fetch-data", {
+            const res = await axios.post(`${backendUrls.userData}/fetch-data`, {
                 user_access_token : parsedSession.user_access_token,
             })
             let response = res.data;

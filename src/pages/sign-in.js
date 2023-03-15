@@ -16,6 +16,7 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
 import {checkIfDataListIsEmpty} from "../functions/form-validator";
+import {backendUrls} from "../functions/config";
 
 
 const SignIn = (props) => {
@@ -37,7 +38,7 @@ const SignIn = (props) => {
         }
     }
     const sendForm = () => {
-        axios.post("https://4439-102-89-34-38.eu.ngrok.io/log-user", {
+        axios.post(`${backendUrls.authentication}/log-user`, {
             email : email,
             password : password
         })

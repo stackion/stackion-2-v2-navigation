@@ -16,6 +16,7 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
 import {checkIfDataListIsEmpty} from "../functions/form-validator";
+import {backendUrls} from "../functions/config";
 
 const VerifyEmail = (props) => {
     const [loaderIsVisibile, setLoaderVisibility] = useState(false);
@@ -38,7 +39,7 @@ const VerifyEmail = (props) => {
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
             let parsedSession = JSON.parse(userSession);
-            axios.post("https://4439-102-89-34-38.eu.ngrok.io/verify-email", {
+            axios.post(`${backendUrls.authentication}/verify-email`, {
                 user_access_token : parsedSession.user_access_token,
                 verification_code : code
             })
@@ -115,7 +116,7 @@ const VerifyEmail = (props) => {
                             const userSession = await encryptedStorage.getItem("user_session");
                             if(userSession) {
                                 let parsedSession = JSON.parse(userSession);
-                                axios.post("https://4439-102-89-34-38.eu.ngrok.io/resend-verification-code", {
+                                axios.post(`${backendUrls.authentication}/resend-verification-code`, {
                                     user_access_token : parsedSession.user_access_token
                                 })
                                 .then(res => {

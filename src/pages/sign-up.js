@@ -16,6 +16,7 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
 import {checkIfDataListIsEmpty} from "../functions/form-validator";
+import {backendUrls} from "../functions/config";
 
 const termsURL = "https://google.com";
 
@@ -39,7 +40,7 @@ const SignUp = (props) => {
         }
     }
     const sendForm = () => {
-        axios.post("https://4439-102-89-34-38.eu.ngrok.io/append-user", {
+        axios.post(`${backendUrls.authentication}/append-user`, {
             first_name : firstName,
             email : email,
             password : password
