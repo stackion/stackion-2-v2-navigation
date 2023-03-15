@@ -171,12 +171,11 @@ const style = StyleSheet.create({
         padding : 10,
     },
     contForOfflineTransactionDetails : {
-        marginTop : 10,
-        marginBottom : 60
+        marginBottom : "10%"
     },
     popupTitleCont : {
-        margin : "5%",
-        marginBottom : 40
+        marginTop : "1%",
+        marginBottom : "10%"
     },
     popupTitle : {
         fontSize : 24,
