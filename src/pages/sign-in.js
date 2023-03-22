@@ -75,6 +75,9 @@ const SignIn = (props) => {
                     if(responseText.verified_email == 0) {
                         props.navigation.replace("VerifyEmail");
                     }
+                    else if(responseText.verified_email !== 0 && parsedSession.transaction_pin === "0000") {
+                        props.navigation.replace("SetupPin");
+                    }
                     else {
                         props.navigation.replace("Dashboard");
                     }

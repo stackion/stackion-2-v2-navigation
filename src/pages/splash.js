@@ -50,6 +50,9 @@ const Splash = (props) => {
                     else if(parsedSession.logged_in === true && parsedSession.verified_email === 0) {
                         props.navigation.replace("VerifyEmail");
                     }
+                    else if(parsedSession.logged_in === true && parsedSession.transaction_pin === "0000") {
+                        props.navigation.replace("SetupPin");
+                    }
                     else {
                         props.navigation.replace("AppInterfaceAfterInstallation");
                     }

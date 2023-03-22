@@ -10,6 +10,6 @@ TODO App logo in users app launcher
 + reduce the size of the app logo
 + ios support
 
-TODO App user-data :username
-+ when the app is in stable version, set the user's username to just the username instead of prepending the @ symbol to it
+TODO Setup of transaction pin
++ Set up navigation to this page on splash and login page.
 */

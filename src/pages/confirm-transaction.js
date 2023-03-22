@@ -19,6 +19,7 @@ import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
 import {AfterTransactionPopUp} from "../components/modals";
+import {backendUrls} from "../functions/config";
 
 const ConfirmTransaction = (props) => {
     const [loaderIsVisibile, setLoaderVisibility] = useState(false);
@@ -60,6 +61,25 @@ const ConfirmTransaction = (props) => {
             generated_value.push(Math.floor(Math.random() * 10));
         }
         return generated_value.join("");
+    };
+
+    const process_transfer_of_fiat_to_stackion_user = async (receiver_username, amount) => {
+        const userSession = await encryptedStorage.getItem("user_session");
+        if(userSession) {
+            let parsedSession = JSON.parse(userSession);
+            let user_access_token = parsedSession.user_access_token;
+
+            try {
+                await axios.post(`${backendUrls.transactions}/transfer-fiat`,{
+                    user_access_token : user_access_token,
+                    receiver_username : username,
+                    amount : amount,
+                });
+            }
+            catch(err) {
+
+            }
+        }
     };
 
     return (

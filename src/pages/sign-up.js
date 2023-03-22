@@ -23,14 +23,17 @@ const termsURL = "https://google.com";
 const SignUp = (props) => {
     const [loaderIsVisibile, setLoaderVisibility] = useState(false);
     const [firstName, setFirstName] = useState("");
+    const [middleName, setMiddleName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const [retypedPassword, setRetypedPassword] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
     const validateForm = () => {
-        if(checkIfDataListIsEmpty([firstName, email, password]) && (retypedPassword === password) && password.length >= 6 ) {
+        if(checkIfDataListIsEmpty([firstName, middleName, lastName, phoneNumber, email, password]) && (retypedPassword === password) && password.length >= 6 && phoneNumber.length == 11) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }
@@ -42,6 +45,9 @@ const SignUp = (props) => {
     const sendForm = () => {
         axios.post(`${backendUrls.authentication}/append-user`, {
             first_name : firstName,
+            middle_name : middleName,
+            last_name : lastName,
+            phone_number : phoneNumber,
             email : email,
             password : password
         })
@@ -109,8 +115,23 @@ const SignUp = (props) => {
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Middle name" inputMode="text" onChangeText={value => {
+                            setMiddleName(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Last name" inputMode="text" onChangeText={value => {
+                            setLastName(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Email" inputMode="email" onChangeText={value => {
                             setEmail(value.trim());
+                            validateForm();
+                        }}
+                        onEndEditing={() => validateForm() } />
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Tel e.g 08012345678" inputMode="numeric" maxLength={11} onChangeText={value => {
+                            setPhoneNumber(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
