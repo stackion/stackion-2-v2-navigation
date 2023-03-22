@@ -176,7 +176,7 @@ const style = StyleSheet.create({
         maxWidth : 320,
         minWidth : 200,
         padding : 10,
-        paddingTop : 97
+        paddingTop : 37
     },
     introText : {
         fontSize : 32,

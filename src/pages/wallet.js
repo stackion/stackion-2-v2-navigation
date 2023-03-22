@@ -57,8 +57,14 @@ const Wallet = (props) => {
     return (
         <InAppHBF activePage="wallet" navigation={props.navigation} headerTitleText={"Wallet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} refreshControl={
             <RefreshControl refreshing={refreshing}
-            colors={["#ff0000","#00ff00","#0000ff"]}
-            progressBackgroundColor="#ffffff" onRefresh={() => reflectUserData()} />
+            colors={["#000000"]}
+            progressBackgroundColor="#ffffff" onRefresh={() => {
+                setRefreshing(true)
+                reflectUserData()
+                .then(() => {
+                    setRefreshing(false)
+                })
+            }} />
             } >
             <View style={[style.dashboardAssetValueDisplayRect, style.contentsInBodyCont]}>
                 <View style={[DefaultStyle.centeredX]}>

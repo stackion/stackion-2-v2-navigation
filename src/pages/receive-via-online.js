@@ -87,14 +87,12 @@ const style = StyleSheet.create({
         maxWidth : 299,
         minWidth : 180,
         padding : 11,
-        borderColor : Colors.defaultBlue,
-        borderStyle : "solid",
-        borderWidth : 1,
-        borderRadius : 10,
+        borderRadius : 2,
         fontSize : 16,
         marginTop : 20,
         color : Colors.black31,
-        fontFamily : "Roboto-Medium"
+        fontFamily : "Roboto-Medium",
+        backgroundColor : Colors.blackF2,
     },
     btnsCont : {
         width : "100%",
