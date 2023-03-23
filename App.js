@@ -48,6 +48,7 @@ import ReceiveViaOffline from "./src/pages/receive-via-offline";
 import ScanToReceive from "./src/pages/scan-to-receive";
 import ScanToSendOffline from "./src/pages/scan-to-send";
 import SendOffline from "./src/pages/send-offline";
+import ConversionMode from "./src/pages/convert";
 
 library.add(faHome, faWallet, faPlus, faUser, faExchange, faArrowRight,
   faEye, faEyeSlash, faCancel, faPaperPlane, faArrowDown, faMoneyCheck, faMoneyBill,
@@ -91,6 +92,7 @@ const App = () => {
         <Stack.Screen name="ScanToReceive" component={ScanToReceive} />
         <Stack.Screen name="ScanToSendOffline" component={ScanToSendOffline} />
         <Stack.Screen name="SendOffline" component={SendOffline} />
+        <Stack.Screen name="ConversionMode" component={ConversionMode} />
       </Stack.Navigator>
       <ModalPortal />
       <Toast />

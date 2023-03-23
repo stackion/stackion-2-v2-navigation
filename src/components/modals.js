@@ -90,7 +90,10 @@ export const QuickMenu = props => {
                         props.closeModalBtnPressed();
                         props.navigation.navigate("ReceiveViaOffline")
                     }}   />
-                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Convert" textStyle={[style.quickMenuBtnsText]} />
+                    <Btn style={[style.quickMenuBtns, DefaultStyle.centeredY]} text="Convert" textStyle={[style.quickMenuBtnsText]} onPress={() => {
+                        props.closeModalBtnPressed();
+                        props.navigation.navigate("ConversionMode");
+                    }} />
                 </View>
                 <View style={[DefaultStyle.WSpanParent, style.quickMenuFooter, DefaultStyle.centeredXY]}>
                     <Btn text="+" style={[DefaultStyle.centeredXY, {

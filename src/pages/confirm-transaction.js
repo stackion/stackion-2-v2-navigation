@@ -158,7 +158,11 @@ const ConfirmTransaction = (props) => {
             processTransferOfOfflineTokens();
         }
         else {
-            //
+            Toast.show({
+                type : "info",
+                text1 : "comming soon",
+                text2 : "Thanks for being a part of stackion."
+            })
         }
     }
 
