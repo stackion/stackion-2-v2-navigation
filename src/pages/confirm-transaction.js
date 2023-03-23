@@ -135,15 +135,31 @@ const ConfirmTransaction = (props) => {
         if(userSession) {
             let parsedSession = JSON.parse(userSession);
             let offlineBalance = parsedSession.ofline_token_balance;
+            if(amount <= offlineBalance) {
+                offlineBalance -= amount;
+                parsedSession.ofline_token_balance = offlineBalance;
+                await encryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
+                setPopUpVisibility(true);
+            }
+            else {
+                Toast.show({
+                    type : "error",
+                    text1 : "Insufficient token balance",
+                    text2 : "Could not complete transaction."
+                })
+            }
         }
     }
 
     const initiateTransaction = () => {
-        if(type == "fiat") {
+        if(type === "fiat") {
             process_transfer_of_fiat_to_stackion_user();
         }
-        else {
+        else if(type === "offline tokens") {
             processTransferOfOfflineTokens();
+        }
+        else {
+            //
         }
     }
 
@@ -161,7 +177,7 @@ const ConfirmTransaction = (props) => {
                     </View>
                     <ScrollView>
                         <View style={style.contForOfflineTransactionDetails}>
-                        {type !== "fiat" ? 
+                        {type === "offline tokens" ? 
                             <>
                             <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
                             <QRCode value={JSON.stringify({
@@ -169,7 +185,8 @@ const ConfirmTransaction = (props) => {
                                 receiverDeviceId : receiverDeviceId,
                                 amount : amount,
                                 username : username,
-                                receiptId : random_number(6)
+                                receiptId : random_number(6),
+                                date : new Date().toUTCString()
                             })} size={200} color={Colors.black}
                             logo={require("../../assets/images/favicon.png")}
                             backgroundColor={Colors.white}
@@ -182,6 +199,9 @@ const ConfirmTransaction = (props) => {
                                 </Text>
                                 <Text style={style.instructionTextInPage}>
                                     Screenshot this QR-receipt if there are issues.
+                                </Text>
+                                <Text style={style.instructionTextInPage}>
+                                    Do not exit if not scanned, instead take a screenshot.
                                 </Text>
                             </View>
                             </>
@@ -265,7 +285,7 @@ const style = StyleSheet.create({
         marginBottom : "10%"
     },
     popupTitle : {
-        fontSize : 24,
+        fontSize : 16,
         fontFamily : "Comfortaa-Bold",
         color : Colors.black31
     },
