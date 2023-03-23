@@ -26,7 +26,7 @@ const SendOffline = (props) => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
-                setOfflineBalance(Number(parsedSession.ofline_token_balance).toFixed(2));
+                setOfflineBalance(Number(parsedSession.offline_token_balance).toFixed(2));
             }
         })();
     },[])

@@ -24,7 +24,7 @@ const ConversionMode = (props) => {
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
                 setFiatBalance(parsedSession.user_online_data.fiat_balance);
-                setOfflineBalance(parsedSession.ofline_token_balance);
+                setOfflineBalance(parsedSession.offline_token_balance);
             }
         })();
     },[])
@@ -99,7 +99,7 @@ export const ConversionForm = (props) => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
-                setOfflineBalance(Number(parsedSession.ofline_token_balance).toFixed(2));
+                setOfflineBalance(Number(parsedSession.offline_token_balance).toFixed(2));
                 setFiatBalance(Number(parsedSession.user_online_data.fiat_balance).toFixed(2))
             }
         })();

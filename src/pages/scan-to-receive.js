@@ -15,7 +15,7 @@ const ScanToReceive = (props) => {
                 const userSession = await encryptedStorage.getItem("user_session");
                 if(userSession) {
                     let parsedSession = JSON.parse(userSession);
-                    let offlineBalance = parsedSession.ofline_token_balance;
+                    let offlineBalance = parsedSession.offline_token_balance;
                     if(receipt.username == parsedSession.user_online_data.username && receipt.receiverDeviceId == parsedSession.device_id) {
                         let offlineReceipts = [parsedSession.receipts_db];
                         if(offlineReceipts.some(e => e.receiptId == receipt.receiptId)) {
@@ -27,7 +27,7 @@ const ScanToReceive = (props) => {
                         }
                         else {
                             offlineBalance += receipt.amount;
-                            parsedSession.ofline_token_balance = offlineBalance;
+                            parsedSession.offline_token_balance = offlineBalance;
                             parsedSession.receipts_db.push(receipt);
                             await encryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
                             Toast.show({

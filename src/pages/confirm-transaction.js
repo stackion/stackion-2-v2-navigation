@@ -133,10 +133,10 @@ const ConfirmTransaction = (props) => {
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
             let parsedSession = JSON.parse(userSession);
-            let offlineBalance = parsedSession.ofline_token_balance;
+            let offlineBalance = parsedSession.offline_token_balance;
             if(amount <= offlineBalance) {
                 offlineBalance -= amount;
-                parsedSession.ofline_token_balance = offlineBalance;
+                parsedSession.offline_token_balance = offlineBalance;
                 await encryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
                 setPopUpVisibility(true);
             }
@@ -145,6 +145,49 @@ const ConfirmTransaction = (props) => {
                     type : "error",
                     text1 : "Insufficient token balance",
                     text2 : "Could not complete transaction."
+                })
+            }
+        }
+    }
+
+    const processConversionToFiat = async () => {
+        const userSession = await encryptedStorage.getItem("user_session");
+        if(userSession) {
+            setLoaderVisibility(true);
+            let parsedSession = JSON.parse(userSession);
+            let accessToken = parsedSession.user_access_token;
+            let offlineBalance = parsedSession.offline_token_balance;
+            offlineBalance -= amount;
+            parsedSession.offline_token_balance = offlineBalance;
+            try {
+                const transaction = await axios.post(`${backendUrls.transactions}/convert-to-fiat`, {
+                    amount : amount,
+                    user_access_token : accessToken
+                })
+                if(transaction.data.status == "success") {
+                    await encryptedStorage.setItem("user_session", JSON.parse(parsedSession))
+                    Toast.show({
+                        type : "success",
+                        text1 : "Conversion successful",
+                        text2 : "Your conversion of offline tokens to fiat was successful"
+                    })
+                    setLoaderVisibility(false);
+                }
+                else {
+                    Toast.show({
+                        type : "error",
+                        text1 : "An error occured",
+                        text2 : "If you are having issues, please contact our support."
+                    })
+                    setLoaderVisibility(false);
+                }
+            }
+            catch(err) {
+                setLoaderVisibility(false);
+                Toast.show({
+                    type : "error",
+                    text1 : "Connection error",
+                    text2 : "Please check your internet connection and try again."
                 })
             }
         }

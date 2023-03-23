@@ -33,7 +33,7 @@ const Splash = (props) => {
                         fiat_balance : 0,
                         transaction_records_db : []
                     },
-                    ofline_token_balance : 0,
+                    offline_token_balance : 0,
                     device_id : random_number(12),
                     receipts_db : []
                 })

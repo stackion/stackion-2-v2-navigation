@@ -76,7 +76,7 @@ const Dashboard = (props) => {
                     Number(
                         parsedSession.user_online_data.fiat_balance
                         +
-                        parsedSession.ofline_token_balance
+                        parsedSession.offline_token_balance
                     ).toFixed(2)
                 );
                 setBalanceLegend("Total Balance");
@@ -84,7 +84,7 @@ const Dashboard = (props) => {
             else {
                 setTotalBalance(
                     Number(
-                        parsedSession.ofline_token_balance
+                        parsedSession.offline_token_balance
                     ).toFixed(2)
                 );
                 setBalanceLegend("Offline Balance");
