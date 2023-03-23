@@ -8,7 +8,6 @@ import {
     ScrollView,
     BackHandler
 } from "react-native";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useFocusEffect } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
@@ -186,7 +185,8 @@ const ConfirmTransaction = (props) => {
                                 amount : amount,
                                 username : username,
                                 receiptId : random_number(6),
-                                date : new Date().toUTCString()
+                                date : new Date().toUTCString(),
+                                key : "stackion-offline-token"
                             })} size={200} color={Colors.black}
                             logo={require("../../assets/images/favicon.png")}
                             backgroundColor={Colors.white}
