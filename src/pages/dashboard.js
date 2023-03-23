@@ -11,6 +11,7 @@ import Toast from 'react-native-toast-message';
 import { useFocusEffect } from '@react-navigation/native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Modal, ModalButton, ModalFooter, ModalContent} from "react-native-modals";
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import * as fetcher from "../functions/user-data-fetcher";
@@ -56,6 +57,7 @@ const Dashboard = (props) => {
     const [popUpVisibility, setPopUpVisibility] = useState(false);
     const [accountName, setAccName] = useState("");
     const [accountNumber, setAccNumber] = useState("");
+    const [withdrawalVisibility, setWithdrawalVisibility] = useState(false);
 
     const reflectUserData = async () => {
         const gottenUserData = await fetcher.fetchAndSaveData();
@@ -94,7 +96,7 @@ const Dashboard = (props) => {
     },[])
 
     return (
-        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={`Hey, ${name}!`} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} refreshControl={
+        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={`Hi, ${name}!`} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} refreshControl={
             <RefreshControl refreshing={refreshing}
             colors={["#000000"]}
             progressBackgroundColor="#ffffff" onRefresh={() => {
@@ -105,6 +107,27 @@ const Dashboard = (props) => {
                 })
             }} />
             } >
+            <Modal
+                visible={withdrawalVisibility}
+                footer={
+                <ModalFooter>
+                    <ModalButton
+                    text="OK"
+                    onPress={() => setWithdrawalVisibility(false)}
+                    />
+                </ModalFooter>
+                }
+            >
+                <ModalContent>
+                    <Text style={{
+                        fontSize : 16,
+                        fontFamily : "Roboto-Regular",
+                        color : Colors.black46
+                    }}>
+                        This feature is comming soon
+                    </Text>
+                </ModalContent>
+            </Modal>
             <SlideUp visibility={popUpVisibility} onBottomBtnClicked={() => {
                 setPopUpVisibility(false);
                 }} >
@@ -259,7 +282,8 @@ const Dashboard = (props) => {
                             {
                                 padding : 12,
                             }
-                    ]} textStyle={style.quickActionBtnText} />
+                    ]} textStyle={style.quickActionBtnText}
+                    onPress={() => setWithdrawalVisibility(true)} />
                 </View>
             </View>
         </InAppHBF>

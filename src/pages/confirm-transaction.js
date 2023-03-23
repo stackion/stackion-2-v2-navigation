@@ -1,13 +1,15 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import {
     Text,
     View,
     TextInput,
     StyleSheet,
     Alert,
-    ScrollView
+    ScrollView,
+    BackHandler
 } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { useFocusEffect } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
 import Toast from "react-native-toast-message";
@@ -26,7 +28,23 @@ const ConfirmTransaction = (props) => {
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
     const [pin, setPin] = useState("");
-    const [popUpVisibility, setPopUpVisibility] = useState(true);
+    const [popUpVisibility, setPopUpVisibility] = useState(false);
+    
+    useFocusEffect(
+        useCallback(() => {
+          const onBackPress = () => {
+            if (popUpVisibility) {
+              return true;
+            } else {
+              return false;
+            }
+          };
+    
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    
+          return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, [])
+    );
 
     const {username, amount, type, receiverDeviceId} = props.route.params;
 
@@ -153,7 +171,9 @@ const ConfirmTransaction = (props) => {
                     </Text>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Transaction pin" maxLength={4} secureTextEntry={true}  onChangeText={value => {
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" 
+                    placeholder="Transaction pin" maxLength={4} secureTextEntry={true} 
+                    onChangeText={value => {
                             setPin(value.trim());
                             validateForm();
                         }}
