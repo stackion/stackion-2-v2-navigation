@@ -40,7 +40,8 @@ const ReceiveViaOffline = (props) => {
                 <View style={[style.qrCodeContainer, DefaultStyle.centeredXY, style.contentsInBodyCont]}>
                     <QRCode value={JSON.stringify({
                         receiverUsername : username,
-                        receiverDeviceId : deviceId
+                        receiverDeviceId : deviceId,
+                        key : "stackion-user-receive-via-offline"
                     })} size={210} color={Colors.black}
                     logo={require("../../assets/images/favicon.png")}
                     backgroundColor={Colors.white}

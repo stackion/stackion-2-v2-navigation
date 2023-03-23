@@ -10,12 +10,30 @@ const ScanToSendOffline = (props) => {
     return (
         <QRCodeScanner
         onRead={(e) =>{
-                Toast.show({
-                    type: 'success',
-                    text1: 'Scanned',
-                    text2: 'You are ready to send offline tokens 🙌'
-                });
-                props.navigation.navigate("SendOffline",{qrdata : JSON.parse(e)});
+                try {
+                    if(JSON.parse(e).key == "stackion-user-receive-via-offline") {
+                        Toast.show({
+                            type: 'success',
+                            text1: 'Scanned',
+                            text2: 'You are ready to send offline tokens 🙌'
+                        });
+                        props.navigation.navigate("SendOffline",{qrdata : JSON.parse(e)});
+                    }
+                    else {
+                        Toast.show({
+                            type: 'info',
+                            text1: 'Opps',
+                            text2: 'The code you scanned is not valid'
+                        }); 
+                    }
+                }
+                catch(error) {
+                    Toast.show({
+                        type: 'info',
+                        text1: 'Opps',
+                        text2: 'The code you scanned is not valid'
+                    });
+                }
         }}
         containerStyle={{backgroundColor : Colors.white}}
         permissionDialogTitle="😪"
