@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {
     Text
 } from "react-native";
@@ -70,11 +69,7 @@ const ScanToReceive = (props) => {
     return (
         <QRCodeScanner
         onRead={(e) =>{
-                Toast.show({
-                    type: 'success',
-                    text1: 'Scanned',
-                    text2: 'Your have received offline tokens 🙌'
-                });
+            storeReceivedOfOfflineTokens(e);
         }}
         containerStyle={{backgroundColor : Colors.white}}
         permissionDialogTitle="😪"
