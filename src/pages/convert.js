@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {
     Text,
     View,
+    TextInput,
     StyleSheet,
     Alert
 } from "react-native";
@@ -12,6 +13,7 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {InAppHB} from "../components/in-app-h-b-f";
 import { Btn } from "../components/button";
+import {checkIfDataListIsEmpty} from "../functions/form-validator";
 
 const ConversionMode = (props) => {
     const [fiatBalance, setFiatBalance] = useState(0);
@@ -33,43 +35,46 @@ const ConversionMode = (props) => {
                     <Btn text="Convert to fiat" textStyle={[style.conversionSelectionBtnText]}
                     style={[style.contentsInBodyCont, style.conversionSelectionBtn, DefaultStyle.centeredXY]}
                     onPress={() => {
-                        if(offlineBalance == 0) {
-                            Toast.show({
+                        //if(offlineBalance == 0) {
+                            /*Toast.show({
                                 type : "info",
                                 text1 : "Insufficient funds",
                                 text2 : "Receive offline tokens or Convert fiat to offline tokens"
-                            })
-                        }
-                        else {
+                            })*/
+                        //}
+                        //else {
                             //navigate and send type also
                             props.navigation.navigate("ConversionForm", {conversion : {
                                 type : "to fiat"
                             }})
-                        }
+                        //}
                     }} 
                     />
                     <Btn text="Convert to offline tokens" textStyle={[style.conversionSelectionBtnText]}
                     style={[style.contentsInBodyCont, style.conversionSelectionBtn, DefaultStyle.centeredXY]} 
                     onPress={() => {
-                        if(fiatBalance == 0) {
+                        /*if(fiatBalance == 0) {
                             Toast.show({
                                 type : "info",
                                 text1 : "Insufficient funds",
                                 text2 : "Make a deposit or Convert offline tokens to fiat"
                             })
                         }
-                        else {
+                        else {*/
                             //navigate and send type also
                             props.navigation.navigate("ConversionForm", {conversion : {
                                 type : "to offline tokens"
                             }})
-                        }
+                        //}
                     }}
                     />
                 </View>
                 <View style={[{marginTop : 70}, DefaultStyle.centeredX]}>
                     <Text style={style.instructionTextInPage}>
                         Choose conversion mode
+                    </Text>
+                    <Text style={style.instructionTextInPage}>
+                        Please ensure you have a stable (good) internet connection throughout the conversion process to prevent loss of funds.
                     </Text>
                 </View>
             </View>
@@ -101,7 +106,9 @@ export const ConversionForm = (props) => {
     },[])
 
     const validateForm = () => {
-        if(checkIfDataListIsEmpty([amount]) && amount <= offlineBalance && offlineBalance != 0) {
+        if(checkIfDataListIsEmpty([amount]) 
+        && ((type == "to fiat" && amount <= offlineBalance ? true : false)
+        || (type != "to fiat" && amount <= fiatBalance ? true : false))) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }
@@ -119,23 +126,23 @@ export const ConversionForm = (props) => {
     }
 
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Send offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Conversion"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
             <View style={style.formView}>
                 <View>
                     <Text style={[style.introText]}>
-                        Converting {type}
+                        {type == "to fiat" ? "Offline balance" : "Fiat balance"}
                     </Text>
                     <Text style={[style.introText]}>
                         N {type == "to fiat" ? offlineBalance : fiatBalance}
                     </Text>
-                    <View style={{marginTop : 48}}>
-                        <Text style={[{textAlign : "center",
-                            fontWeight : 400,
-                            color : Colors.black31,
-                            fontFamily : "Roboto-Medium",}]}>
-                            Sending to {receiverUsername} - offline
-                        </Text>
-                    </View>
+                </View>
+                <View style={{marginTop : 48}}>
+                    <Text style={[{textAlign : "center",
+                        fontWeight : 400,
+                        color : Colors.black31,
+                        fontFamily : "Roboto-Medium",}]}>
+                        converting {type}
+                    </Text>
                 </View>
                 <View style={style.inputCont}>
                     <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
@@ -150,11 +157,8 @@ export const ConversionForm = (props) => {
                             if(formSubmitable) {
                                 navigateToConfirmationPage();
                             }
-                        }} />
+                    }} />
                 </View>
-                <Btn style={[style.contentsInBodyCont, DefaultStyle.centeredXY, style.ViewLastReceiptBtn]}
-                text="Scan to receive" textStyle={style.scanToReceiveBtnText}
-                 />{/*TODO add a function that reads the offline transactions and displays the last one. */}
             </View>
         </InAppHB>
     )
@@ -178,7 +182,8 @@ const style = StyleSheet.create({
     instructionTextInPage : {
         color : Colors.black46,
         fontSize : 12,
-        fontFamily : "Roboto-Regular"
+        fontFamily : "Roboto-Regular",
+        marginBottom : 10
     },
     conversionSelectionBtn : {
         height : 40,
