@@ -130,12 +130,20 @@ const ConfirmTransaction = (props) => {
         }
     };
 
+    const processTransferOfOfflineTokens = async () => {
+        const userSession = await encryptedStorage.getItem("user_session");
+        if(userSession) {
+            let parsedSession = JSON.parse(userSession);
+            let offlineBalance = parsedSession.ofline_token_balance;
+        }
+    }
+
     const initiateTransaction = () => {
         if(type == "fiat") {
             process_transfer_of_fiat_to_stackion_user();
         }
         else {
-            //process offline transfer
+            processTransferOfOfflineTokens();
         }
     }
 
