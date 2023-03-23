@@ -41,13 +41,12 @@ const ReceiveViaOffline = (props) => {
                     <QRCode value={JSON.stringify({
                         receiverUsername : username,
                         receiverDeviceId : deviceId
-                    })} size={250} color={Colors.blue2}
+                    })} size={210} color={Colors.black}
                     logo={require("../../assets/images/favicon.png")}
                     backgroundColor={Colors.white}
                     logoBackgroundColor={Colors.white}
                     logoBorderRadius={100}
-                    enableLinearGradient={true}
-                    linearGradient={[Colors.defaultBlue,Colors.blue2]} />
+                    />
                 </View>
                 <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
                     <Text style={style.instructionTextInPage}>
