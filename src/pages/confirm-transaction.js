@@ -81,24 +81,63 @@ const ConfirmTransaction = (props) => {
         return generated_value.join("");
     };
 
-    const process_transfer_of_fiat_to_stackion_user = async (receiver_username, amount) => {
+    const process_transfer_of_fiat_to_stackion_user = async () => {
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
             let parsedSession = JSON.parse(userSession);
             let user_access_token = parsedSession.user_access_token;
+            setLoaderVisibility(true);
 
-            try {
-                await axios.post(`${backendUrls.transactions}/transfer-fiat`,{
-                    user_access_token : user_access_token,
-                    receiver_username : username,
-                    amount : amount,
-                });
-            }
-            catch(err) {
-
-            }
+            axios.post(`${backendUrls.transactions}/transfer-fiat`,{
+                user_access_token : user_access_token,
+                receiver_username : username,
+                amount : amount,
+            })
+            .then((transaction) => {
+                setLoaderVisibility(false)
+                const data = transaction.data;
+                if(data.status == "success") {
+                    setPopUpVisibility(true);
+                    Toast.show({
+                        type : "success",
+                        text1 : "Transaction successful",
+                        text2 : "Your transaction has been completed, have a great day🙌"
+                    })
+                }
+                else if(data.status == "insufficient-balance") {
+                    Toast.show({
+                        type : "error",
+                        text1 : "Insufficient balance",
+                        text2 : "Could not complete transaction."
+                    })
+                }
+                else {
+                    Toast.show({
+                        type : "error",
+                        text1 : "Username Not found",
+                        text2 : "Please check the username and try again."
+                    })
+                }
+            })
+            .catch((err) => {
+                setLoaderVisibility(false)
+                Toast.show({
+                    type : "error",
+                    text1 : "Connection error",
+                    text2 : "Please check your internet connection."
+                })
+            });
         }
     };
+
+    const initiateTransaction = () => {
+        if(type == "fiat") {
+            process_transfer_of_fiat_to_stackion_user();
+        }
+        else {
+            //process offline transfer
+        }
+    }
 
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
@@ -183,15 +222,15 @@ const ConfirmTransaction = (props) => {
                     <Btn text=""/>
                     <Btn text="Send" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
                             if(formSubmitable) {
-                                //sendForm();
+                                initiateTransaction();
                             }
                         }}/>
                 </View>
-                    <View style={{marginTop : 35}}>
-                        <Text style={style.instructionTextInPage}>
-                            Once transaction is made, it can’t be reversed unless you are in contact with the user.
-                        </Text>
-                    </View>
+                <View style={{marginTop : 35}}>
+                    <Text style={style.instructionTextInPage}>
+                        Once transaction is made, it can’t be reversed unless you are in contact with the user.
+                    </Text>
+                </View>
             </View>
         </InAppHB>
     )
