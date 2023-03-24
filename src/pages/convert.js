@@ -35,37 +35,35 @@ const ConversionMode = (props) => {
                     <Btn text="Convert to fiat" textStyle={[style.conversionSelectionBtnText]}
                     style={[style.contentsInBodyCont, style.conversionSelectionBtn, DefaultStyle.centeredXY]}
                     onPress={() => {
-                        //if(offlineBalance == 0) {
-                            /*Toast.show({
+                        if(offlineBalance == 0) {
+                            Toast.show({
                                 type : "info",
                                 text1 : "Insufficient funds",
                                 text2 : "Receive offline tokens or Convert fiat to offline tokens"
-                            })*/
-                        //}
-                        //else {
-                            //navigate and send type also
+                            })
+                        }
+                        else {
                             props.navigation.navigate("ConversionForm", {conversion : {
                                 type : "to fiat"
                             }})
-                        //}
+                        }
                     }} 
                     />
                     <Btn text="Convert to offline tokens" textStyle={[style.conversionSelectionBtnText]}
                     style={[style.contentsInBodyCont, style.conversionSelectionBtn, DefaultStyle.centeredXY]} 
                     onPress={() => {
-                        /*if(fiatBalance == 0) {
+                        if(fiatBalance == 0) {
                             Toast.show({
                                 type : "info",
                                 text1 : "Insufficient funds",
                                 text2 : "Make a deposit or Convert offline tokens to fiat"
                             })
                         }
-                        else {*/
-                            //navigate and send type also
+                        else {
                             props.navigation.navigate("ConversionForm", {conversion : {
                                 type : "to offline tokens"
                             }})
-                        //}
+                        }
                     }}
                     />
                 </View>

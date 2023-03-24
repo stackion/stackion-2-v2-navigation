@@ -150,17 +150,17 @@ const ConfirmTransaction = (props) => {
         }
     }
 
-    const processConversionToFiat = async () => {
+    const processConversion = async (path) => {
         const userSession = await encryptedStorage.getItem("user_session");
         if(userSession) {
             setLoaderVisibility(true);
             let parsedSession = JSON.parse(userSession);
             let accessToken = parsedSession.user_access_token;
             let offlineBalance = parsedSession.offline_token_balance;
-            offlineBalance -= amount;
+            path == "/convert-to-fiat" ? offlineBalance -= amount : offlineBalance += amount;
             parsedSession.offline_token_balance = offlineBalance;
             try {
-                const transaction = await axios.post(`${backendUrls.transactions}/convert-to-fiat`, {
+                const transaction = await axios.post(`${backendUrls.transactions}${path}`, {
                     amount : amount,
                     user_access_token : accessToken
                 })
@@ -169,8 +169,17 @@ const ConfirmTransaction = (props) => {
                     Toast.show({
                         type : "success",
                         text1 : "Conversion successful",
-                        text2 : "Your conversion of offline tokens to fiat was successful"
+                        text2 : "Conversion of your asset was successful"
                     })
+                    setLoaderVisibility(false);
+                    props.navigation.navigate("Dashboard");
+                }
+                else if(transaction.data.status == "insufficient-balance") {
+                    Toast.show({
+                        type : "info",
+                        text1 : "Insufficient balance",
+                        text2 : "Your balance is not enough for this transaction."
+                    });
                     setLoaderVisibility(false);
                 }
                 else {
@@ -178,7 +187,7 @@ const ConfirmTransaction = (props) => {
                         type : "error",
                         text1 : "An error occured",
                         text2 : "If you are having issues, please contact our support."
-                    })
+                    });
                     setLoaderVisibility(false);
                 }
             }
@@ -199,6 +208,12 @@ const ConfirmTransaction = (props) => {
         }
         else if(type === "offline tokens") {
             processTransferOfOfflineTokens();
+        }
+        else if(type === "to offline tokens") {
+            processConversion("/convert-to-offline-token");
+        }
+        else if(type === "to fiat") {
+            processConversion("/convert-to-fiat");
         }
         else {
             Toast.show({
