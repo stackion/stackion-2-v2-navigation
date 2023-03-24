@@ -108,7 +108,7 @@ const Wallet = (props) => {
             <View style={[
                 style.contentsInBodyCont
             ]}>
-                <Btn text="View Transaction History" textStyle={style.goToHistoryBtnText} style={[style.goToHistoryBtn, 
+                <Btn text="Transaction History" textStyle={style.goToHistoryBtnText} style={[style.goToHistoryBtn, 
                 DefaultStyle.WSpanParent]}  onPress={() => props.navigation.navigate("TransactionHistory")} />
             </View>
         </InAppHBF>
@@ -172,11 +172,11 @@ const style = StyleSheet.create({
         fontFamily : "Roboto-Medium",
     },
     goToHistoryBtn : {
-        height : 50,
+        height : 45,
         backgroundColor : Colors.defaultBlue,
         marginTop : 50,
         justifyContent : "center",
-        borderRadius : 10
+        borderRadius : 5
     },
     goToHistoryBtnText : {
         textAlign : "center",
