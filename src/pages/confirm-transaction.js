@@ -246,7 +246,7 @@ const ConfirmTransaction = (props) => {
                                 receiverDeviceId : receiverDeviceId,
                                 amount : amount,
                                 username : username,
-                                receiptId : random_number(6),
+                                receipt_id : random_number(6),
                                 date : new Date().toUTCString(),
                                 key : "stackion-offline-token"
                             })} size={200} color={Colors.black}

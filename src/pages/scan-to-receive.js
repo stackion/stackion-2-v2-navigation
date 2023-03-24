@@ -17,8 +17,8 @@ const ScanToReceive = (props) => {
                     let parsedSession = JSON.parse(userSession);
                     let offlineBalance = parsedSession.offline_token_balance;
                     if(receipt.username == parsedSession.user_online_data.username && receipt.receiverDeviceId == parsedSession.device_id) {
-                        let offlineReceipts = [parsedSession.receipts_db];
-                        if(offlineReceipts.some(e => e.receiptId == receipt.receiptId)) {
+                        let offlineReceipts = parsedSession.receipts_db;
+                        if(offlineReceipts.some(e => e.receipt_id == receipt.receipt_id)) {
                             Toast.show({
                                 type: 'error',
                                 text1: 'Failed attempt, can not be reused',

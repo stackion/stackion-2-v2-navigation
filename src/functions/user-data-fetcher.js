@@ -16,6 +16,13 @@ export const fetchAndSaveData = async () => {
             let response = res.data;
             if(response.status === "success") {
                 parsedSession.user_online_data = response.data;
+                const syncedReceipts = await axios.post(`${backendUrls.userData}/sync-offline-receipts`, {
+                    user_access_token : parsedSession.user_access_token,
+                    receipts_db : parsedSession.receipts_db
+                });
+                if(syncedReceipts.data.status == "success") {
+                    parsedSession.receipts_db = syncedReceipts.data.receipts_db;
+                }
                 await encryptedStorage.setItem("user_session",JSON.stringify(parsedSession));
                 Toast.show({
                     type : "success",
