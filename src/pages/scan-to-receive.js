@@ -64,6 +64,11 @@ const ScanToReceive = (props) => {
         }
         catch(err) {
             //The error likely to be generated is related to trying to parse a non STRINGIFIED JSON data or a data that is not in json format.
+            Toast.show({
+                type: 'error',
+                text1: 'Processing error',
+                text2: 'An error occured while processing the QR-code you scanned'
+            });
         }
     }
     return (
