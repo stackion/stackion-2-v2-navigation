@@ -2,10 +2,8 @@ import {useState, useEffect} from "react";
 import {
     Text,
     View,
-    StyleSheet,
-    Alert
+    StyleSheet
 } from "react-native";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -26,76 +24,23 @@ const TransactionHistory = (props) => {
                 let parsedSession = JSON.parse(userSession);
                 let onlineTransactionHistory = parsedSession.user_online_data.transaction_records_db;
                 if(onlineTransactionHistory.length > 0) {
-                    //the value of the history data should be set in accordance
-                    //set the history content
-                    /*
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Received
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        N 2,000 from @johndoe. -Offline token(s)
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Deposited
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        N 2,000 via crypto
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Withdrew
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        N 2,000 to external account.
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Sent
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        N 2,000 to @johndoe. -Offline token(s)
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Sent
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        N 2,000 to @johndoe. -Fiat
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                <View style={[style.contentsInBodyCont, style.historyContentCont]}>
-                    <Text style={[style.historyTitle]}>
-                        Received
-                    </Text>
-                    <Text style={[style.historyText]}>
-                        N 2,000 from @johndoe. -Fiat
-                    </Text>
-                    <Text style={[style.historyDate]}>
-                        {new Date().toUTCString()}
-                    </Text>
-                </View>
-                */
+                    setHistoryContent(
+                        <>
+                        {onlineTransactionHistory.map(transaction => (
+                            <View style={[style.contentsInBodyCont, style.historyContentCont]}>
+                                <Text style={[style.historyTitle]}>
+                                    {transaction.type}
+                                </Text>
+                                <Text style={[style.historyText]}>
+                                    {transaction.message}
+                                </Text>
+                                <Text style={[style.historyDate]}>
+                                    {transaction.date}
+                                </Text>
+                            </View>
+                          ))}
+                        </>
+                    );
                 } else {
                     setHistoryContent(
                         <Text style={{fontSize : 12, color : Colors.black46, fontFamily : "Roboto-Regular"}}>
