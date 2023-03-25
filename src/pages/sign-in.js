@@ -129,7 +129,7 @@ const SignIn = (props) => {
                         onEndEditing={() => validateForm() } />
                     </View>
                     <View>
-                        <Btn onPress={() => Alert.alert("Change password ?")} style={{marginTop : 20}} text="forgot password ?" textStyle={{color : Colors.blue2, fontFamily : "Roboto-Regular", fontSize : 12}}/>
+                        <Anchor href="https://stackion.net/account%20recovery/" style={{marginTop : 20}} text="forgot password ?" textStyle={{color : Colors.blue2, fontFamily : "Roboto-Regular", fontSize : 12}}/>
                     </View>
                     <View style={[style.btnsCont]}>
                         <Btn text="Sign up" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignUp")}/>

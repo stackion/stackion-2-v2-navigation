@@ -18,7 +18,7 @@ import {Btn, Anchor} from "../components/button";
 import {checkIfDataListIsEmpty} from "../functions/form-validator";
 import {backendUrls} from "../functions/config";
 
-const termsURL = "https://google.com";
+const termsURL = "https://stackion.net/terms-and-policies";
 
 const SignUp = (props) => {
     const [loaderIsVisibile, setLoaderVisibility] = useState(false);

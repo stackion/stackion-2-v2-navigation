@@ -96,7 +96,7 @@ const Dashboard = (props) => {
     },[])
 
     return (
-        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={`Hi, ${name}!`} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} refreshControl={
+        <InAppHBF activePage="home" navigation={props.navigation}  headerTitleText={`Hi, ${name}!`} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} refreshControl={
             <RefreshControl refreshing={refreshing}
             colors={["#000000"]}
             progressBackgroundColor="#ffffff" onRefresh={() => {

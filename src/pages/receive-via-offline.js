@@ -27,7 +27,7 @@ const ReceiveViaOffline = (props) => {
         })();
     },[])
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
             <View style={style.formView}>
                 <Text style={{
                     fontSize : 16,

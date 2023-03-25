@@ -29,7 +29,7 @@ const ReceiveViaOnline = (props) => {
         })();
     },[])
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Receive"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Receive"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
             <View style={style.View}>
                 <Text style={{
                     fontSize : 32,

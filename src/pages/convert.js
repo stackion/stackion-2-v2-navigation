@@ -29,7 +29,7 @@ const ConversionMode = (props) => {
         })();
     },[])
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Convert Assets"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Convert Assets"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
             <View style={style.formView}>
                 <View>
                     <Btn text="Convert to fiat" textStyle={[style.conversionSelectionBtnText]}
@@ -124,7 +124,7 @@ export const ConversionForm = (props) => {
     }
 
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Conversion"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Conversion"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
             <View style={style.formView}>
                 <View>
                     <Text style={[style.introText]}>

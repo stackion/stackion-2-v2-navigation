@@ -55,7 +55,7 @@ const Wallet = (props) => {
         reflectUserData();
     },[])
     return (
-        <InAppHBF activePage="wallet" navigation={props.navigation} headerTitleText={"Wallet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} refreshControl={
+        <InAppHBF activePage="wallet" navigation={props.navigation} headerTitleText={"Wallet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} refreshControl={
             <RefreshControl refreshing={refreshing}
             colors={["#000000"]}
             progressBackgroundColor="#ffffff" onRefresh={() => {

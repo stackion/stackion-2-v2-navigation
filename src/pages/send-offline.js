@@ -52,7 +52,7 @@ const SendOffline = (props) => {
     }
 
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Send offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Open menu ?")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Send offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
             <View style={style.formView}>
                 <View>
                     <Text style={[style.introText]}>

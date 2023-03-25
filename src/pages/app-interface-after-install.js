@@ -9,7 +9,7 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
 
-const termsURL = "https://google.com";
+const termsURL = "https://stackion.net/terms-and-policies";
 
 const AppInterfaceAfterInstallation = (props) => {
     return (
@@ -21,7 +21,7 @@ const AppInterfaceAfterInstallation = (props) => {
         }>
             <Image style={[style.logo]} source={require("../../assets/images/favicon.png")}/>
             <Text style={[style.STACKION, {
-                fontFamily : "Comfortaa-Bold", color : Colors.black31}]}>
+                fontFamily : "Roboto-Bold", color : Colors.black31}]}>
                 STACKION
             </Text>
             <Text style={[DefaultStyle.black46, {
