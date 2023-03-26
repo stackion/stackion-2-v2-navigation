@@ -19,7 +19,6 @@ const SendViaInternet = (props) => {
     const [fiatBalance, setFiatBalance] = useState("...");
     const [username, setUsername] = useState("");
     const [amount, setAmount] = useState("");
-    const [amount, setAmount] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
