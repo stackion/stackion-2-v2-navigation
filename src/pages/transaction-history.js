@@ -27,7 +27,7 @@ const TransactionHistory = (props) => {
                     setHistoryContent(
                         <>
                         {onlineTransactionHistory.map(transaction => (
-                            <View style={[style.contentsInBodyCont, style.historyContentCont]}>
+                            <View key={transaction.date} style={[style.contentsInBodyCont, style.historyContentCont]}>
                                 <Text style={[style.historyTitle]}>
                                     {transaction.type}
                                 </Text>
@@ -35,7 +35,7 @@ const TransactionHistory = (props) => {
                                     {transaction.message}
                                 </Text>
                                 <Text style={[style.historyDate]}>
-                                    {transaction.date}
+                                    {transaction.date.replace(/GMT/g,"")}
                                 </Text>
                             </View>
                           ))}
