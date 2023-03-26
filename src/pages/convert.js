@@ -119,7 +119,7 @@ export const ConversionForm = (props) => {
     },[])
 
     const handleInput = (text) => {
-        setFormatedAmount(new Intl.NumberFormat("en-US").format(text));
+        setFormatedAmount(new Intl.NumberFormat('en-NG', { style: 'currency',currency: 'NGN'}).format(text).replace(/₦|NGN|\s/g,""));
         setAmount(Number(text.replace(/[^0-9.]/g, '')));
     }
 
