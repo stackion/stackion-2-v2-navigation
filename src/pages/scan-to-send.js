@@ -12,7 +12,6 @@ const ScanToSendOffline = (props) => {
         onRead={(event) =>{
                 let e = event.data
                 try {
-                    console.log(JSON.parse(e))
                     if(JSON.parse(e).key == "stackion-user-receive-via-offline") {
                         Toast.show({
                             type: 'success',

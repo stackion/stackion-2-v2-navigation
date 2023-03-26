@@ -6,25 +6,26 @@ import {
     StyleSheet,
     Alert
 } from "react-native";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import Toast from "react-native-toast-message";
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
-import {checkIfDataListIsEmpty} from "../functions/form-validator";
+import {checkIfDataListIsEmpty, convertFormatedNumToRealNum} from "../functions/form-validator";
 import {InAppHB} from "../components/in-app-h-b-f";
 
 const SendViaInternet = (props) => {
     const [fiatBalance, setFiatBalance] = useState("...");
     const [username, setUsername] = useState("");
     const [amount, setAmount] = useState("");
+    const [senderUsername, setSenderUsername] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
     const validateForm = () => {
-        let Amount = Number(amount);
-        if(checkIfDataListIsEmpty([username]) && Amount != 0  && Amount <= fiatBalance) {
+        if(checkIfDataListIsEmpty([username, amount]) && amount != 0  
+        && convertFormatedNumToRealNum(amount) < convertFormatedNumToRealNum(fiatBalance)) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }
@@ -46,16 +47,26 @@ const SendViaInternet = (props) => {
                         parsedSession.user_online_data.fiat_balance
                     )
                 );
+                setSenderUsername(parsedSession.user_online_data.username)
             }
         })();
     },[])
 
     const navigateToConfirmationPage = () => {
-        props.navigation.navigate("ConfirmTransaction", {
-            username : username,
-            amount : Number(amount),
-            type : "fiat"
-        })
+        if(username == senderUsername) {
+            Toast.show({
+                type : "info",
+                text1 : "Opps",
+                text2 : "You cannot send to yourself"
+            })
+        }
+        else {
+            props.navigation.navigate("ConfirmTransaction", {
+                username : username,
+                amount : Number(amount),
+                type : "fiat"
+            })
+        }
     }
 
     return (

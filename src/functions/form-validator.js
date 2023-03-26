@@ -6,3 +6,5 @@ export const checkIfDataListIsEmpty = data => {
         return false;
     }
 }
+
+export const convertFormatedNumToRealNum = (num) => Number(num.replace(/NGN|\s/g,""))

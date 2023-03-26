@@ -13,7 +13,7 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {InAppHB} from "../components/in-app-h-b-f";
 import { Btn } from "../components/button";
-import {checkIfDataListIsEmpty} from "../functions/form-validator";
+import {checkIfDataListIsEmpty, convertFormatedNumToRealNum} from "../functions/form-validator";
 
 const ConversionMode = (props) => {
     const [fiatBalance, setFiatBalance] = useState(0);
@@ -118,10 +118,13 @@ export const ConversionForm = (props) => {
     },[])
 
     const validateForm = () => {
-        let Amount = Number(amount);
-        if(Amount != 0  
-        && ((type == "to fiat" && Amount <= offlineBalance ? true : false)
-        || (type != "to fiat" && Amount <= fiatBalance ? true : false))) {
+        if(checkIfDataListIsEmpty([amount]) && amount != 0 &&
+            ((type == "to fiat" && 
+            convertFormatedNumToRealNum(amount) <= convertFormatedNumToRealNum(offlineBalance))
+            ||
+            (type != "to fiat" &&
+            convertFormatedNumToRealNum(amount) <= convertFormatedNumToRealNum(fiatBalance))
+            )) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }
@@ -159,7 +162,7 @@ export const ConversionForm = (props) => {
                 </View>
                 <View style={style.inputCont}>
                     <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
-                            setAmount(value.replace(/[^0-9.]/g,"").trim());
+                            setAmount(value.trim().replace(/[^0-9.]/g,""));
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
