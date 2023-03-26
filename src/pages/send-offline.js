@@ -14,9 +14,8 @@ import {checkIfDataListIsEmpty} from "../functions/form-validator";
 import encryptedStorage from "../functions/encrypted-storage";
 
 const SendOffline = (props) => {
-    const [offlineBalance, setOfflineBalance] = useState("...");
-    const [amount, setAmount] = useState(0);
-    const [formatedAmount, setFormatedAmount] = useState("");
+    const [offlineBalance, setOfflineBalance] = useState(0);
+    const [amount, setAmount] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
@@ -38,11 +37,6 @@ const SendOffline = (props) => {
             }
         })();
     },[])
-
-    const handleInput = (text) => {
-        setFormatedAmount(new Intl.NumberFormat('en-NG', { style: 'currency',currency: 'NGN'}).format(text).replace(/₦|NGN|\s/g,""));
-        setAmount(Number(text.replace(/[^0-9.]/g, '')));
-    }
 
     const validateForm = () => {
         if(checkIfDataListIsEmpty([amount]) && amount <= offlineBalance && offlineBalance != 0) {
@@ -84,8 +78,8 @@ const SendOffline = (props) => {
                     </View>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} keyboardType="numeric" placeholder="Amount" value={formatedAmount} onChangeText={value => {
-                            handleInput(value.trim());
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
+                            setAmount(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />

@@ -18,15 +18,10 @@ import {InAppHB} from "../components/in-app-h-b-f";
 const SendViaInternet = (props) => {
     const [fiatBalance, setFiatBalance] = useState("...");
     const [username, setUsername] = useState("");
-    const [amount, setAmount] = useState(0);
-    const [formatedAmount, setFormatedAmount] = useState("");
+    const [amount, setAmount] = useState("");
+    const [amount, setAmount] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
-
-    const handleInput = (text) => {
-        setFormatedAmount(new Intl.NumberFormat('en-NG', { style: 'currency',currency: 'NGN'}).format(text).replace(/₦|NGN|\s/g,""));
-        setAmount(Number(text.replace(/[^0-9.]/g, '')));
-    }
 
     const validateForm = () => {
         if(checkIfDataListIsEmpty([username, amount]) && amount < fiatBalance && fiatBalance != 0) {
@@ -80,8 +75,8 @@ const SendViaInternet = (props) => {
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} keyboardType="numeric" placeholder="Amount" value={formatedAmount} onChangeText={value => {
-                            handleInput(value.trim());
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
+                            setAmount(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
