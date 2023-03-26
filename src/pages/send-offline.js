@@ -39,7 +39,7 @@ const SendOffline = (props) => {
     },[])
 
     const validateForm = () => {
-        if(checkIfDataListIsEmpty([amount]) && amount <= offlineBalance && offlineBalance != 0) {
+        if(checkIfDataListIsEmpty([amount]) && amount != 0  && amount <= offlineBalance && offlineBalance != 0) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }
