@@ -1,3 +1,4 @@
+import {useRef} from "react";
 import {
     Text,
 } from "react-native";
@@ -7,6 +8,7 @@ import Toast from "react-native-toast-message";
 import Colors from "../styles/colors";
 
 const ScanToSendOffline = (props) => {
+    const scannerRef = null;
     return (
         <QRCodeScanner
         onRead={(event) =>{
@@ -26,6 +28,7 @@ const ScanToSendOffline = (props) => {
                             text1: 'Opps',
                             text2: 'The code you scanned is not valid'
                         }); 
+                        scannerRef.current.reactivate()
                     }
                 }
                 catch(error) {
@@ -34,6 +37,7 @@ const ScanToSendOffline = (props) => {
                         text1: 'Opps',
                         text2: 'The code you scanned is not valid'
                     });
+                    scannerRef.current.reactivate()
                 }
         }}
         containerStyle={{backgroundColor : Colors.white}}
@@ -53,6 +57,7 @@ const ScanToSendOffline = (props) => {
         topViewStyle={{
             padding : 0
         }}
+        ref={scannerRef}
         />
     )
 }

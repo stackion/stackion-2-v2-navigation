@@ -1,3 +1,4 @@
+import {useRef} from "react";
 import {
     Text
 } from "react-native";
@@ -8,6 +9,7 @@ import Colors from "../styles/colors";
 import * as encryptedStorage from "../functions/encrypted-storage";
 
 const ScanToReceive = (props) => {
+    const scannerRef = useRef(null);
     const storeReceivedOfOfflineTokens = async (receipt) => {
         try {
             receipt = JSON.parse(receipt);
@@ -24,6 +26,7 @@ const ScanToReceive = (props) => {
                                 text1: 'Failed attempt, can not be reused',
                                 text2: 'This receipt has been previously added to your offline balance'
                             });
+                            scannerRef.current.reactivate()
                         }
                         else {
                             offlineBalance += receipt.amount;
@@ -44,6 +47,7 @@ const ScanToReceive = (props) => {
                             text1: 'Opps! Wrong device',
                             text2: 'This receipt is tied to the device the sender scanned at first'
                         });
+                        scannerRef.current.reactivate()
                     }
                     else {
                         Toast.show({
@@ -51,6 +55,7 @@ const ScanToReceive = (props) => {
                             text1: 'Failed attempt',
                             text2: 'This receipt is not meant for you'
                         });
+                        scannerRef.current.reactivate()
                     }
                 }
             }
@@ -60,6 +65,7 @@ const ScanToReceive = (props) => {
                     text1: 'Opps!',
                     text2: 'The code you scaned is not a valid QR-receipt'
                 });
+                scannerRef.current.reactivate()
             }
         }
         catch(err) {
@@ -69,6 +75,7 @@ const ScanToReceive = (props) => {
                 text1: 'Processing error',
                 text2: 'An error occured while processing the QR-code you scanned'
             });
+            scannerRef.current.reactivate()
         }
     }
     return (
@@ -93,6 +100,7 @@ const ScanToReceive = (props) => {
         topViewStyle={{
             padding : 0
         }}
+        ref={scannerRef}
         />
     )
 }
