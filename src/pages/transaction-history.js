@@ -125,7 +125,7 @@ const style = StyleSheet.create({
         height : 80,
         padding : 5,
         backgroundColor : Colors.white,
-        borderColor : Colors.black46,
+        borderColor : `${Colors.black46}e2`,
         borderWidth : 0.6,
         borderStyle : "solid",
     },

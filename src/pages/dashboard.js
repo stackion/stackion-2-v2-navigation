@@ -85,12 +85,14 @@ const Dashboard = (props) => {
                 setBalanceLegend("Total Balance");
             }
             else {
-                new Intl.NumberFormat('en-UK', {
-                    style: 'currency',
-                    currency: 'NGN'
-                }).format(
-                    parsedSession.offline_token_balance
-                )
+                setTotalBalance(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
+                        parsedSession.offline_token_balance
+                    )
+                );
                 setBalanceLegend("Offline Balance");
             }
         }

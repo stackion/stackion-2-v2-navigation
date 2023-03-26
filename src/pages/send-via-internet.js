@@ -75,7 +75,7 @@ const SendViaInternet = (props) => {
                         }}
                         onEndEditing={() => validateForm() } />
                     <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
-                            setAmount(value.trim());
+                            setAmount(value.replace(/[^0-9.]/g,"").trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
