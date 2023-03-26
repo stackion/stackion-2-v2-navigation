@@ -74,7 +74,7 @@ const ScanToReceive = (props) => {
     return (
         <QRCodeScanner
         onRead={(e) =>{
-            storeReceivedOfOfflineTokens(e);
+            storeReceivedOfOfflineTokens(e.data);
         }}
         containerStyle={{backgroundColor : Colors.white}}
         permissionDialogTitle="😪"

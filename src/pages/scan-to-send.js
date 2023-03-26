@@ -9,8 +9,10 @@ import Colors from "../styles/colors";
 const ScanToSendOffline = (props) => {
     return (
         <QRCodeScanner
-        onRead={(e) =>{
+        onRead={(event) =>{
+                let e = event.data
                 try {
+                    console.log(JSON.parse(e))
                     if(JSON.parse(e).key == "stackion-user-receive-via-offline") {
                         Toast.show({
                             type: 'success',

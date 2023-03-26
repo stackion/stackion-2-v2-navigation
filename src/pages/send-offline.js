@@ -6,12 +6,13 @@ import {
     StyleSheet,
     Alert
 } from "react-native";
+
+import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
 import {checkIfDataListIsEmpty} from "../functions/form-validator";
-import encryptedStorage from "../functions/encrypted-storage";
 
 const SendOffline = (props) => {
     const [offlineBalance, setOfflineBalance] = useState(0);
@@ -92,9 +93,7 @@ const SendOffline = (props) => {
                             }
                         }} />
                 </View>
-                <Btn style={[style.contentsInBodyCont, DefaultStyle.centeredXY, style.ViewLastReceiptBtn]}
-                text="Scan to receive" textStyle={style.scanToReceiveBtnText}
-                 />{/*TODO add a function that reads the offline transactions and displays the last one. */}
+                {/*TODO add a function that reads the offline transactions and displays the last one. */}
             </View>
         </InAppHB>
     )
