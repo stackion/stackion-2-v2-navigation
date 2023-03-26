@@ -271,13 +271,29 @@ const ConfirmTransaction = (props) => {
                         </View>
                         <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
                             <Text style={[style.introText]}>
-                                N {amount}
+                                {
+                                    new Intl.NumberFormat('en-UK', {
+                                        style: 'currency',
+                                        currency: 'NGN'
+                                    }).format(
+                                        amount
+                                    )
+                                }
                             </Text>
                             <Text style={[style.introText]}>
                                 to {username} - {type}
                             </Text>
                             <Text style={[style.introText]}>
-                                Transaction fee : N {type === "fiat" ? Number((2/100) * amount).toFixed(2) : 0}
+                                Transaction fee : {
+                                    type != "offline tokens" ? 
+                                        new Intl.NumberFormat('en-UK', {
+                                            style: 'currency',
+                                            currency: 'NGN'
+                                        }).format(
+                                            (2/100) * amount
+                                        )
+                                        : "NGN 0.00"
+                                    }
                             </Text>
                         </View>
                         <View style={{height : 100}}></View>
@@ -290,13 +306,29 @@ const ConfirmTransaction = (props) => {
                 />
                 <View style={[style.contentsInBodyCont, style.transactionDataCont]}>
                     <Text style={[style.introText]}>
-                        N {amount}
+                        {
+                            new Intl.NumberFormat('en-UK', {
+                                style: 'currency',
+                                currency: 'NGN'
+                            }).format(
+                                amount
+                            )
+                        }
                     </Text>
                     <Text style={[style.introText]}>
                         to {username} - {type}
                     </Text>
                     <Text style={[style.introText]}>
-                        Transaction fee : N {type != "offline tokens" ? Number((2/100) * amount).toFixed(2) : 0}
+                        Transaction fee : {
+                            type != "offline tokens" ? 
+                                new Intl.NumberFormat('en-UK', {
+                                    style: 'currency',
+                                    currency: 'NGN'
+                                }).format(
+                                    (2/100) * amount
+                                )
+                                : "NGN 0.00"
+                            }
                     </Text>
                 </View>
                 <View style={style.inputCont}>

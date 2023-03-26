@@ -97,8 +97,22 @@ export const ConversionForm = (props) => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
-                setOfflineBalance(Number(parsedSession.offline_token_balance).toFixed(2));
-                setFiatBalance(Number(parsedSession.user_online_data.fiat_balance).toFixed(2))
+                setOfflineBalance(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
+                        parsedSession.offline_token_balance
+                    )
+                );
+                setFiatBalance(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
+                        parsedSession.user_online_data.fiat_balance
+                    )
+                )
             }
         })();
     },[])
@@ -131,7 +145,7 @@ export const ConversionForm = (props) => {
                         {type == "to fiat" ? "Offline balance" : "Fiat balance"}
                     </Text>
                     <Text style={[style.introText]}>
-                        N {type == "to fiat" ? offlineBalance : fiatBalance}
+                        {type == "to fiat" ? offlineBalance : fiatBalance}
                     </Text>
                 </View>
                 <View style={{marginTop : 48}}>

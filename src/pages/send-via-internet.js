@@ -16,7 +16,7 @@ import {checkIfDataListIsEmpty} from "../functions/form-validator";
 import {InAppHB} from "../components/in-app-h-b-f";
 
 const SendViaInternet = (props) => {
-    const [fiatBalance, setFiatBalance] = useState(0);
+    const [fiatBalance, setFiatBalance] = useState("...");
     const [username, setUsername] = useState("");
     const [amount, setAmount] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
@@ -37,7 +37,14 @@ const SendViaInternet = (props) => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
-                setFiatBalance(Number(parsedSession.user_online_data.fiat_balance).toFixed(2));
+                setFiatBalance(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
+                        parsedSession.user_online_data.fiat_balance
+                    )
+                );
             }
         })();
     },[])
@@ -58,7 +65,7 @@ const SendViaInternet = (props) => {
                         Fiat balance
                     </Text>
                     <Text style={[style.introText]}>
-                        N {fiatBalance}
+                        {fiatBalance}
                     </Text>
                 </View>
                 <View style={style.inputCont}>

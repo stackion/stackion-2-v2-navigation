@@ -14,7 +14,7 @@ import {checkIfDataListIsEmpty} from "../functions/form-validator";
 import encryptedStorage from "../functions/encrypted-storage";
 
 const SendOffline = (props) => {
-    const [offlineBalance, setOfflineBalance] = useState(0);
+    const [offlineBalance, setOfflineBalance] = useState("...");
     const [amount, setAmount] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
@@ -26,7 +26,14 @@ const SendOffline = (props) => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
-                setOfflineBalance(Number(parsedSession.offline_token_balance).toFixed(2));
+                setOfflineBalance(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
+                        parsedSession.offline_token_balance
+                    )
+                );
             }
         })();
     },[])
@@ -59,7 +66,7 @@ const SendOffline = (props) => {
                         Offline token balance
                     </Text>
                     <Text style={[style.introText]}>
-                        N {offlineBalance}
+                        {offlineBalance}
                     </Text>
                     <View style={{marginTop : 48}}>
                         <Text style={[{textAlign : "center",
