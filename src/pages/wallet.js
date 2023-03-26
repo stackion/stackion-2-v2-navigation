@@ -17,9 +17,9 @@ import InAppHBF from "../components/in-app-h-b-f";
 
 const Wallet = (props) => {
     const [balanceLegend, setBalanceLegend] = useState("Total Balance");
-    const [totalBalance, setTotalBalance] = useState(0);
-    const [fiatBalance, setFiatBalance] = useState(0);
-    const [offlineTokenBalance, setOfflineTokenBalance] = useState(0);
+    const [totalBalance, setTotalBalance] = useState("...");
+    const [fiatBalance, setFiatBalance] = useState("...");
+    const [offlineTokenBalance, setOfflineTokenBalance] = useState("...");
     const [refreshing, setRefreshing] = useState(false);
 
     const reflectUserData = async () => {
@@ -29,24 +29,58 @@ const Wallet = (props) => {
             let parsedSession = JSON.parse(userSession);
             if(gottenUserData) {
                 setTotalBalance(
-                    Number(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
                         parsedSession.user_online_data.fiat_balance
                         +
                         parsedSession.offline_token_balance
-                    ).toFixed(2)
+                    )
                 );
-                setFiatBalance(Number(parsedSession.user_online_data.fiat_balance).toFixed(2));
-                setOfflineTokenBalance(Number(parsedSession.offline_token_balance).toFixed(2));
+                setFiatBalance(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
+                        parsedSession.user_online_data.fiat_balance
+                    )
+                );
+                setOfflineTokenBalance(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
+                        parsedSession.offline_token_balance
+                    )
+                );
                 setBalanceLegend("Total Balance");
             }
             else {
                 setTotalBalance(
-                    Number(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
                         parsedSession.offline_token_balance
-                    ).toFixed(2)
+                    )
                 );
-                setFiatBalance(Number(0).toFixed(2));
-                setOfflineTokenBalance(Number(parsedSession.offline_token_balance).toFixed(2));
+                setFiatBalance(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
+                        0
+                    )
+                );
+                setOfflineTokenBalance(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
+                        parsedSession.offline_token_balance
+                    )
+                );
                 setBalanceLegend("Offline Balance");
             }
         }
@@ -71,7 +105,7 @@ const Wallet = (props) => {
                     <Text style={[style.Balance]}>{balanceLegend}</Text>
                 </View>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.balanceAmount]}>N {totalBalance}</Text>
+                    <Text style={[style.balanceAmount]}>{totalBalance}</Text>
                 </View>
             </View>
             <View style={[style.contentsInBodyCont, style.SectionTitle ]} >
@@ -88,7 +122,7 @@ const Wallet = (props) => {
                     </View>
                     <View>
                         <Text style={style.assetsInfo}>
-                            N {fiatBalance}
+                            {fiatBalance}
                         </Text>
                     </View>
                 </View>
@@ -100,7 +134,7 @@ const Wallet = (props) => {
                     </View>
                     <View>
                         <Text style={style.assetsInfo}>
-                            N {offlineTokenBalance}
+                            {offlineTokenBalance}
                         </Text>
                     </View>
                 </View>

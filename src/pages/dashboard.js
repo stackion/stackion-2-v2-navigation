@@ -52,7 +52,7 @@ const Dashboard = (props) => {
 
     const [name, setName] = useState("Dear User");
     const [balanceLegend, setBalanceLegend] = useState("Total Balance");
-    const [totalBalance, setTotalBalance] = useState(0);
+    const [totalBalance, setTotalBalance] = useState("...");
     const [refreshing, setRefreshing] = useState(false);
     const [popUpVisibility, setPopUpVisibility] = useState(false);
     const [accountName, setAccName] = useState("");
@@ -73,20 +73,24 @@ const Dashboard = (props) => {
             }
             if(gottenUserData) {
                 setTotalBalance(
-                    Number(
+                    new Intl.NumberFormat('en-UK', {
+                        style: 'currency',
+                        currency: 'NGN'
+                    }).format(
                         parsedSession.user_online_data.fiat_balance
                         +
                         parsedSession.offline_token_balance
-                    ).toFixed(2)
+                    )
                 );
                 setBalanceLegend("Total Balance");
             }
             else {
-                setTotalBalance(
-                    Number(
-                        parsedSession.offline_token_balance
-                    ).toFixed(2)
-                );
+                new Intl.NumberFormat('en-UK', {
+                    style: 'currency',
+                    currency: 'NGN'
+                }).format(
+                    parsedSession.offline_token_balance
+                )
                 setBalanceLegend("Offline Balance");
             }
         }
@@ -206,7 +210,7 @@ const Dashboard = (props) => {
                     <Text style={[style.Balance]}>{balanceLegend}</Text>
                 </View>
                 <View style={[DefaultStyle.centeredX]}>
-                    <Text style={[style.balanceAmount]}>N {totalBalance}</Text>
+                    <Text style={[style.balanceAmount]}>{totalBalance}</Text>
                 </View>
             </View>
             <View style={[
