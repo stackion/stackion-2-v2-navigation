@@ -23,6 +23,7 @@ const TransactionHistory = (props) => {
                 let parsedSession = JSON.parse(userSession);
                 let onlineTransactionHistory = parsedSession.user_online_data.transaction_records_db;
                 if(onlineTransactionHistory.length > 0) {
+                    onlineTransactionHistory = onlineTransactionHistory.reverse();
                     setHistoryContent(
                         <>
                         {onlineTransactionHistory.map(transaction => (
@@ -124,7 +125,7 @@ const style = StyleSheet.create({
         height : 80,
         padding : 5,
         backgroundColor : Colors.white,
-        borderColor : Colors.blackF2,
+        borderColor : Colors.black46,
         borderWidth : 0.6,
         borderStyle : "solid",
     },
@@ -136,7 +137,7 @@ const style = StyleSheet.create({
     },
     historyText : {
         fontSize : 12,
-        color : Colors.black46,
+        color : Colors.black31,
         fontFamily : "Roboto-Regular",
         alignSelf : "flex-start",
     },

@@ -165,7 +165,7 @@ const ConfirmTransaction = (props) => {
                     user_access_token : accessToken
                 })
                 if(transaction.data.status == "success") {
-                    await encryptedStorage.setItem("user_session", JSON.parse(parsedSession))
+                    await encryptedStorage.setItem("user_session", JSON.stringify(parsedSession))
                     Toast.show({
                         type : "success",
                         text1 : "Conversion successful",
@@ -296,7 +296,7 @@ const ConfirmTransaction = (props) => {
                         to {username} - {type}
                     </Text>
                     <Text style={[style.introText]}>
-                        Transaction fee : N {type === "fiat" ? Number((2/100) * amount).toFixed(2) : 0}
+                        Transaction fee : N {type != "offline tokens" ? Number((2/100) * amount).toFixed(2) : 0}
                     </Text>
                 </View>
                 <View style={style.inputCont}>
