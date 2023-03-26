@@ -118,9 +118,10 @@ export const ConversionForm = (props) => {
     },[])
 
     const validateForm = () => {
-        if(checkIfDataListIsEmpty([amount]) && amount != 0  
-        && ((type == "to fiat" && amount <= offlineBalance ? true : false)
-        || (type != "to fiat" && amount <= fiatBalance ? true : false))) {
+        let Amount = Number(amount);
+        if(Amount != 0  
+        && ((type == "to fiat" && Amount <= offlineBalance ? true : false)
+        || (type != "to fiat" && Amount <= fiatBalance ? true : false))) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }

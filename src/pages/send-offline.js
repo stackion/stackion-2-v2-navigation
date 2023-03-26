@@ -12,7 +12,6 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
-import {checkIfDataListIsEmpty} from "../functions/form-validator";
 
 const SendOffline = (props) => {
     const [offlineBalance, setOfflineBalance] = useState(0);
@@ -40,7 +39,8 @@ const SendOffline = (props) => {
     },[])
 
     const validateForm = () => {
-        if(checkIfDataListIsEmpty([amount]) && amount != 0  && amount <= offlineBalance && offlineBalance != 0) {
+        let Amount = Number(amount);
+        if(Amount != 0  && Amount <= offlineBalance ) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }

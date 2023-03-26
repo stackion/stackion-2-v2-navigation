@@ -23,7 +23,8 @@ const SendViaInternet = (props) => {
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
     const validateForm = () => {
-        if(checkIfDataListIsEmpty([username, amount]) && amount != 0  && amount < fiatBalance && fiatBalance != 0) {
+        let Amount = Number(amount);
+        if(checkIfDataListIsEmpty([username]) && Amount != 0  && Amount <= fiatBalance) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }
