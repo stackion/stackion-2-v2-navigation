@@ -3,7 +3,7 @@ import {
     Text,
     View,
 } from "react-native";
-import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
+import { ScaledSheet as StyleSheet, moderateScale } from 'react-native-size-matters';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -12,7 +12,7 @@ import {InAppHB} from "../components/in-app-h-b-f";
 
 const TransactionHistory = (props) => {
     const [historyContent, setHistoryContent] = useState(
-        <Text style={{fontSize : 12, color : Colors.black46, fontFamily : "Roboto-Regular"}}>
+        <Text style={{fontSize : moderateScale(12), color : Colors.black46, fontFamily : "Roboto-Regular"}}>
             No History
         </Text>
         );
@@ -43,7 +43,7 @@ const TransactionHistory = (props) => {
                     );
                 } else {
                     setHistoryContent(
-                        <Text style={{fontSize : 12, color : Colors.black46, fontFamily : "Roboto-Regular"}}>
+                        <Text style={{fontSize : moderateScale(12), color : Colors.black46, fontFamily : "Roboto-Regular"}}>
                             No History
                         </Text>
                     )
@@ -63,32 +63,32 @@ const TransactionHistory = (props) => {
 const style = StyleSheet.create({
     contentsInBodyCont : {
         width : "100%",
-        minWidth : 289,
-        maxWidth : 340,
+        minWidth : "289@s",
+        maxWidth : "340@s",
     },
     dashboardAssetValueDisplayRect : {
-        height : 124,
-        padding : 10,
-        borderRadius : 5,
+        height : "124@vs",
+        padding : "10@ms",
+        borderRadius : "5@ms",
         justifyContent : "center",
         backgroundColor : Colors.blackF2
     },
     Balance : {
-        fontSize : 16,
+        fontSize : "16@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
         fontWeight : 300
     },
     balanceAmount : {
-        fontSize : 30,
+        fontSize : "30@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
     },
     assetCont : {
         backgroundColor : Colors.white,
-        height : 70,
-        padding : 24,
-        marginTop : 10,
+        height : "70@vs",
+        padding : "24@ms",
+        marginTop : "10@vs",
         shadowColor: Colors.black,
         shadowOffset: {
           width: 0,
@@ -102,35 +102,35 @@ const style = StyleSheet.create({
         fontWeight : 200,
         fontFamily : "Roboto-Medium",
         color : Colors.black31,
-        fontSize : 16
+        fontSize : "16@ms"
     },
     historySectionTitle : {
-        marginTop : 60,
-        height : 40,
+        marginTop : "60@vs",
+        height : "40@vs",
         borderBottomColor : Colors.blackF2,
         borderBottomWidth : 3,
     },
     historySectionTitleText : {
-        fontSize : 20,
+        fontSize : "20@ms",
         fontWeight : 600,
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
     },
     historyContentSection : {
-        marginTop : 2,
-        minHeight : 120,
+        marginTop : "2@vs",
+        minHeight : "120@vs",
     },
     historyContentCont : {
-        marginTop : 8,
-        height : 80,
-        padding : 5,
+        marginTop : "8@vs",
+        height : "80@vs",
+        padding : "5@ms",
         backgroundColor : Colors.white,
         borderColor : `${Colors.black46}e2`,
         borderWidth : 0.6,
         borderStyle : "solid",
     },
     historyTitle : {
-        fontSize : 12,
+        fontSize : "12@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
         alignSelf : "flex-start",

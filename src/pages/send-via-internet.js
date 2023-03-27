@@ -3,9 +3,9 @@ import {
     Text,
     View,
     TextInput,
-    StyleSheet,
     Alert
 } from "react-native";
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import Toast from "react-native-toast-message";
 
 import * as encryptedStorage from "../functions/encrypted-storage";
