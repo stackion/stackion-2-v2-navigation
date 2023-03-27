@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
+import { Wave } from 'react-native-animated-spinkit';
 import axios from "axios";
 import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 
@@ -89,8 +90,9 @@ const VerifyEmail = (props) => {
         }>
             <View style={style.formView}>
                 <Spinner
+                customIndicator={<Wave size={moderateScale(48)} color={Colors.defaultBlue} />}
                 visible={loaderIsVisibile}
-                textContent={'processing...'}
+                textContent={''}
                 textStyle={{color : Colors.white}}
                 />
                 <ScrollView>

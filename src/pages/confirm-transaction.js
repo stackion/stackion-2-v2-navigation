@@ -7,9 +7,10 @@ import {
     ScrollView,
     BackHandler
 } from "react-native";
-import { ScaledSheet as StyleSheet, verticalScale } from 'react-native-size-matters';
+import { ScaledSheet as StyleSheet, verticalScale, moderateScale } from 'react-native-size-matters';
 import { useFocusEffect } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { Wave } from 'react-native-animated-spinkit';
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import QRCode from 'react-native-qrcode-svg';
@@ -300,8 +301,9 @@ const ConfirmTransaction = (props) => {
                     </ScrollView>
                 </AfterTransactionPopUp>
                 <Spinner
+                customIndicator={<Wave size={moderateScale(48)} color={Colors.defaultBlue} />}
                 visible={loaderIsVisibile}
-                textContent={'processing...'}
+                textContent={''}
                 textStyle={{color : Colors.white}}
                 />
                 <View style={[style.contentsInBodyCont, style.transactionDataCont]}>

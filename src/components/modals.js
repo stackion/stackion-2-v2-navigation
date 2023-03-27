@@ -1,12 +1,10 @@
 import {
-    View,
-    useWindowDimensions
+    View
 } from "react-native";
 import { 
     ScaledSheet as StyleSheet,
     moderateScale,
-    verticalScale,
-    scale
+    verticalScale
 } from 'react-native-size-matters';
 import { Modal, BottomModal, ModalFooter, ModalContent} from "react-native-modals";
 import { Btn } from "./button";
@@ -14,23 +12,21 @@ import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 
 export const AfterTransactionPopUp = props => {
-
-    const {height} = useWindowDimensions();
     const style = StyleSheet.create({
         ModalContent : {
-            height : height * (3/4),
+            height : `540@vs`,
             backgroundColor : Colors.white,
         },
         bottomBtn : {
-            height : 40,
-            width : 270,
+            height : "40@vs",
+            width : "270@s",
             backgroundColor : Colors.defaultBlue,
-            margin : 8,
-            borderRadius : 5
+            margin : "8@ms",
+            borderRadius : "5@ms"
         },
         bottomBtnText : {
             color : Colors.white,
-            fontSize : 16,
+            fontSize : "16@ms",
             fontFamily : "Comfortaa-Regular"
         }
     })
@@ -50,12 +46,9 @@ export const AfterTransactionPopUp = props => {
     )
 }
 export const QuickMenu = props => {
-
-    const {height} = useWindowDimensions();
     const style = StyleSheet.create({
         BottomModalContent : {
-            height : `${height / 2}@vs`,
-            maxHeight : "260@vs",
+            height : "260@vs",
             backgroundColor : Colors.white,
         },
         quickMenuTopper : {

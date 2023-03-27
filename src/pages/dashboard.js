@@ -12,6 +12,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { Modal, ModalButton, ModalFooter, ModalContent} from "react-native-modals";
+import { Wave } from 'react-native-animated-spinkit';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import * as fetcher from "../functions/user-data-fetcher";
@@ -52,7 +53,7 @@ const Dashboard = (props) => {
 
     const [name, setName] = useState("Dear User");
     const [balanceLegend, setBalanceLegend] = useState("Total Balance");
-    const [totalBalance, setTotalBalance] = useState("...");
+    const [totalBalance, setTotalBalance] = useState(<Wave size={moderateScale(48)} color={Colors.defaultBlue} />);
     const [refreshing, setRefreshing] = useState(false);
     const [popUpVisibility, setPopUpVisibility] = useState(false);
     const [accountName, setAccName] = useState("");

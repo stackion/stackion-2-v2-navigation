@@ -5,8 +5,9 @@ import {
     Alert,
     RefreshControl
 } from "react-native";
-import { ScaledSheet as StyleSheet, verticalScale } from 'react-native-size-matters';
+import { ScaledSheet as StyleSheet, verticalScale, moderateScale } from 'react-native-size-matters';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Wave } from 'react-native-animated-spinkit';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import * as fetcher from "../functions/user-data-fetcher";
@@ -17,9 +18,9 @@ import InAppHBF from "../components/in-app-h-b-f";
 
 const Wallet = (props) => {
     const [balanceLegend, setBalanceLegend] = useState("Total Balance");
-    const [totalBalance, setTotalBalance] = useState("...");
-    const [fiatBalance, setFiatBalance] = useState("...");
-    const [offlineTokenBalance, setOfflineTokenBalance] = useState("...");
+    const [totalBalance, setTotalBalance] = useState(<Wave size={moderateScale(48)} color={Colors.defaultBlue} />);
+    const [fiatBalance, setFiatBalance] = useState(<Wave size={moderateScale(12)} color={Colors.defaultBlue} />);
+    const [offlineTokenBalance, setOfflineTokenBalance] = useState(<Wave size={moderateScale(12)} color={Colors.defaultBlue} />);
     const [refreshing, setRefreshing] = useState(false);
 
     const reflectUserData = async () => {
