@@ -2,12 +2,11 @@ import {
     Image,
     View,
     Text,
-    StyleSheet,
-    Alert
 } from "react-native";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 
 const termsURL = "https://stackion.net/terms-and-policies";
 
@@ -25,7 +24,7 @@ const AppInterfaceAfterInstallation = (props) => {
                 STACKION
             </Text>
             <Text style={[DefaultStyle.black46, {
-                fontFamily : "Comfortaa-Bold", padding : 13, textAlign : "center", color : Colors.black31}]}>
+                fontFamily : "Comfortaa-Bold", padding : moderateScale(13), textAlign : "center", color : Colors.black31}]}>
                 Not your regular Fintech app
                 {"\n"}
                 This is the future
@@ -39,20 +38,20 @@ const AppInterfaceAfterInstallation = (props) => {
                             backgroundColor : Colors.defaultBlue,
                         }, DefaultStyle.ComfortaaBold
                     ]
-                } textStyle={[style.buttonText, {color : Colors.white , fontSize : 16,}]}/>
+                } textStyle={[style.buttonText, {color : Colors.white , fontSize : moderateScale(16),}]}/>
                 <Btn text="Sign in" onPress={() =>{props.navigation.navigate("SignIn")}} style={
                     [
                         style.buttons,
                         DefaultStyle.centeredXY,
                         {
-                            borderWidth : 2,
+                            borderWidth : moderateScale(2),
                             borderStyle : "solid",
                             borderColor : Colors.defaultBlue,
-                            marginTop : 33,
+                            marginTop : verticalScale(33),
                             backgroundColor : Colors.white
                         }, DefaultStyle.ComfortaaBold
                     ]
-                } textStyle={[style.buttonText, {color : Colors.defaultBlue , fontSize : 16,}]}/>
+                } textStyle={[style.buttonText, {color : Colors.defaultBlue , fontSize : moderateScale(16),}]}/>
             </View>
             <Anchor href={termsURL} textStyle={[style.termsLinkText, DefaultStyle.ComfortaaRegular]} text="Terms & Policies" style={style.termsLinkCont}/>
         </View>
@@ -61,36 +60,36 @@ const AppInterfaceAfterInstallation = (props) => {
 
 const style = StyleSheet.create({
     logo : {
-        height : 60,
-        width : 60,
-        marginBottom : "10%"
+        height : "60@ms",
+        width : "60@ms",
+        marginBottom : "15@vs"
     },
     STACKION : {
         fontWeight : 500,
-        fontSize : 32
+        fontSize : "32@ms"
     },
     buttonsCont : {
-        marginTop : "30%"
+        marginTop : "78@vs"
     },
     buttons : {
-        height : 45,
+        height : "43@vs",
         width : "80%",
-        maxWidth : 299,
-        minWidth : 180,
-        borderRadius : 10,
+        maxWidth : "299@s",
+        minWidth : "180@s",
+        borderRadius : "10@ms",
         zIndex : 3
     },
     buttonText : {
-        fontSize : 30,
+        fontSize : "30@ms",
         fontFamily : "Comfortaa-Regular"
     },
     termsLinkCont : {
         position : "absolute",
-        bottom : 13
+        bottom : "13@vs"
     },
     termsLinkText : {
         color : Colors.blue2,
-        fontSize : 12
+        fontSize : "12@ms"
     }
 })
 

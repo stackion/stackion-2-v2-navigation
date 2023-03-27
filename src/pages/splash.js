@@ -3,6 +3,7 @@ import {
     View,
     Image
 } from "react-native";
+import { moderateScale } from 'react-native-size-matters';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import DefaultStyles from "../styles/defaults.js";
@@ -72,8 +73,8 @@ const Splash = (props) => {
             DefaultStyles.WHSpanParent, {backgroundColor : Colors.white}
         ]}>
             <Image style={{
-                height : 72,
-                width : 72
+                height : moderateScale(72),
+                width : moderateScale(72)
             }} source={require("../../assets/images/favicon.png")}/>
         </View>
     )

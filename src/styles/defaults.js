@@ -36,12 +36,10 @@ const DefaultStyle = StyleSheet.create({
     },
     /*font family*/
     ComfortaaBold : {
-        fontFamily : "Comfortaa-Bold",
-        fontWeight : "bold"
+        fontFamily : "Comfortaa-Bold"
     },
     ComfortaaMedium : {
-        fontFamily : "Comfortaa-Medium",
-        fontWeight : 300
+        fontFamily : "Comfortaa-Medium"
     },
     ComfortaaRegular : {
         fontFamily : "Comfortaa-Regular"
