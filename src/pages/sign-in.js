@@ -129,10 +129,10 @@ const SignIn = (props) => {
                         onEndEditing={() => validateForm() } />
                     </View>
                     <View>
-                        <Anchor href="https://stackion.net/account%20recovery/" style={{marginTop : 20}} text="forgot password ?" textStyle={{color : Colors.blue2, fontFamily : "Roboto-Regular", fontSize : 12}}/>
+                        <Anchor href="https://stackion.net/account%20recovery/" style={{marginTop : verticalScale(20)}} text="forgot password ?" textStyle={{color : Colors.blue2, fontFamily : "Roboto-Regular", fontSize : moderateScale(12)}}/>
                     </View>
                     <View style={[style.btnsCont]}>
-                        <Btn text="Sign up" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignUp")}/>
+                        <Btn text="Sign up" textStyle={{color : Colors.black, fontSize : moderateScale(16), fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignUp")}/>
                         <Btn text="Sign in" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
                             if(formSubmitable) {
                                 sendForm();
@@ -147,20 +147,20 @@ const SignIn = (props) => {
 
 const style = StyleSheet.create({
     formView : {
-        maxHeight : 650,
+        maxHeight : "650@vs",
         width : "100%",
-        maxWidth : 320,
-        minWidth : 200,
-        padding : 10,
-        paddingTop : 97
+        maxWidth : "320@s",
+        minWidth : "200@s",
+        padding : "10@ms",
+        paddingTop : "97@vs"
     },
     introText : {
-        fontSize : 32,
+        fontSize : "32@ms",
         color : Colors.black31,
         fontFamily : "Comfortaa-Regular"
     },
     inputCont : {
-        marginTop : 37
+        marginTop : "37@vs"
     },
     input : {
         height : "45@ms",

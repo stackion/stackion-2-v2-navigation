@@ -45,13 +45,13 @@ const Splash = (props) => {
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
                 let navigationDelay = setTimeout(() => {
-                    if(parsedSession.logged_in === true && parsedSession.verified_email !== 0) {
+                    if(parsedSession.logged_in === true && parsedSession.verified_email !== 0 && parsedSession.transaction_pin !== "0000") {
                         props.navigation.replace("Dashboard");
                     }
                     else if(parsedSession.logged_in === true && parsedSession.verified_email === 0) {
                         props.navigation.replace("VerifyEmail");
                     }
-                    else if(parsedSession.logged_in === true && parsedSession.transaction_pin === "0000") {
+                    else if(parsedSession.logged_in == true && parsedSession.transaction_pin == "0000") {
                         props.navigation.replace("SetupPin");
                     }
                     else {

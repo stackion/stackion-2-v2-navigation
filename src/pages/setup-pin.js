@@ -3,16 +3,14 @@ import {
     ScrollView,
     View,
     Text,
-    StyleSheet,
-    TextInput,
-    Alert
+    TextInput
 } from "react-native";
-import Toast from "react-native-toast-message";
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
-import {Btn, Anchor} from "../components/button";
+import {Btn} from "../components/button";
 
 const SetupPin = (props) => {
     const [pin, setPin] = useState("");
@@ -72,16 +70,16 @@ const SetupPin = (props) => {
                             }
                         }}/>
                     </View>
-                    <View style={{marginTop : 35}}>
-                        <Text style={{fontSize : 12,
+                    <View style={{marginTop : verticalScale(35)}}>
+                        <Text style={{
                             color : Colors.black46,
-                            fontSize : 12,
+                            fontSize : moderateScale(12),
                             fontFamily : "Roboto-Regular"}}>
                         This pin would be requested from you each time you want to mae a transaction.
                         </Text>
-                        <Text style={{fontSize : 12,
+                        <Text style={{
                             color : Colors.black46,
-                            fontSize : 12,
+                            fontSize : moderateScale(12),
                             fontFamily : "Roboto-Regular"}}>
                             Do not share this with anyone.
                         </Text>
@@ -94,52 +92,52 @@ const SetupPin = (props) => {
 
 const style = StyleSheet.create({
     formView : {
-        maxHeight : 650,
+        maxHeight : "650@vs",
         width : "100%",
-        maxWidth : 320,
-        minWidth : 200,
-        padding : 10,
-        paddingTop : 97,
+        maxWidth : "320@s",
+        minWidth : "200@s",
+        padding : "10@ms",
+        paddingTop : "97@vs",
     },
     introText : {
-        fontSize : 32,
+        fontSize : "32@ms",
         color : Colors.black31,
         fontFamily : "Comfortaa-Regular"
     },
     inputCont : {
-        marginTop : 37
+        marginTop : "37@vs"
     },
     input : {
-        height : 45,
+        height : "45@vs",
         width : "100%",
-        maxWidth : 299,
-        minWidth : 180,
-        padding : 11,
+        maxWidth : "299@s",
+        minWidth : "180@s",
+        padding : "11@ms",
         borderColor : Colors.defaultBlue,
         borderStyle : "solid",
         borderWidth : 1,
         borderRadius : 10,
-        fontSize : 16,
-        marginTop : 20,
+        fontSize : "16@ms",
+        marginTop : "20@vs",
         color : Colors.black31,
         fontFamily : "Roboto-Regular"
     },
     btnsCont : {
         width : "100%",
-        marginTop : 25,
+        marginTop : "25@vs",
         alignItems : "center",
         justifyContent : "space-between",
         flexDirection : "row"
     },
     submitBtn : {
-        padding : 14,
+        padding : "14@ms",
         backgroundColor : Colors.defaultBlue,
-        width : 124,
-        borderRadius : 40
+        width : "124@s",
+        borderRadius : "40@ms"
     },
     submitBtnText : {
         color : Colors.white,
-        fontSize : 16,
+        fontSize : "16@ms",
         fontFamily : "Comfortaa-Regular"
     }
 })
