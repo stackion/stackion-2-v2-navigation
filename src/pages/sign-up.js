@@ -3,13 +3,12 @@ import {
     ScrollView,
     View,
     Text,
-    StyleSheet,
-    TextInput,
-    Alert
+    TextInput
 } from "react-native";
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -147,19 +146,18 @@ const SignUp = (props) => {
                         onEndEditing={() => validateForm() } />
                     </View>
                     <View style={[style.btnsCont]}>
-                        <Btn text="Sign in" textStyle={{color : Colors.black, fontSize : 16, fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignIn")}/>
+                        <Btn text="Sign in" textStyle={{color : Colors.black, fontSize : moderateScale(16), fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignIn")}/>
                         <Btn text="Sign up" style={[style.submitBtn, {opacity : submitBtnOpacity }]} textStyle={style.submitBtnText} onPress={() => {
                             if(formSubmitable) {
                                 sendForm();
                             }
                         }}/>
                     </View>
-                    <View style={{marginTop : 35}}>
-                        <Text style={{fontSize : 12,
+                    <View style={{marginTop : verticalScale(35)}}>
+                        <Text style={{fontSize : moderateScale(12),
                             color : Colors.black46,
-                            fontSize : 12,
                             fontFamily : "Roboto-Regular"}}>
-                            By clicking sign up, we assume that you have read our <Anchor style={[DefaultStyle.centeredXY]} href={termsURL} textStyle={{fontSize : 12,color : Colors.blue2,
+                            By clicking sign up, we assume that you have read our <Anchor style={[DefaultStyle.centeredXY]} href={termsURL} textStyle={{fontSize : moderateScale(12),color : Colors.blue2,
                             fontFamily : "Roboto-Regular"}} text="Terms & Policies"/> and that you agree with them.
                         </Text>
                     </View>
@@ -171,52 +169,52 @@ const SignUp = (props) => {
 
 const style = StyleSheet.create({
     formView : {
-        maxHeight : 650,
+        maxHeight : "650@vs",
         width : "100%",
-        maxWidth : 320,
-        minWidth : 200,
-        padding : 10,
-        paddingTop : 37
+        maxWidth : "320@s",
+        minWidth : "200@s",
+        padding : "10@ms",
+        paddingTop : "37@vs"
     },
     introText : {
-        fontSize : 32,
+        fontSize : "32@ms",
         color : Colors.black31,
         fontFamily : "Comfortaa-Regular"
     },
     inputCont : {
-        marginTop : 37
+        marginTop : "37@vs"
     },
     input : {
-        height : 45,
+        height : "45@ms",
         width : "100%",
-        maxWidth : 299,
-        minWidth : 180,
-        padding : 11,
+        maxWidth : "299@s",
+        minWidth : "180@s",
+        padding : "11@ms",
         borderColor : Colors.defaultBlue,
         borderStyle : "solid",
         borderWidth : 1,
-        borderRadius : 10,
-        fontSize : 16,
-        marginTop : 20,
+        borderRadius : "10@ms",
+        fontSize : "16@ms",
+        marginTop : "20@vs",
         color : Colors.black31,
         fontFamily : "Roboto-Regular"
     },
     btnsCont : {
         width : "100%",
-        marginTop : 25,
+        marginTop : "25@vs",
         alignItems : "center",
         justifyContent : "space-between",
         flexDirection : "row"
     },
     submitBtn : {
-        padding : 14,
-        width : 124,
-        borderRadius : 40,
+        padding : "14@ms",
+        width : "124@s",
+        borderRadius : "40@ms",
         backgroundColor : Colors.defaultBlue
     },
     submitBtnText : {
         color : Colors.white,
-        fontSize : 16,
+        fontSize : "16@ms",
         fontFamily : "Comfortaa-Regular"
     }
 })
