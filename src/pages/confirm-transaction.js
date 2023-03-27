@@ -3,11 +3,11 @@ import {
     Text,
     View,
     TextInput,
-    StyleSheet,
     Alert,
     ScrollView,
     BackHandler
 } from "react-native";
+import { ScaledSheet as StyleSheet, verticalScale } from 'react-native-size-matters';
 import { useFocusEffect } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import axios from "axios";
@@ -249,13 +249,13 @@ const ConfirmTransaction = (props) => {
                                 receipt_id : random_number(6),
                                 date : new Date().toUTCString(),
                                 key : "stackion-offline-token"
-                            })} size={200} color={Colors.black}
+                            })} size={verticalScale(200)} color={Colors.black}
                             logo={require("../../assets/images/favicon.png")}
                             backgroundColor={Colors.white}
                             logoBackgroundColor={Colors.white}
                             logoBorderRadius={100} />
                             </View>
-                            <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
+                            <View style={[{marginTop : verticalScale(35)}, DefaultStyle.centeredX]}>
                                 <Text style={style.instructionTextInPage}>
                                     Ask the receiver to scan the QR-code to receive.
                                 </Text>
@@ -296,7 +296,7 @@ const ConfirmTransaction = (props) => {
                                     }
                             </Text>
                         </View>
-                        <View style={{height : 100}}></View>
+                        <View style={{height : verticalScale(100)}}></View>
                     </ScrollView>
                 </AfterTransactionPopUp>
                 <Spinner
@@ -348,7 +348,7 @@ const ConfirmTransaction = (props) => {
                             }
                         }}/>
                 </View>
-                <View style={{marginTop : 35}}>
+                <View style={{marginTop : verticalScale(35)}}>
                     <Text style={style.instructionTextInPage}>
                         Once transaction is made, it can’t be reversed unless you are in contact with the user.
                     </Text>
@@ -361,15 +361,15 @@ const ConfirmTransaction = (props) => {
 const style = StyleSheet.create({
     contentsInBodyCont : {
         width : "100%",
-        minWidth : 289,
-        maxWidth : 340,
+        minWidth : "289@s",
+        maxWidth : "340@s",
     },
     formView : {
-        maxHeight : 650,
+        maxHeight : "650@vs",
         width : "100%",
-        maxWidth : 320,
-        minWidth : 200,
-        padding : 10,
+        maxWidth : "320@s",
+        minWidth : "200@s",
+        padding : "10@ms",
     },
     contForOfflineTransactionDetails : {
         marginBottom : "10%"
@@ -379,68 +379,68 @@ const style = StyleSheet.create({
         marginBottom : "10%"
     },
     popupTitle : {
-        fontSize : 16,
-        fontFamily : "Comfortaa-Bold",
-        color : Colors.black31
+        fontSize : "13@ms",
+        fontFamily : "Roboto-Regular",
+        color : Colors.black46
     },
     instructionTextInPage : {
         color : Colors.black46,
-        fontSize : 12,
+        fontSize : "12@ms",
         fontFamily : "Roboto-Regular"
     },
     transactionDataCont : {
-        padding : 12,
-        borderLeftWidth : 3,
+        padding : "12@ms",
+        borderLeftWidth : "3@s",
         borderLeftColor : Colors.green,
         borderLeftStyle : "solid",
-        borderRadius : 5,
+        borderRadius : "5@ms",
         backgroundColor : Colors.blackF2
     },
     introText : {
-        fontSize : 16,
+        fontSize : "16@ms",
         fontWeight : 400,
         color : Colors.black10trans,
         fontFamily : "Roboto-Medium"
     },
     inputCont : {
-        marginTop : 37
+        marginTop : "37@vs"
     },
     input : {
-        height : 45,
+        height : "45@vs",
         width : "100%",
-        maxWidth : 299,
-        minWidth : 180,
-        padding : 11,
+        maxWidth : "299@s",
+        minWidth : "180@s",
+        padding : "11@ms",
         borderColor : Colors.defaultBlue,
         borderStyle : "solid",
         borderWidth : 1,
-        borderRadius : 10,
-        fontSize : 16,
-        marginTop : 20,
+        borderRadius : "10@ms",
+        fontSize : "16@ms",
+        marginTop : "20@vs",
         color : Colors.black31,
         fontFamily : "Roboto-Medium"
     },
     btnsCont : {
         width : "100%",
-        marginTop : 25,
+        marginTop : "25@vs",
         alignItems : "center",
         justifyContent : "space-between",
         flexDirection : "row"
     },
     submitBtn : {
-        padding : 14,
+        padding : "14@ms",
         backgroundColor : Colors.defaultBlue,
-        width : 124,
-        borderRadius : 40
+        width : "124@s",
+        borderRadius : "40@ms"
     },
     submitBtnText : {
         color : Colors.white,
-        fontSize : 16,
+        fontSize : "16@ms",
         fontFamily : "Comfortaa-Regular"
     },
     instructionTextInPage : {
         color : Colors.black46,
-        fontSize : 12,
+        fontSize : "12@ms",
         fontFamily : "Roboto-Regular"
     },
 })

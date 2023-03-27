@@ -3,9 +3,9 @@ import {
     Text,
     View,
     TextInput,
-    StyleSheet,
     Alert
 } from "react-native";
+import { ScaledSheet as StyleSheet, verticalScale } from 'react-native-size-matters';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -70,7 +70,7 @@ const SendOffline = (props) => {
                     <Text style={[style.introText]}>
                         {offlineBalance}
                     </Text>
-                    <View style={{marginTop : 48}}>
+                    <View style={{marginTop : verticalScale(48)}}>
                         <Text style={[{textAlign : "center",
                             fontWeight : 400,
                             color : Colors.black31,
@@ -103,53 +103,53 @@ const SendOffline = (props) => {
 const style = StyleSheet.create({
     contentsInBodyCont : {
         width : "100%",
-        minWidth : 289,
-        maxWidth : 340,
+        minWidth : "289@s",
+        maxWidth : "340@s",
     },
     formView : {
-        maxHeight : 650,
+        maxHeight : "650@vs",
         width : "100%",
-        maxWidth : 320,
-        minWidth : 200,
-        padding : 10,
+        maxWidth : "320@s",
+        minWidth : "200@s",
+        padding : "10@ms",
     },
     introText : {
-        fontSize : 16,
+        fontSize : "16@ms",
         fontWeight : 400,
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
-        marginBottom : 4
+        marginBottom : "4@vs"
     },
     inputCont : {
-        marginTop : 17
+        marginTop : "17@vs"
     },
     input : {
-        height : 45,
+        height : "45@vs",
         width : "100%",
-        maxWidth : 299,
-        minWidth : 180,
-        padding : 11,
+        maxWidth : "299@s",
+        minWidth : "180@s",
+        padding : "11@ms",
         borderColor : Colors.defaultBlue,
         borderStyle : "solid",
         borderWidth : 1,
-        borderRadius : 10,
-        fontSize : 16,
-        marginTop : 20,
+        borderRadius : "10@ms",
+        fontSize : "16@ms",
+        marginTop : "20@vs",
         color : Colors.black31,
         fontFamily : "Roboto-Medium"
     },
     btnsCont : {
         width : "100%",
-        marginTop : 25,
+        marginTop : "25@vs",
         alignItems : "center",
         justifyContent : "space-between",
         flexDirection : "row"
     },
     submitBtn : {
-        padding : 14,
+        padding : "14@ms",
         backgroundColor : Colors.defaultBlue,
-        width : 124,
-        borderRadius : 40
+        width : "124@s",
+        borderRadius : "40@ms"
     },
     submitBtnText : {
         color : Colors.white,
@@ -157,10 +157,10 @@ const style = StyleSheet.create({
         fontFamily : "Comfortaa-Regular"
     },
     ViewLastReceiptBtn : {
-        height : 40,
+        height : "40@vs",
         backgroundColor : Colors.defaultBlue,
         marginTop : "14%",
-        borderRadius : 8,
+        borderRadius : "8@ms",
     },
 })
 

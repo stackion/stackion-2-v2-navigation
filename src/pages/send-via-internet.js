@@ -5,7 +5,7 @@ import {
     TextInput,
     Alert
 } from "react-native";
-import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
+import { ScaledSheet as StyleSheet, verticalScale } from 'react-native-size-matters';
 import Toast from "react-native-toast-message";
 
 import * as encryptedStorage from "../functions/encrypted-storage";
@@ -100,7 +100,7 @@ const SendViaInternet = (props) => {
                             }
                         }}/>
                 </View>
-                <View style={{marginTop : 35}}>
+                <View style={{marginTop : verticalScale(35)}}>
                     <Text style={style.instructionTextInPage}>
                         Make sure the username you input is correct and it matches with that of the user you want to send funds to.
                     </Text>
@@ -116,63 +116,63 @@ const SendViaInternet = (props) => {
 const style = StyleSheet.create({
     contentsInBodyCont : {
         width : "100%",
-        minWidth : 289,
-        maxWidth : 340,
+        minWidth : "289@s",
+        maxWidth : "340@s",
     },
     formView : {
-        maxHeight : 650,
+        maxHeight : "650@vs",
         width : "100%",
-        maxWidth : 320,
-        minWidth : 200,
-        padding : 10,
+        maxWidth : "320@s",
+        minWidth : "200@s",
+        padding : "10@ms",
     },
     introText : {
-        fontSize : 16,
+        fontSize : "16@ms",
         fontWeight : 400,
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
-        marginBottom : 4,
+        marginBottom : "4@vs",
         textAlign : "center"
     },
     inputCont : {
-        marginTop : 37
+        marginTop : "37@vs"
     },
     input : {
-        height : 45,
+        height : "45@vs",
         width : "100%",
-        maxWidth : 299,
-        minWidth : 180,
-        padding : 11,
+        maxWidth : "299@s",
+        minWidth : "180@s",
+        padding : "11@ms",
         borderColor : Colors.defaultBlue,
         borderStyle : "solid",
         borderWidth : 1,
-        borderRadius : 10,
-        fontSize : 16,
-        marginTop : 20,
+        borderRadius : "10@ms",
+        fontSize : "16@ms",
+        marginTop : "20@vs",
         color : Colors.black31,
         fontFamily : "Roboto-Medium"
     },
     btnsCont : {
         width : "100%",
-        marginTop : 25,
+        marginTop : "25@vs",
         alignItems : "center",
         justifyContent : "space-between",
         flexDirection : "row"
     },
     submitBtn : {
-        padding : 14,
+        padding : "14@ms",
         backgroundColor : Colors.defaultBlue,
-        width : 124,
-        borderRadius : 40
+        width : "124@ms",
+        borderRadius : "40@ms"
     },
     submitBtnText : {
         color : Colors.white,
-        fontSize : 16,
+        fontSize : "16@ms",
         fontFamily : "Comfortaa-Regular"
     },
     instructionTextInPage : {
         color : Colors.black46,
-        fontSize : 12,
+        fontSize : "12@ms",
         fontFamily : "Roboto-Regular"
     },
 })

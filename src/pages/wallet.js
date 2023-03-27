@@ -207,11 +207,13 @@ const style = StyleSheet.create({
     },
     goToHistoryBtn : {
         height : "45@vs",
+        maxWidth : "300@s",
         backgroundColor : Colors.defaultBlue,
-        margin : "40@ms",
         marginTop : "50@vs",
         justifyContent : "center",
-        borderRadius : "5@ms"
+        borderRadius : "5@ms",
+        alignSelf : "center",
+        padding : "5@ms"
     },
     goToHistoryBtnText : {
         textAlign : "center",

@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import {
     Text,
     View,
-    StyleSheet,
     Alert
 } from "react-native";
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import QRCode from 'react-native-qrcode-svg';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
@@ -30,7 +30,7 @@ const ReceiveViaOffline = (props) => {
         <InAppHB navigation={props.navigation} headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
             <View style={style.formView}>
                 <Text style={{
-                    fontSize : 16,
+                    fontSize : moderateScale(16),
                     color : Colors.black31,
                     fontFamily : "Roboto-Regular",
                     textAlign : "center"
@@ -42,14 +42,14 @@ const ReceiveViaOffline = (props) => {
                         receiverUsername : username,
                         receiverDeviceId : deviceId,
                         key : "stackion-user-receive-via-offline"
-                    })} size={210} color={Colors.black}
+                    })} size={verticalScale(210)} color={Colors.black}
                     logo={require("../../assets/images/favicon.png")}
                     backgroundColor={Colors.white}
                     logoBackgroundColor={Colors.white}
                     logoBorderRadius={100}
                     />
                 </View>
-                <View style={[{marginTop : 35}, DefaultStyle.centeredX]}>
+                <View style={[{marginTop : verticalScale(35)}, DefaultStyle.centeredX]}>
                     <Text style={style.instructionTextInPage}>
                         Ask the sender to scan the QR-code with their app.
                     </Text>
@@ -65,36 +65,36 @@ const ReceiveViaOffline = (props) => {
 const style = StyleSheet.create({
     contentsInBodyCont : {
         width : "100%",
-        minWidth : 289,
-        maxWidth : 340,
+        minWidth : "289@s",
+        maxWidth : "340@s",
     },
     formView : {
-        maxHeight : 650,
+        maxHeight : "650@vs",
         width : "100%",
-        maxWidth : 320,
-        minWidth : 200,
-        padding : 10,
+        maxWidth : "320@s",
+        minWidth : "200@s",
+        padding : "10@ms",
     },
     qrCodeContainer : {
-        marginTop : 46,
-        marginBottom : 46,
+        marginTop : "46@vs",
+        marginBottom : "46@vs",
         height : "60%",
-        maxHeight : 260,
+        maxHeight : "260@vs",
     },
     instructionTextInPage : {
         color : Colors.black46,
-        fontSize : 12,
+        fontSize : "12@ms",
         fontFamily : "Roboto-Regular"
     },
     scanToReceiveBtn : {
-        height : 40,
+        height : "40@vs",
         backgroundColor : Colors.defaultBlue,
         marginTop : "14%",
-        borderRadius : 8,
+        borderRadius : "8@ms",
     },
     scanToReceiveBtnText : {
         color : Colors.white,
-        fontSize : 16,
+        fontSize : "16@ms",
         fontFamily : "Comfortaa-Regular"
     }
 })

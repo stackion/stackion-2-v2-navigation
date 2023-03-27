@@ -32,7 +32,7 @@ const ReceiveViaOnline = (props) => {
         <InAppHB navigation={props.navigation} headerTitleText={"Receive"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
             <View style={style.View}>
                 <Text style={{
-                    fontSize : moderateScale(32),
+                    fontSize : (32),
                     color : Colors.black31,
                     fontFamily : "Comfortaa-Regular",
                     textAlign : "center"

@@ -117,6 +117,9 @@ const style = StyleSheet.create({
         fontFamily : "Roboto-Medium",
     },
     historyContentSection : {
+        borderColor : `${Colors.black46}62`,
+        borderWidth : 0.6,
+        borderStyle : "solid",
         marginTop : "2@vs",
         minHeight : "120@vs",
     },
@@ -125,9 +128,9 @@ const style = StyleSheet.create({
         height : "80@vs",
         padding : "5@ms",
         backgroundColor : Colors.white,
-        borderColor : `${Colors.black46}e2`,
-        borderWidth : 0.6,
-        borderStyle : "solid",
+        borderBottomColor : `${Colors.black46}62`,
+        borderBottomWidth : 0.6,
+        borderBottomStyle : "solid",
     },
     historyTitle : {
         fontSize : "12@ms",

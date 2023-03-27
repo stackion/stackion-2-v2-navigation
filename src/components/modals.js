@@ -1,8 +1,13 @@
 import {
     View,
-    StyleSheet,
     useWindowDimensions
 } from "react-native";
+import { 
+    ScaledSheet as StyleSheet,
+    moderateScale,
+    verticalScale,
+    scale
+} from 'react-native-size-matters';
 import { Modal, BottomModal, ModalFooter, ModalContent} from "react-native-modals";
 import { Btn } from "./button";
 import Colors from "../styles/colors";
@@ -49,8 +54,8 @@ export const QuickMenu = props => {
     const {height} = useWindowDimensions();
     const style = StyleSheet.create({
         BottomModalContent : {
-            height : height / 2,
-            maxHeight : 260,
+            height : `${height / 2}@vs`,
+            maxHeight : "260@vs",
             backgroundColor : Colors.white,
         },
         quickMenuTopper : {
@@ -64,10 +69,10 @@ export const QuickMenu = props => {
             borderBottomWidth : 0.8,
             borderBottomColor : Colors.blackF2,
             borderBottomStyle : "solid",
-            padding : 15
+            padding : "15@ms"
         },
         quickMenuBtnsText : {
-            fontSize : 16,
+            fontSize : "16@ms",
             color : Colors.black46,
             fontFamily : "Comfortaa-Regular"
         }
@@ -98,10 +103,10 @@ export const QuickMenu = props => {
                 <View style={[DefaultStyle.WSpanParent, style.quickMenuFooter, DefaultStyle.centeredXY]}>
                     <Btn text="+" style={[DefaultStyle.centeredXY, {
                         backgroundColor : Colors.defaultBlue,
-                        width : 30,
-                        height : 30,
-                        borderRadius : 5,
-                        }]} textStyle={{fontSize : 24, color : Colors.white, transform : [{rotate: '45deg'}] }}
+                        width : verticalScale(30),
+                        height : verticalScale(30),
+                        borderRadius : moderateScale(5),
+                        }]} textStyle={{fontSize : moderateScale(24), color : Colors.white, transform : [{rotate: '45deg'}] }}
                         onPress={props.closeModalBtnPressed}
                         />
                 </View>
