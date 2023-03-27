@@ -2,8 +2,8 @@ import {useState, useEffect} from "react";
 import {
     Text,
     View,
-    StyleSheet
 } from "react-native";
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -136,20 +136,20 @@ const style = StyleSheet.create({
         alignSelf : "flex-start",
     },
     historyText : {
-        fontSize : 12,
+        fontSize : "12@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Regular",
         alignSelf : "flex-start",
     },
     historyDate : {
-        fontSize : 12,
+        fontSize : "12@ms",
         fontWeight : 500,
         color : Colors.black46,
         fontFamily : "Roboto-Regular",
         alignSelf : "flex-end",
         position : "absolute",
-        bottom : 4,
-        right : 4
+        bottom : "4@vs",
+        right : "4@s"
     },
 })
 

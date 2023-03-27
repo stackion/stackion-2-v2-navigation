@@ -2,12 +2,12 @@ import { useCallback, useState, useEffect } from "react";
 import {
     Text,
     View,
-    StyleSheet,
     Alert,
     BackHandler,
     RefreshControl
 } from "react-native";
 import Toast from 'react-native-toast-message';
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import { useFocusEffect } from '@react-navigation/native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -143,7 +143,7 @@ const Dashboard = (props) => {
                     </Text>
                 </View>
                 <View style={[style.contentsInBodyCont, style.DataCont]}>
-                    <View style={{marginBottom : 22}}>
+                    <View style={{marginBottom : verticalScale(22)}}>
                         <Text style={[style.introText]}>
                             Bank
                         </Text>
@@ -162,7 +162,7 @@ const Dashboard = (props) => {
                             });
                         }} />
                     </View>
-                    <View style={{marginBottom : 22}}>
+                    <View style={{marginBottom : verticalScale(22)}}>
                         <Text style={[style.introText]}>
                             Account name
                         </Text>
@@ -181,7 +181,7 @@ const Dashboard = (props) => {
                             });
                         }} />
                     </View>
-                    <View style={{marginBottom : 12}}>
+                    <View style={{marginBottom : verticalScale(12)}}>
                         <Text style={[style.introText]}>
                             Account number
                         </Text>
@@ -231,13 +231,13 @@ const Dashboard = (props) => {
                         (
                             <>
                             <Text>Send{"\n\n"}</Text>
-                            <FontAwesomeIcon icon="paper-plane" size={20} color="#0052cc" />
+                            <FontAwesomeIcon icon="paper-plane" size={moderateScale(20)} color="#0052cc" />
                             </>
                         )
                     } style={[
                         DefaultStyle.WHSpanParent,
                         {
-                            padding : 12,
+                            padding : moderateScale(12),
                         }
                     ]} textStyle={style.quickActionBtnText} onPress={() => {
                         props.navigation.navigate("SendViaInternet")
@@ -248,13 +248,13 @@ const Dashboard = (props) => {
                         (
                             <>
                             <Text>Receive{"\n\n"}</Text>
-                            <FontAwesomeIcon icon="arrow-down" size={20} color="#4da6ff" />
+                            <FontAwesomeIcon icon="arrow-down" size={moderateScale(20)} color="#4da6ff" />
                             </>
                         )
                     } style={[
                             DefaultStyle.WHSpanParent,
                             {
-                                padding : 12,
+                                padding : moderateScale(12),
                             }
                     ]} textStyle={style.quickActionBtnText} onPress={() => {
                         props.navigation.navigate("ReceiveViaOnline")
@@ -265,13 +265,13 @@ const Dashboard = (props) => {
                         (
                             <>
                             <Text>Deposit{"\n\n"}</Text>
-                            <FontAwesomeIcon icon="money-check" size={20} color="#0066ff" />
+                            <FontAwesomeIcon icon="money-check" size={moderateScale(20)} color="#0066ff" />
                             </>
                         )
                     } style={[
                             DefaultStyle.WHSpanParent,
                             {
-                                padding : 12,
+                                padding : moderateScale(12),
                             }
                     ]} textStyle={style.quickActionBtnText} onPress={() => setPopUpVisibility(true)} />
                 </View>
@@ -280,13 +280,13 @@ const Dashboard = (props) => {
                         (
                             <>
                             <Text>Withdrawl{"\n\n"}</Text>
-                            <FontAwesomeIcon icon="money-bill" size={20} color="#0047b3" />
+                            <FontAwesomeIcon icon="money-bill" size={moderateScale(20)} color="#0047b3" />
                             </>
                         )
                     } style={[
                             DefaultStyle.WHSpanParent,
                             {
-                                padding : 12,
+                                padding : moderateScale(12),
                             }
                     ]} textStyle={style.quickActionBtnText}
                     onPress={() => setWithdrawalVisibility(true)} />
@@ -299,24 +299,24 @@ const Dashboard = (props) => {
 const style = StyleSheet.create({
     contentsInBodyCont : {
         width : "100%",
-        minWidth : 289,
-        maxWidth : 340,
+        minWidth : "289@s",
+        maxWidth : "340@s",
     },
     dashboardAssetValueDisplayRect : {
-        height : 124,
-        padding : 10,
-        borderRadius : 5,
+        height : "124@vs",
+        padding : "10@ms",
+        borderRadius : "5@ms",
         justifyContent : "center",
         backgroundColor : Colors.blackF2
     },
     Balance : {
-        fontSize : 16,
+        fontSize : "16@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
         fontWeight : 300
     },
     balanceAmount : {
-        fontSize : 30,
+        fontSize : "30@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
     },
@@ -325,61 +325,61 @@ const style = StyleSheet.create({
         marginBottom : "10%"
     },
     popupTitle : {
-        fontSize : 13,
+        fontSize : "13@ms",
         fontFamily : "Roboto-Regular",
         color : Colors.black46
     },
     DataCont : {
-        padding : 12,
-        borderRadius : 5,
+        padding : "12@ms",
+        borderRadius : "5@ms",
     },
     introText : {
-        fontSize : 13,
+        fontSize : "13@ms",
         fontWeight : 400,
         color : Colors.black10trans,
         fontFamily : "Roboto-Medium"
     },
     input : {
-        height : 45,
+        height : "45@vs",
         width : "100%",
-        maxWidth : 299,
-        minWidth : 180,
-        padding : 11,
-        borderRadius : 2,
+        maxWidth : "299@s",
+        minWidth : "180@s",
+        padding : "11@ms",
+        borderRadius : "2@ms",
         fontSize : 16,
-        marginTop : 2,
+        marginTop : "2@vs",
         backgroundColor : Colors.blackF2,
     },
     inputBtnText : {
-        fontSize : 16,
+        fontSize : "16@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium"
     },
     quickActionsHeadingSectionCont : {
-        height : 50,
-        marginTop : 20,
+        height : "50@vs",
+        marginTop : "20@vs",
         borderBottomStyle : "solid",
         borderBottomWidth : 3,
         borderBottomColor : Colors.blackF2
     },
     QuickActions : {
-        fontSize : 12,
+        fontSize : "12@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
         fontWeight : 300
     },
     quickActionsSectionCont : {
-        height : 320,
-        marginTop : 30,
+        height : "320@vs",
+        marginTop : "30@vs",
         flexDirection : "row",
         flexWrap : "wrap",
         justifyContent : "center"
     },
     quickActionBtn : {
-        height : 104,
-        width : 121,
-        margin : 15.5,
-        borderRadius : 7,
+        height : "104@vs",
+        width : "121@s",
+        margin : "15.5@ms",
+        borderRadius : "7@ms",
         backgroundColor : Colors.blackF2
      /*   shadowColor: Colors.black,
         shadowOffset: {
@@ -391,7 +391,7 @@ const style = StyleSheet.create({
         elevation: 1, */
     },
     quickActionBtnText : {
-        fontSize : 16,
+        fontSize : "16@ms",
         color : Colors.black31,
         fontWeight : 300,
         fontFamily : "Comfortaa-Medium",

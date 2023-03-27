@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import {
     Text,
     View,
-    StyleSheet,
     Alert
 } from "react-native";
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from "react-native-toast-message";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -32,7 +32,7 @@ const ReceiveViaOnline = (props) => {
         <InAppHB navigation={props.navigation} headerTitleText={"Receive"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
             <View style={style.View}>
                 <Text style={{
-                    fontSize : 32,
+                    fontSize : moderateScale(32),
                     color : Colors.black31,
                     fontFamily : "Comfortaa-Regular",
                     textAlign : "center"
@@ -46,7 +46,7 @@ const ReceiveViaOnline = (props) => {
                 </View>
                 <View style={[style.btnsCont]}>
                     <Btn text=""/>
-                    <Btn text={(<Text>Copy   <FontAwesomeIcon icon="copy" color={Colors.white} size={20} /></Text>)} style={style.copyBtn} textStyle={style.copyBtnText} onPress={() => {
+                    <Btn text={(<Text>Copy   <FontAwesomeIcon icon="copy" color={Colors.white} size={moderateScale(20)} /></Text>)} style={style.copyBtn} textStyle={style.copyBtnText} onPress={() => {
                         Clipboard.setString(`${username}`);
                         Toast.show({
                             type: 'success',
@@ -55,7 +55,7 @@ const ReceiveViaOnline = (props) => {
                         });
                     }}/>
                 </View>
-                <View style={{marginTop : 35}}>
+                <View style={{marginTop : verticalScale(35)}}>
                     <Text style={style.instructionTextInPage}>
                         Copy and send your Username to the person you want to receive funds from.
                     </Text>
@@ -68,53 +68,53 @@ const ReceiveViaOnline = (props) => {
 const style = StyleSheet.create({
     contentsInBodyCont : {
         width : "100%",
-        minWidth : 289,
-        maxWidth : 340,
+        minWidth : "289@s",
+        maxWidth : "340@s",
     },
     View : {
-        maxHeight : 650,
+        maxHeight : "650@vs",
         width : "100%",
-        maxWidth : 320,
-        minWidth : 200,
-        padding : 10,
+        maxWidth : "320@s",
+        minWidth : "200@s",
+        padding : "10@ms",
     },
     inputCont : {
-        marginTop : 37
+        marginTop : "37@vs"
     },
     input : {
-        height : 45,
+        height : "45@ms",
         width : "100%",
-        maxWidth : 299,
-        minWidth : 180,
-        padding : 11,
+        maxWidth : "299@s",
+        minWidth : "180@s",
+        padding : "11@ms",
         borderRadius : 2,
-        fontSize : 16,
-        marginTop : 20,
+        fontSize : "16@ms",
+        marginTop : "20@vs",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
         backgroundColor : Colors.blackF2,
     },
     btnsCont : {
         width : "100%",
-        marginTop : 25,
+        marginTop : "25@vs",
         alignItems : "center",
         justifyContent : "space-between",
         flexDirection : "row"
     },
     copyBtn : {
-        padding : 14,
+        padding : "14@ms",
         backgroundColor : Colors.defaultBlue,
-        width : 124,
-        borderRadius : 40
+        width : "124@ms",
+        borderRadius : "40@ms"
     },
     copyBtnText : {
         color : Colors.white,
-        fontSize : 16,
+        fontSize : "16@ms",
         fontFamily : "Comfortaa-Regular"
     },
     instructionTextInPage : {
         color : Colors.black46,
-        fontSize : 12,
+        fontSize : "12@ms",
         fontFamily : "Roboto-Regular"
     },
 })

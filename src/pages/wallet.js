@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import {
     Text,
     View,
-    StyleSheet,
     Alert,
     RefreshControl
 } from "react-native";
+import { ScaledSheet as StyleSheet, verticalScale } from 'react-native-size-matters';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
@@ -117,7 +117,7 @@ const Wallet = (props) => {
                 <View style={[DefaultStyle.centeredYSpaceBetweenX, DefaultStyle.WSpanParent, style.assetCont]}>
                     <View>
                         <Text style={style.assetsInfo}>
-                            <FontAwesomeIcon icon="money-bill-alt" size={20} color={Colors.defaultBlue} style={{transform: [{ translateY: 3 }]}} />  Fiat
+                            <FontAwesomeIcon icon="money-bill-alt" size={20} color={Colors.defaultBlue} style={{transform: [{ translateY: verticalScale(3) }]}} />  Fiat
                         </Text>
                     </View>
                     <View>
@@ -129,7 +129,7 @@ const Wallet = (props) => {
                 <View style={[DefaultStyle.centeredYSpaceBetweenX, DefaultStyle.WSpanParent, style.assetCont]}>
                     <View>
                         <Text style={style.assetsInfo}>
-                        <FontAwesomeIcon icon="gem" size={20} color={Colors.defaultBlue} style={{transform: [{ translateY: 3 }]}} />  Offline tokens
+                        <FontAwesomeIcon icon="gem" size={20} color={Colors.defaultBlue} style={{transform: [{ translateY: verticalScale(3) }]}} />  Offline tokens
                         </Text>
                     </View>
                     <View>
@@ -152,32 +152,32 @@ const Wallet = (props) => {
 const style = StyleSheet.create({
     contentsInBodyCont : {
         width : "100%",
-        minWidth : 289,
-        maxWidth : 340,
+        minWidth : "289@s",
+        maxWidth : "340@s",
     },
     dashboardAssetValueDisplayRect : {
-        height : 124,
-        padding : 10,
-        borderRadius : 5,
+        height : "124@vs",
+        padding : "10@ms",
+        borderRadius : "5@ms",
         justifyContent : "center",
         backgroundColor : Colors.blackF2
     },
     Balance : {
-        fontSize : 16,
+        fontSize : "16@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
         fontWeight : 300
     },
     balanceAmount : {
-        fontSize : 30,
+        fontSize : "30@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
     },
     assetCont : {
         backgroundColor : Colors.white,
-        height : 70,
-        padding : 24,
-        marginTop : 10,
+        height : "70@vs",
+        padding : "24@ms",
+        marginTop : "10@vs",
         shadowColor: Colors.black,
         shadowOffset: {
           width: 0,
@@ -191,31 +191,32 @@ const style = StyleSheet.create({
         fontWeight : 200,
         fontFamily : "Roboto-Medium",
         color : Colors.black31,
-        fontSize : 16
+        fontSize : "16@ms"
     },
     SectionTitle : {
-        marginTop : 60,
-        height : 40,
+        marginTop : "60@vs",
+        height : "40@vs",
         borderBottomColor : Colors.blackF2,
         borderBottomWidth : 3,
     },
     SectionTitleText : {
-        fontSize : 20,
+        fontSize : "20@ms",
         fontWeight : 800,
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
     },
     goToHistoryBtn : {
-        height : 45,
+        height : "45@vs",
         backgroundColor : Colors.defaultBlue,
-        marginTop : 50,
+        margin : "40@ms",
+        marginTop : "50@vs",
         justifyContent : "center",
-        borderRadius : 5
+        borderRadius : "5@ms"
     },
     goToHistoryBtnText : {
         textAlign : "center",
         color : Colors.white,
-        fontSize : 16,
+        fontSize : "16@ms",
         fontFamily : "Comfortaa-Regular"
     }
 })
