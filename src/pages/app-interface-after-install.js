@@ -1,16 +1,32 @@
+import {useCallback} from "react";
 import {
     Image,
     View,
     Text,
+    BackHandler
 } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
+
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn, Anchor} from "../components/button";
-import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 
 const termsURL = "https://stackion.net/terms-and-policies";
 
 const AppInterfaceAfterInstallation = (props) => {
+    useFocusEffect(
+      useCallback(() => {
+        const onBackPress = () => {
+            BackHandler.exitApp();
+            return false;
+        };
+  
+        BackHandler.addEventListener('hardwareBackPress', onBackPress);
+  
+        return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      }, [])
+    );
     return (
         <View style={
             [
