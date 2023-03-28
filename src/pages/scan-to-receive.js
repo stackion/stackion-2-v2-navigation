@@ -13,7 +13,7 @@ const ScanToReceive = (props) => {
     const scannerRef = useRef(null);
     const storeReceivedOfOfflineTokens = async (receipt) => {
         try {
-            receipt = JSON.parse(decrypt(receipt));
+            receipt = JSON.parse(await decrypt(receipt));
             if(receipt.key == "stackion-offline-token") {
                 const userSession = await encryptedStorage.getItem("user_session");
                 if(userSession) {

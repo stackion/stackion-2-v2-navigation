@@ -11,9 +11,9 @@ const ScanToSendOffline = (props) => {
     const scannerRef = null;
     return (
         <QRCodeScanner
-        onRead={(event) =>{
+        onRead={async (event) =>{
             try {
-                let e = decrypt(event.data);
+                let e = await decrypt(event.data);
                 if(JSON.parse(e).key == "stackion-user-receive-via-offline") {
                     Toast.show({
                         type: 'success',
