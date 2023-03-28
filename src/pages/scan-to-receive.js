@@ -33,6 +33,11 @@ const ScanToReceive = (props) => {
                             offlineBalance += receipt.amount;
                             parsedSession.offline_token_balance = offlineBalance;
                             parsedSession.receipts_db.push(receipt);
+                            parsedSession.offline_transactions.push({
+                                type : "received",
+                                date : new Date().toUTCString(),
+                                message : `N +${receipt.amount} from ${receipt.senderUsername}`
+                            })
                             await encryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
                             Toast.show({
                                 type: 'success',

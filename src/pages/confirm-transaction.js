@@ -159,6 +159,11 @@ const ConfirmTransaction = (props) => {
             if(amount <= offlineBalance) {
                 offlineBalance -= amount;
                 parsedSession.offline_token_balance = offlineBalance;
+                parsedSession.offline_transactions.push({
+                    type : "sent",
+                    date : new Date().toUTCString(),
+                    message : `N -${receipt.amount} to ${username}`
+                })
                 await encryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
                 setPopUpVisibility(true);
             }
