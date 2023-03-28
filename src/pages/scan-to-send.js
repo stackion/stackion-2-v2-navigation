@@ -1,3 +1,4 @@
+import {useRef} from "react";
 import {
     Text,
 } from "react-native";
@@ -8,7 +9,7 @@ import Colors from "../styles/colors";
 import {decrypt} from "../functions/crypto";
 
 const ScanToSendOffline = (props) => {
-    const scannerRef = null;
+    const scannerRef = useRef(null);
     return (
         <QRCodeScanner
         onRead={async (event) =>{
