@@ -7,12 +7,13 @@ import { RNCamera } from 'react-native-camera';
 import Toast from "react-native-toast-message";
 import Colors from "../styles/colors";
 import * as encryptedStorage from "../functions/encrypted-storage";
+import {decrypt} from "../functions/crypto";
 
 const ScanToReceive = (props) => {
     const scannerRef = useRef(null);
     const storeReceivedOfOfflineTokens = async (receipt) => {
         try {
-            receipt = JSON.parse(receipt);
+            receipt = JSON.parse(decrypt(receipt));
             if(receipt.key == "stackion-offline-token") {
                 const userSession = await encryptedStorage.getItem("user_session");
                 if(userSession) {

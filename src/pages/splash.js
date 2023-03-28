@@ -36,7 +36,8 @@ const Splash = (props) => {
                     },
                     offline_token_balance : 0,
                     device_id : random_number(12),
-                    receipts_db : []
+                    receipts_db : [],
+                    encryption_key : "28CjOS0nshwlASViqCKhw824lk10pWWE"
                 })
             );
         }

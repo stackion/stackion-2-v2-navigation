@@ -16,6 +16,7 @@ import Toast from "react-native-toast-message";
 import QRCode from 'react-native-qrcode-svg';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
+import {encrypt} from "../functions/crypto";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
@@ -242,15 +243,17 @@ const ConfirmTransaction = (props) => {
                         {type === "offline tokens" ? 
                             <>
                             <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
-                            <QRCode value={JSON.stringify({
-                                senderUsername : senderUsername,
-                                receiverDeviceId : receiverDeviceId,
-                                amount : amount,
-                                username : username,
-                                receipt_id : random_number(6),
-                                date : new Date().toUTCString(),
-                                key : "stackion-offline-token"
-                            })} size={verticalScale(200)} color={Colors.black}
+                            <QRCode value={encrypt(
+                                JSON.stringify({
+                                    senderUsername : senderUsername,
+                                    receiverDeviceId : receiverDeviceId,
+                                    amount : amount,
+                                    username : username,
+                                    receipt_id : random_number(6),
+                                    date : new Date().toUTCString(),
+                                    key : "stackion-offline-token"
+                                })
+                            )} size={verticalScale(200)} color={Colors.black}
                             logo={require("../../assets/images/favicon.png")}
                             backgroundColor={Colors.white}
                             logoBackgroundColor={Colors.white}

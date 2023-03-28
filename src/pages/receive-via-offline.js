@@ -8,6 +8,7 @@ import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-n
 import QRCode from 'react-native-qrcode-svg';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
+import {encrypt} from "../functions/crypto";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {InAppHB} from "../components/in-app-h-b-f";
@@ -38,11 +39,13 @@ const ReceiveViaOffline = (props) => {
                     {username}
                 </Text>
                 <View style={[style.qrCodeContainer, DefaultStyle.centeredXY, style.contentsInBodyCont]}>
-                    <QRCode value={JSON.stringify({
-                        receiverUsername : username,
-                        receiverDeviceId : deviceId,
-                        key : "stackion-user-receive-via-offline"
-                    })} size={verticalScale(210)} color={Colors.black}
+                    <QRCode value={encrypt(
+                        JSON.stringify({
+                            receiverUsername : username,
+                            receiverDeviceId : deviceId,
+                            key : "stackion-user-receive-via-offline"
+                        })
+                    )} size={verticalScale(210)} color={Colors.black}
                     logo={require("../../assets/images/favicon.png")}
                     backgroundColor={Colors.white}
                     logoBackgroundColor={Colors.white}
