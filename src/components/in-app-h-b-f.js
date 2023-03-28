@@ -30,6 +30,7 @@ export const InAppHB = props => {
             }]}>
                 <ScrollView contentContainerStyle={[DefaultStyle.centeredX]} style={[DefaultStyle.WSpanParent, /*, style.bodyContScrollView*/]} refreshControl={props.refreshControl}>
                     {props.children}
+                    <View style={{height : verticalScale(200)}}></View>
                 </ScrollView>
             </View>
         </View>

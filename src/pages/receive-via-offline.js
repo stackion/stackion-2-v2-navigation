@@ -6,6 +6,7 @@ import {
 } from "react-native";
 import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import QRCode from 'react-native-qrcode-svg';
+import {Wave} from "react-native-animated-spinkit";
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import {encrypt} from "../functions/crypto";
@@ -17,6 +18,7 @@ import { Btn } from "../components/button";
 const ReceiveViaOffline = (props) => {
     const [username, setUsername] = useState("");
     const [deviceId, setDeviceID] = useState(0);
+    const [qrValue, setQrValue] = useState("bushfuhudhudhvudnvudhuv");
     useEffect(() => {
         (async () => {
             const userSession = await encryptedStorage.getItem("user_session");
@@ -24,6 +26,14 @@ const ReceiveViaOffline = (props) => {
                 let parsedSession = JSON.parse(userSession);
                 setUsername(parsedSession.user_online_data.username);
                 setDeviceID(parsedSession.device_id);
+                const data = await encrypt(
+                    JSON.stringify({
+                        receiverUsername : username,
+                        receiverDeviceId : deviceId,
+                        key : "stackion-user-receive-via-offline"
+                    })
+                )
+                setQrValue(data);
             }
         })();
     },[])
@@ -39,18 +49,16 @@ const ReceiveViaOffline = (props) => {
                     {username}
                 </Text>
                 <View style={[style.qrCodeContainer, DefaultStyle.centeredXY, style.contentsInBodyCont]}>
-                    <QRCode value={encrypt(
-                        JSON.stringify({
-                            receiverUsername : username,
-                            receiverDeviceId : deviceId,
-                            key : "stackion-user-receive-via-offline"
-                        })
-                    )} size={verticalScale(210)} color={Colors.black}
-                    logo={require("../../assets/images/favicon.png")}
-                    backgroundColor={Colors.white}
-                    logoBackgroundColor={Colors.white}
-                    logoBorderRadius={100}
-                    />
+                    {qrValue == "bushfuhudhudhvudnvudhuv" ?
+                        <Wave size={moderateScale(48)} color={Colors.defaultBlue} />
+                        :
+                        <QRCode value={qrValue} size={verticalScale(210)} color={Colors.black}
+                        logo={require("../../assets/images/favicon.png")}
+                        backgroundColor={Colors.white}
+                        logoBackgroundColor={Colors.white}
+                        logoBorderRadius={100}
+                        />
+                    }
                 </View>
                 <View style={[{marginTop : verticalScale(35)}, DefaultStyle.centeredX]}>
                     <Text style={style.instructionTextInPage}>

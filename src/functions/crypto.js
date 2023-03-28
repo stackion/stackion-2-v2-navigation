@@ -11,7 +11,6 @@ export const encrypt = async (data) => {
     }
 }
 
-
 export const decrypt = async (data) => {
     const userSession = await encryptedStorage.getItem("user_session");
     if(userSession) {

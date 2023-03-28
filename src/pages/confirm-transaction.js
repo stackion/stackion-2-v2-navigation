@@ -51,6 +51,7 @@ const ConfirmTransaction = (props) => {
 
     const [storedPin, setStoredPin] = useState("");
     const [senderUsername, setSenderUsername] = useState("");
+    const [qrValue, setQrValue] = useState("bushfuhudhudhvudnvudhuv");
 
     useEffect(() => {
         (async () => {
@@ -59,6 +60,18 @@ const ConfirmTransaction = (props) => {
                 let parsedSession = JSON.parse(userSession);
                 setStoredPin(parsedSession.transaction_pin);
                 setSenderUsername(parsedSession.user_online_data.username)
+                const data = await encrypt(
+                    JSON.stringify({
+                        senderUsername : senderUsername,
+                        receiverDeviceId : receiverDeviceId,
+                        amount : amount,
+                        username : username,
+                        receipt_id : random_number(6),
+                        date : new Date().toUTCString(),
+                        key : "stackion-offline-token"
+                    })
+                );
+                setQrValue(data)
             }
         })()
     },[])
@@ -243,17 +256,7 @@ const ConfirmTransaction = (props) => {
                         {type === "offline tokens" ? 
                             <>
                             <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
-                            <QRCode value={encrypt(
-                                JSON.stringify({
-                                    senderUsername : senderUsername,
-                                    receiverDeviceId : receiverDeviceId,
-                                    amount : amount,
-                                    username : username,
-                                    receipt_id : random_number(6),
-                                    date : new Date().toUTCString(),
-                                    key : "stackion-offline-token"
-                                })
-                            )} size={verticalScale(200)} color={Colors.black}
+                            <QRCode value={qrValue} size={verticalScale(200)} color={Colors.black}
                             logo={require("../../assets/images/favicon.png")}
                             backgroundColor={Colors.white}
                             logoBackgroundColor={Colors.white}
