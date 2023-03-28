@@ -15,7 +15,7 @@ import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
 
-const ReceiveViaOnline = (props) => {
+const Menu = (props) => {
     const [name, setName] = useState("Dear User");
     const [username, setUsername] = useState("");
     useEffect(() => {
@@ -119,4 +119,4 @@ const style = StyleSheet.create({
     },
 })
 
-export default ReceiveViaOnline;
+export default Menu;

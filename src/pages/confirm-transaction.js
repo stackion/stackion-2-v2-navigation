@@ -247,7 +247,7 @@ const ConfirmTransaction = (props) => {
     }
 
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Confirm Transaction"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Confirm Transaction"} >
             <View style={style.formView}>
                 <AfterTransactionPopUp visibility={popUpVisibility} onBottomBtnClicked={() => {
                     setPopUpVisibility(false);

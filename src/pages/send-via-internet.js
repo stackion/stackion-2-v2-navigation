@@ -70,7 +70,7 @@ const SendViaInternet = (props) => {
     }
 
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Send Via Internet"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Send Via Internet"} >
             <View style={style.formView}>
                 <View>
                     <Text style={[style.introText]}>
