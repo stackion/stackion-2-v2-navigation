@@ -59,27 +59,29 @@ const ConfirmTransaction = (props) => {
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
                 setStoredPin(parsedSession.transaction_pin);
-                setSenderUsername(parsedSession.user_online_data.username)
+                setSenderUsername(parsedSession.user_online_data.username);
             }
         })()
     },[])
 
     useState(() => {
         (async () => {
-            const data = await encrypt(
-                JSON.stringify({
-                    senderUsername : senderUsername,
-                    receiverDeviceId : receiverDeviceId,
-                    amount : amount,
-                    username : username,
-                    receipt_id : random_number(6),
-                    date : new Date().toUTCString(),
-                    key : "stackion-offline-token"
-                })
-            );
-            setQrValue(data)
+            if(senderUsername && receiverDeviceId && amount && username) {
+                const data = await encrypt(
+                    JSON.stringify({
+                        senderUsername : senderUsername,
+                        receiverDeviceId : receiverDeviceId,
+                        amount : amount,
+                        username : username,
+                        receipt_id : random_number(6),
+                        date : new Date().toUTCString(),
+                        key : "stackion-offline-token"
+                    })
+                );
+                setQrValue(data)
+            }
         })()
-    },[senderUsername,receiverDeviceId,amount,username])
+    },[senderUsername])
 
     const validateForm = () => { 
         if(pin !== "" && pin === storedPin && storedPin !== "") {
@@ -261,16 +263,15 @@ const ConfirmTransaction = (props) => {
                         {type === "offline tokens" ? 
                             <>
                             <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
-                            {
-                                qrValue == "bushfuhudhudhvudnvudhuv" ?
+                                {qrValue == "bushfuhudhudhvudnvudhuv" ?
                                     <Wave size={moderateScale(48)} color={Colors.defaultBlue} />
-                                :
+                                    :
                                     <QRCode value={qrValue} size={verticalScale(200)} color={Colors.black}
                                     logo={require("../../assets/images/favicon.png")}
                                     backgroundColor={Colors.white}
                                     logoBackgroundColor={Colors.white}
                                     logoBorderRadius={100} />
-                            }
+                                }
                             </View>
                             <View style={[{marginTop : verticalScale(35)}, DefaultStyle.centeredX]}>
                                 <Text style={style.instructionTextInPage}>
