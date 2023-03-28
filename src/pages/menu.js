@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import {
     Text,
-    View,
-    Alert
+    View
 } from "react-native";
 import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import Toast from "react-native-toast-message";
+import { Modal, ModalButton, ModalTitle, ModalFooter, ModalContent} from "react-native-modals";
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -14,16 +14,70 @@ import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
 
 const Menu = (props) => {
+    const [signoutPromptVisible, setSignoutPromptVisibility] = useState(false);
+    const [offlineBalance, setOfflineBalance] = useState("")
     useEffect(() => {
         (async () => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
+                setOfflineBalance(parsedSession.offline_token_balance)
             }
         })();
     },[])
+
+    const handleSignout = async () => {
+        if(offlineBalance == 0) {
+            await encryptedStorage.removeItem("user_session");
+            props.navigation.navigate("Splash");
+        }
+        else {
+            Toast.show({
+                type : "info",
+                text1 : "Couldn't sign out",
+                text2 : "You still have some unconverted offline assets. Please convert them to fiat."
+            })
+        }
+    }
+
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Menu"} >
+            <Modal
+                modalStyle={{padding : moderateScale(20)}}
+                onHardwareBackPress={() => setSignoutPromptVisibility(false)}
+                visible={signoutPromptVisible}
+                ModalTitle={
+                    <ModalTitle title="Sign out ?" />
+                }
+                footer={
+                <ModalFooter>
+                    <ModalButton
+                    text="Cancel"
+                    onPress={() => {
+                        setSignoutPromptVisibility(false)
+                    }}
+                    />
+                    <ModalButton
+                    text="Yes, sign out"
+                    textStyle={{color : Colors.red}}
+                    onPress={() => {
+                        setSignoutPromptVisibility(false)
+                        handleSignout();
+                    }}
+                    />
+                </ModalFooter>
+                }
+            >
+                <ModalContent>
+                    <Text style={{
+                        fontSize : moderateScale(16),
+                        fontFamily : "Roboto-Regular",
+                        color : Colors.black46
+                    }}>
+                        All offline assets would be lost
+                    </Text>
+                </ModalContent>
+            </Modal>
             <View style={style.View}>
                 <Text style={{
                     fontSize : moderateScale(32),
@@ -35,16 +89,12 @@ const Menu = (props) => {
                 </Text>
                 <View style={[style.btnsCont, DefaultStyle.centeredXY]}>
                     <Btn text="Sign out" textStyle={style.signOutBtnText} onPress={() => {
-                        Toast.show({
-                            type: 'success',
-                            text1: 'Copied!',
-                            text2: 'Have a great day champ ✌'
-                        });
+                        setSignoutPromptVisibility(true);
                     }}/>
                 </View>
                 <View style={{marginTop : verticalScale(35)}}>
                     <Text style={style.instructionTextInPage}>
-                        Do not sign out without converting your offline balance to fiat to prevent losses.
+                        Do not sign out without converting all your offline balance to fiat to prevent lose.
                     </Text>
                 </View>
             </View>
@@ -64,22 +114,6 @@ const style = StyleSheet.create({
         maxWidth : "320@s",
         minWidth : "200@s",
         padding : "10@ms",
-    },
-    inputCont : {
-        marginTop : "37@vs"
-    },
-    input : {
-        height : "45@ms",
-        width : "100%",
-        maxWidth : "299@s",
-        minWidth : "180@s",
-        padding : "11@ms",
-        borderRadius : 2,
-        fontSize : "16@ms",
-        marginTop : "20@vs",
-        color : Colors.black31,
-        fontFamily : "Roboto-Medium",
-        backgroundColor : Colors.blackF2,
     },
     btnsCont : {
         width : "100%",
