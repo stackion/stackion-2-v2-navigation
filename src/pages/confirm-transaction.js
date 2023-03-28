@@ -162,7 +162,7 @@ const ConfirmTransaction = (props) => {
                 parsedSession.offline_transactions.push({
                     type : "sent",
                     date : new Date().toUTCString(),
-                    message : `N -${receipt.amount} to ${username}`
+                    message : `N -${amount} to ${username}`
                 })
                 await encryptedStorage.setItem("user_session", JSON.stringify(parsedSession));
                 setPopUpVisibility(true);
