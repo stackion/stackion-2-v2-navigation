@@ -9,6 +9,7 @@ import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {InAppHB} from "../components/in-app-h-b-f";
+import {Btn} from "../components/button";
 
 const TransactionHistory = (props) => {
     const [historyContent, setHistoryContent] = useState(
@@ -16,17 +17,40 @@ const TransactionHistory = (props) => {
             No History
         </Text>
         );
+    const [isOnlineTransactions, setIsOnlineTransactions] = useState(true);
+
     useEffect(() => {
         (async () => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
                 let onlineTransactionHistory = parsedSession.user_online_data.transaction_records_db;
-                if(onlineTransactionHistory.length > 0) {
+                let offlineTransactionHistory = parsedSession.offline_transactions;
+                if(onlineTransactionHistory.length > 0 && isOnlineTransactions) {
                     onlineTransactionHistory = onlineTransactionHistory.reverse();
                     setHistoryContent(
                         <>
                         {onlineTransactionHistory.map(transaction => (
+                            <View key={transaction.date} style={[style.contentsInBodyCont, style.historyContentCont]}>
+                                <Text style={[style.historyTitle]}>
+                                    {transaction.type}
+                                </Text>
+                                <Text style={[style.historyText]}>
+                                    {transaction.message}
+                                </Text>
+                                <Text style={[style.historyDate]}>
+                                    {transaction.date.replace(/GMT/g,"")}
+                                </Text>
+                            </View>
+                          ))}
+                        </>
+                    );
+                }
+                else  if(offlineTransactionHistory.length > 0 && !isOnlineTransactions) {
+                    offlineTransactionHistory = offlineTransactionHistory.reverse();
+                    setHistoryContent(
+                        <>
+                        {offlineTransactionHistory.map(transaction => (
                             <View key={transaction.date} style={[style.contentsInBodyCont, style.historyContentCont]}>
                                 <Text style={[style.historyTitle]}>
                                     {transaction.type}
@@ -50,9 +74,19 @@ const TransactionHistory = (props) => {
                 }
             }
         })();
-    }, [])
+    }, [isOnlineTransactions])
     return (
         <InAppHB navigation={props.navigation} headerStyle={{justifyContent : "center", paddingLeft : 0}} headerTitleText={"Transaction History"} >
+            <View style={[DefaultStyle.centeredYSpaceBetweenX, style.transactionListSelectorCont, style.contentsInBodyCont]}>
+                <Btn text="Online" style={[style.transactionListSelectorbtn, {
+                    backgroundColor : isOnlineTransactions ? Colors.white : Colors.blackF2,
+                }, DefaultStyle.centeredXY]} textStyle={style.transactionListSelectorText}
+                onPress={() => setIsOnlineTransactions(true)} />
+                <Btn text="Offline" style={[style.transactionListSelectorbtn, {
+                    backgroundColor : isOnlineTransactions ? Colors.blackF2 : Colors.white,
+                }, DefaultStyle.centeredXY]} textStyle={style.transactionListSelectorText}
+                onPress={() => setIsOnlineTransactions(false)} />
+            </View>
             <View style={[style.historyContentSection, DefaultStyle.centeredXY, style.contentsInBodyCont]} >
                 {historyContent}
             </View>
@@ -133,7 +167,7 @@ const style = StyleSheet.create({
         borderBottomStyle : "solid",
     },
     historyTitle : {
-        fontSize : "12@ms",
+        fontSize : "14@ms",
         color : Colors.black31,
         fontFamily : "Roboto-Medium",
         alignSelf : "flex-start",
@@ -154,6 +188,24 @@ const style = StyleSheet.create({
         bottom : "4@vs",
         right : "4@s"
     },
+    transactionListSelectorCont : {
+        height : "48@vs",
+        backgroundColor : Colors.blackF2,
+        borderRadius : "100@ms",
+        marginBottom : "10@vs",
+        padding : "10@vs"
+    },
+    transactionListSelectorbtn : {
+        height : "40@vs",
+        borderRadius : "100@ms",
+        padding : "10@vs",
+        width : "160@s"
+    },
+    transactionListSelectorText : {
+        fontSize : "16@ms",
+        fontFamily : "Roboto-Medium",
+        color : Colors.black31
+    }
 })
 
 export default TransactionHistory;
