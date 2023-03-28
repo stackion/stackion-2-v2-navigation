@@ -9,7 +9,7 @@ import QRCode from 'react-native-qrcode-svg';
 import {Wave} from "react-native-animated-spinkit";
 
 import * as encryptedStorage from "../functions/encrypted-storage";
-import {encrypt} from "../functions/crypto";
+import {encrypt, decrypt} from "../functions/crypto";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {InAppHB} from "../components/in-app-h-b-f";
@@ -26,17 +26,25 @@ const ReceiveViaOffline = (props) => {
                 let parsedSession = JSON.parse(userSession);
                 setUsername(parsedSession.user_online_data.username);
                 setDeviceID(parsedSession.device_id);
-                const data = await encrypt(
-                    JSON.stringify({
-                        receiverUsername : username,
-                        receiverDeviceId : deviceId,
-                        key : "stackion-user-receive-via-offline"
-                    })
-                )
-                setQrValue(data);
             }
         })();
     },[])
+    
+    useEffect(() => {
+        (async () => {
+            if (username && deviceId) {
+                const data = await encrypt(
+                    JSON.stringify({
+                        receiverUsername: username,
+                        receiverDeviceId: deviceId,
+                        key: "stackion-user-receive-via-offline",
+                    })
+                );
+                setQrValue(data);
+            }
+        })()
+    },[username, deviceId])
+
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Receive offline"} whenHeaderMenuBtnIsPressed={() => Alert.alert("Coming soon")} >
             <View style={style.formView}>
