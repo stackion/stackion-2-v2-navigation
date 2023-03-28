@@ -5,9 +5,7 @@ import {
     Alert
 } from "react-native";
 import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
-import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from "react-native-toast-message";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -16,38 +14,27 @@ import {Btn} from "../components/button";
 import {InAppHB} from "../components/in-app-h-b-f";
 
 const Menu = (props) => {
-    const [name, setName] = useState("Dear User");
-    const [username, setUsername] = useState("");
     useEffect(() => {
         (async () => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
-                setUsername(parsedSession.user_online_data.username);
-                setName(parsedSession.user_online_data.name);
             }
         })();
     },[])
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Receive"} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Menu"} >
             <View style={style.View}>
                 <Text style={{
-                    fontSize : (32),
+                    fontSize : moderateScale(32),
                     color : Colors.black31,
                     fontFamily : "Comfortaa-Regular",
                     textAlign : "center"
                 }} >
-                    Hey {name}!
+                    More features coming soon!
                 </Text>
-                <View style={style.inputCont}>
-                    <Text style={[style.input, DefaultStyle.centeredXY]}>
-                        {username}
-                    </Text>
-                </View>
-                <View style={[style.btnsCont]}>
-                    <Btn text=""/>
-                    <Btn text={(<Text>Copy   <FontAwesomeIcon icon="copy" color={Colors.white} size={moderateScale(20)} /></Text>)} style={style.copyBtn} textStyle={style.copyBtnText} onPress={() => {
-                        Clipboard.setString(`${username}`);
+                <View style={[style.btnsCont, DefaultStyle.centeredXY]}>
+                    <Btn text="Sign out" textStyle={style.signOutBtnText} onPress={() => {
                         Toast.show({
                             type: 'success',
                             text1: 'Copied!',
@@ -57,7 +44,7 @@ const Menu = (props) => {
                 </View>
                 <View style={{marginTop : verticalScale(35)}}>
                     <Text style={style.instructionTextInPage}>
-                        Copy and send your Username to the person you want to receive funds from.
+                        Do not sign out without converting your offline balance to fiat to prevent losses.
                     </Text>
                 </View>
             </View>
@@ -96,21 +83,15 @@ const style = StyleSheet.create({
     },
     btnsCont : {
         width : "100%",
-        marginTop : "25@vs",
+        marginTop : "75@vs",
         alignItems : "center",
         justifyContent : "space-between",
         flexDirection : "row"
     },
-    copyBtn : {
-        padding : "14@ms",
-        backgroundColor : Colors.defaultBlue,
-        width : "124@ms",
-        borderRadius : "40@ms"
-    },
-    copyBtnText : {
-        color : Colors.white,
+    signOutBtnText : {
+        color : Colors.red,
         fontSize : "16@ms",
-        fontFamily : "Comfortaa-Regular"
+        fontFamily : "Roboto-Bold"
     },
     instructionTextInPage : {
         color : Colors.black46,

@@ -8,6 +8,7 @@ const Colors = {
     black10trans : "#101010ac",
     blue2 : "#0896E5",
     green : "#40ff89",
+    red : "rgba(229, 8, 101, 1)",
     transparents : {
         black : "#000000ac",
         black2 : "rgba(0, 0, 0, 0.33)"
