@@ -16,7 +16,7 @@ import Toast from "react-native-toast-message";
 import QRCode from 'react-native-qrcode-svg';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
-import {encrypt} from "../functions/crypto";
+import {encrypt, decrypt} from "../functions/crypto";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
@@ -47,11 +47,10 @@ const ConfirmTransaction = (props) => {
         }, [])
     );
 
-    const {username, amount, type, receiverDeviceId} = props.route.params;
+    const {username, amount, type, receiverDeviceId, senderUsername} = props.route.params;
 
     const [storedPin, setStoredPin] = useState("");
-    const [senderUsername, setSenderUsername] = useState("");
-    const [qrValue, setQrValue] = useState("bushfuhudhudhvudnvudhuv");
+    const [qrValue, setQrValue] = useState("suv");
 
     useEffect(() => {
         (async () => {
@@ -59,13 +58,7 @@ const ConfirmTransaction = (props) => {
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
                 setStoredPin(parsedSession.transaction_pin);
-                setSenderUsername(parsedSession.user_online_data.username);
             }
-        })()
-    },[])
-
-    useState(() => {
-        (async () => {
             if(senderUsername && receiverDeviceId && amount && username) {
                 const data = await encrypt(
                     JSON.stringify({
@@ -81,7 +74,7 @@ const ConfirmTransaction = (props) => {
                 setQrValue(data)
             }
         })()
-    },[senderUsername])
+    },[])
 
     const validateForm = () => { 
         if(pin !== "" && pin === storedPin && storedPin !== "") {
@@ -268,15 +261,11 @@ const ConfirmTransaction = (props) => {
                         {type === "offline tokens" ? 
                             <>
                             <View style={[DefaultStyle.centeredXY, style.contentsInBodyCont]}>
-                                {qrValue == "bushfuhudhudhvudnvudhuv" ?
-                                    <Wave size={moderateScale(48)} color={Colors.defaultBlue} />
-                                    :
-                                    <QRCode value={qrValue} size={verticalScale(200)} color={Colors.black}
-                                    logo={require("../../assets/images/favicon.png")}
-                                    backgroundColor={Colors.white}
-                                    logoBackgroundColor={Colors.white}
-                                    logoBorderRadius={100} />
-                                }
+                                <QRCode value={qrValue} size={verticalScale(200)} color={Colors.black}
+                                logo={require("../../assets/images/favicon.png")}
+                                backgroundColor={Colors.white}
+                                logoBackgroundColor={Colors.white}
+                                logoBorderRadius={100} />
                             </View>
                             <View style={[{marginTop : verticalScale(35)}, DefaultStyle.centeredX]}>
                                 <Text style={style.instructionTextInPage}>

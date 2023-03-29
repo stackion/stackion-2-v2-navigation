@@ -19,6 +19,7 @@ const SendOffline = (props) => {
     const [amount, setAmount] = useState("");
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
+    const [senderUsername, setSenderUsername] = useState("")
 
     const {receiverUsername, receiverDeviceId} = props.route.params.qrdata;
 
@@ -27,6 +28,7 @@ const SendOffline = (props) => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
+                setSenderUsername(parsedSession.user_online_data.username);
                 setOfflineBalance(
                     new Intl.NumberFormat('en-UK', {
                         style: 'currency',
@@ -56,6 +58,7 @@ const SendOffline = (props) => {
             username : receiverUsername,
             amount : Number(amount),
             type : "offline tokens",
+            senderUsername : senderUsername,
             receiverDeviceId : receiverDeviceId
         })
     }
