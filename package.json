@@ -28,6 +28,7 @@
     "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-modals": "^0.22.3",
     "react-native-navigation-bar-color": "^2.0.2",
+    "react-native-numpad": "^0.3.0",
     "react-native-permissions": "^3.7.2",
     "react-native-qrcode-scanner": "^1.5.5",
     "react-native-qrcode-svg": "^6.2.0",
