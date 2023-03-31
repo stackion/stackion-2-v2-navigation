@@ -39,7 +39,7 @@ const TransactionHistory = (props) => {
                                     {transaction.message}
                                 </Text>
                                 <Text style={[style.historyDate]}>
-                                    {transaction.date.replace(/GMT/g,"")}
+                                    {new Date(transaction.date).toLocaleString("en-NG", {timeZone: "Africa/Lagos", weekday: "short", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric"})}
                                 </Text>
                             </View>
                           ))}
@@ -59,7 +59,7 @@ const TransactionHistory = (props) => {
                                     {transaction.message}
                                 </Text>
                                 <Text style={[style.historyDate]}>
-                                    {transaction.date.replace(/GMT/g,"")}
+                                    {new Date(transaction.date).toLocaleString("en-NG", {timeZone: "Africa/Lagos", weekday: "short", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric"})}
                                 </Text>
                             </View>
                           ))}
