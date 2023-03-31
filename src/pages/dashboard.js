@@ -290,7 +290,7 @@ const Dashboard = (props) => {
                                 padding : moderateScale(12),
                             }
                     ]} textStyle={style.quickActionBtnText}
-                    onPress={() => setWithdrawalVisibility(true)} />
+                    onPress={() => props.navigation.navigate("WithdrawalPage")} />
                 </View>
             </View>
         </InAppHBF>
