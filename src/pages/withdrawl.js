@@ -6,6 +6,7 @@ import {
 } from "react-native";
 import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import Toast from "react-native-toast-message";
+import Picker from "@react-native-picker/picker";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Wave } from 'react-native-animated-spinkit';
 import axios from "axios";
@@ -22,8 +23,8 @@ export const WithdrawalPage = (props) => {
     const [receiverAccountNumber, setReceiverAccountNumber] = useState("");
     const [receiverBankCode, setReceiverBankCode] = useState("");
     const [receiverBankName, setReceiverBankName] = useState("");
-    const [loaderIsVisible, setLoaderIsVisible] = useState(true);
     const [bankList, setBankList] = useState([]);
+    const [loaderIsVisible, setLoaderIsVisible] = useState(false);
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
@@ -63,13 +64,22 @@ export const WithdrawalPage = (props) => {
                 textStyle={{color : Colors.white}}
                 />
                 <View style={style.inputCont}>
+                    <Picker
+                    >
+                        <Picker.Item label="Select a bank" value="" />
+                        <Picker.Item
+                            key={0}
+                            label={"First bank"}
+                            value={"bank.bankCode"}
+                        />
+                    </Picker>
                     <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Receiver's username" inputMode="text" onChangeText={value => {
                             setUsername(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
-                            setAmount(value.replace(/[^0-9.]/g,"").trim());
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Account number" onChangeText={value => {
+                            setReceiverAccountNumber(value.replace(/[^0-9.]/g,"").trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
