@@ -4,7 +4,7 @@ import {
     View,
     TextInput
 } from "react-native";
-import { ScaledSheet as StyleSheet, verticalScale } from 'react-native-size-matters';
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Wave } from 'react-native-animated-spinkit';
@@ -56,6 +56,12 @@ export const WithdrawalPage = (props) => {
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Withdrawl Via Bank Transfer"} >
             <View style={style.formView}>
+                <Spinner
+                customIndicator={<Wave size={moderateScale(48)} color={Colors.defaultBlue} />}
+                visible={loaderIsVisible}
+                textContent={''}
+                textStyle={{color : Colors.white}}
+                />
                 <View style={style.inputCont}>
                     <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Receiver's username" inputMode="text" onChangeText={value => {
                             setUsername(value.trim());
@@ -78,10 +84,10 @@ export const WithdrawalPage = (props) => {
                 </View>
                 <View style={{marginTop : verticalScale(35)}}>
                     <Text style={style.instructionTextInPage}>
-                        Make sure the username you input is correct and it matches with that of the user you want to send funds to.
+                        Make sure the name of the receiver is correct and it matches with that of the person you want to send funds to.
                     </Text>
                     <Text style={style.instructionTextInPage} >
-                        We are not responsible for sending funds to the wrong user.
+                        We are not responsible for sending funds to the wrong person.
                     </Text>
                 </View>
             </View>
