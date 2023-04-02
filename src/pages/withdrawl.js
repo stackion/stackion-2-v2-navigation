@@ -220,9 +220,8 @@ export const WithdrawalContinualPage = (props) => {
                     user_access_token : parsedSession.user_access_token
                 })
                 .then(response => {
-                    console.log(response.data)
                     if(response.data.status == true) {
-                        setSenderWithdrawableBalance(response.data.withdrawableBalance)
+                        setSenderWithdrawableBalance(Number(response.data.data.withdrawableBalance) / 100)
                         setLoaderIsVisible(false)
                     }
                     else {
@@ -246,10 +245,10 @@ export const WithdrawalContinualPage = (props) => {
             }
         })();
     },[])
-/*
+
 
     useEffect(() => {
-        if(receiverName !== "" && receiverAccountNumber.length === 10 && receiverBankCode !== "") {
+        if(amount !== "" && narration !== "" && Number(amount) <= senderWithdrawableBalance && senderWithdrawableBalance > 0) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }
@@ -257,8 +256,8 @@ export const WithdrawalContinualPage = (props) => {
             setFormSubmitableState(false);
             setSubmitBtnOpacity(0.5);
         }
-    },[receiverName , receiverAccountNumber , receiverBankCode])
-*/
+    },[amount, narration])
+
     const navigateToConfirmationPage = () => {
         if(senderAccountNumber == receiverAccountNumber) {
             Toast.show({
@@ -285,13 +284,28 @@ export const WithdrawalContinualPage = (props) => {
                 textContent={''}
                 textStyle={{color : Colors.white}}
                 />
+                <View>
+                    <Text style={[style.introText]}>
+                        Withdrawable balance
+                    </Text>
+                    <Text style={[style.introText]}>
+                        {
+                            new Intl.NumberFormat('en-UK', {
+                                style: 'currency',
+                                currency: 'NGN'
+                            }).format(
+                                senderWithdrawableBalance
+                            )
+                        }
+                    </Text>
+                </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" value={receiverAccountNumber}
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" value={amount}
                     maxLength={10} onChangeText={value => {
                             setAmount(value.replace(/[^0-9.]/g,"").trim());
                         }}
                      />
-                     <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Narration" value={receiverAccountNumber}
+                     <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Narration" value={narration}
                      maxLength={10} onChangeText={value => {
                              setNarration(value.trim());
                          }}
@@ -301,7 +315,7 @@ export const WithdrawalContinualPage = (props) => {
                     <Btn text=""/>
                     <Btn text="Next" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
                             if(formSubmitable) {
-                                //navigateToConfirmationPage();
+                                navigateToConfirmationPage();
                             }
                         }}/>
                 </View>
