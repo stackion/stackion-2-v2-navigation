@@ -15,14 +15,14 @@ import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
 import {Btn} from "../components/button";
-import {checkIfDataListIsEmpty, convertFormatedNumToRealNum} from "../functions/form-validator";
 import {InAppHB} from "../components/in-app-h-b-f";
+import {backendUrls} from "../functions/config";
 
 export const WithdrawalPage = (props) => {
     const [receverName, setReceiverName] = useState("");
     const [receiverAccountNumber, setReceiverAccountNumber] = useState("");
     const [receiverBankCode, setReceiverBankCode] = useState("");
-    const [receiverBankName, setReceiverBankName] = useState("");
+    const [sessionId, setSessionId] = useState("");
     const [bankList, setBankList] = useState([]);
     const [loaderIsVisible, setLoaderIsVisible] = useState(true);
     const [formSubmitable, setFormSubmitableState] = useState(false);
@@ -30,7 +30,7 @@ export const WithdrawalPage = (props) => {
 
     useEffect(() => {
         (async () => {
-            axios.get("https://960f-102-89-34-70.eu.ngrok.io/get-bank-list")
+            axios.get(backendUrls.k_c + "/get-bank-list")
             .then(response => {
                 if(response.data.status == true) {
                     setBankList(response.data.banklist)
@@ -64,10 +64,38 @@ export const WithdrawalPage = (props) => {
                 let parsedSession = JSON.parse(userSession);
                 if(receiverBankCode !== "" && receiverAccountNumber.length === 10) {
                     setLoaderIsVisible(true);
+                    axios.post(backendUrls.k_c + "/request-beneficiary-name",
+                    {
+                        beneficiaryAccountNumber : receiverAccountNumber,
+                        beneficiaryBankCode : receiverBankCode,
+                        user_access_token : parsedSession.user_access_token
+                    })
+                    .then(response => {
+                        setLoaderIsVisible(false);
+                        if(response.data.status == true) {
+                            setReceiverName(response.data.data.beneficiaryName);
+                        }
+                        else {
+                            setReceiverName("")
+                            Toast.show({
+                                type : "error",
+                                text1 : "Wrong info",
+                                text2 : "Please ensure the information you input matches that of the beneficiary"
+                            })
+                        }
+                    })
+                    .catch(error => {
+                        setLoaderIsVisible(false);
+                        Toast.show({
+                            type : "error",
+                            text1 : "Connection error",
+                            text2 : "An error occured while fetching beneficiary info, please check your internet conection"
+                        });
+                    })
                 }
             }
         })()
-    },[receiverBankCode,receiverAccountNumber]);
+    },[receiverBankCode, receiverAccountNumber]);
 
     useEffect(() => {
         if(receverName !== "" && receiverAccountNumber.length === 10 && receiverBankCode !== "") {
@@ -139,7 +167,7 @@ export const WithdrawalPage = (props) => {
                 <View style={{marginTop : verticalScale(25)}} >
                     <Text style={[style.instructionTextInPage,{
                         color : Colors.green,
-                        fontSize : moderateScale(20)
+                        fontSize : moderateScale(14)
                     }]} >{receverName}</Text>
                 </View>
                 <View style={[style.btnsCont]}>
@@ -152,7 +180,7 @@ export const WithdrawalPage = (props) => {
                 </View>
                 <View style={{marginTop : verticalScale(35)}}>
                     <Text style={style.instructionTextInPage}>
-                        Make sure the name of the receiver is correct and it matches with that of the person you want to send funds to.
+                        Ensure the name of the beneficiary is correct and it matches that of the person you want to send funds to.
                     </Text>
                     <Text style={style.instructionTextInPage} >
                         We are not responsible for sending funds to the wrong person.
