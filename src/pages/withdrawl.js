@@ -200,11 +200,11 @@ export const WithdrawalPage = (props) => {
 }
 
 export const WithdrawalContinualPage = (props) => {
-    const [senderWithdrawableBalance, setSenderWithdrawableBalance] = useState(0);
+    const [fiatBalance, setFiatBalance] = useState(0);
     const [amount, setAmount] = useState("");
     const [narration, setNarration] = useState("");
 
-    const {sessionId, receiverBankCode, receiverAccountNumber, receverName } = props.route.params;
+    const {sessionId, receiverBankCode, receiverAccountNumber, receiverName } = props.route.params;
 
     const [loaderIsVisible, setLoaderIsVisible] = useState(true);
     const [formSubmitable, setFormSubmitableState] = useState(false);
@@ -215,40 +215,15 @@ export const WithdrawalContinualPage = (props) => {
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
-                axios.post(backendUrls.k_c + "/bank-account-balance",
-                {
-                    user_access_token : parsedSession.user_access_token
-                })
-                .then(response => {
-                    if(response.data.status == true) {
-                        setSenderWithdrawableBalance(Number(response.data.data.withdrawableBalance) / 100)
-                        setLoaderIsVisible(false)
-                    }
-                    else {
-                        Toast.show({
-                            type : "error",
-                            text1 : "Processing error",
-                            text2 : "An error occured while fetching bank balance, please check back later"
-                        })
-                        props.navigation.goBack();
-                    }
-                })
-                .catch(error => {
-                    setLoaderIsVisible(false)
-                    Toast.show({
-                        type : "error",
-                        text1 : "Connection error",
-                        text2 : "An error occured while fetching bank balance, please check your internet conection"
-                    })
-                    props.navigation.goBack();
-                })
+                setFiatBalance(parsedSession.user_online_data.fiat_balance);
+                setLoaderIsVisible(false);
             }
         })();
     },[])
 
 
     useEffect(() => {
-        if(amount !== "" && narration !== "" && Number(amount) <= senderWithdrawableBalance && senderWithdrawableBalance > 0) {
+        if(amount !== "" && narration !== "" && Number(amount) <= fiatBalance && fiatBalance > 0) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }
@@ -294,7 +269,7 @@ export const WithdrawalContinualPage = (props) => {
                                 style: 'currency',
                                 currency: 'NGN'
                             }).format(
-                                senderWithdrawableBalance
+                                fiatBalance
                             )
                         }
                     </Text>
@@ -318,6 +293,17 @@ export const WithdrawalContinualPage = (props) => {
                                 navigateToConfirmationPage();
                             }
                         }}/>
+                </View>
+                <View style={{marginTop : verticalScale(35)}}>
+                    <Text style={style.instructionTextInPage}>
+                        You are sending funds to <Text style={[style.instructionTextInPage,{
+                        color : Colors.green,
+                        fontSize : moderateScale(14)
+                    }]} >{receiverName}</Text>
+                    </Text>
+                    <Text style={style.instructionTextInPage} >
+                        We are not responsible for sending funds to the wrong person.
+                    </Text>
                 </View>
             </View>
         </InAppHB>
