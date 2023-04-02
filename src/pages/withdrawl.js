@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import Toast from "react-native-toast-message";
-import Picker from "@react-native-picker/picker";
+import {Picker} from "@react-native-picker/picker";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Wave } from 'react-native-animated-spinkit';
 import axios from "axios";
@@ -24,18 +24,61 @@ export const WithdrawalPage = (props) => {
     const [receiverBankCode, setReceiverBankCode] = useState("");
     const [receiverBankName, setReceiverBankName] = useState("");
     const [bankList, setBankList] = useState([]);
-    const [loaderIsVisible, setLoaderIsVisible] = useState(false);
+    const [loaderIsVisible, setLoaderIsVisible] = useState(true);
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
     useEffect(() => {
         (async () => {
+            axios.get("https://960f-102-89-34-70.eu.ngrok.io/get-bank-list")
+            .then(response => {
+                if(response.data.status == true) {
+                    setBankList(response.data.banklist)
+                    setLoaderIsVisible(false)
+                }
+                else {
+                    Toast.show({
+                        type : "error",
+                        text1 : "Processing error",
+                        text2 : "An error occured while fetching bank list, please check back later"
+                    })
+                    props.navigation.navigate("Dashboard");
+                }
+            })
+            .catch(error => {
+                setLoaderIsVisible(false)
+                Toast.show({
+                    type : "error",
+                    text1 : "Connection error",
+                    text2 : "An error occured while fetching bank list, please check your internet conection"
+                })
+                props.navigation.navigate("Dashboard");
+            })
+        })();
+    },[])
+
+    useEffect(() => {
+        (async () => { 
             const userSession = await encryptedStorage.getItem("user_session");
             if(userSession) {
                 let parsedSession = JSON.parse(userSession);
+                if(receiverBankCode !== "" && receiverAccountNumber.length === 10) {
+                    setLoaderIsVisible(true);
+                }
             }
-        })();
-    },[])
+        })()
+    },[receiverBankCode,receiverAccountNumber]);
+
+    useEffect(() => {
+        if(receverName !== "" && receiverAccountNumber.length === 10 && receiverBankCode !== "") {
+            setFormSubmitableState(true);
+            setSubmitBtnOpacity(1);
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnOpacity(0.5);
+        }
+    },[receverName , receiverAccountNumber , receiverBankCode])
 
     const navigateToConfirmationPage = () => {
         if(username == senderUsername) {
@@ -64,25 +107,40 @@ export const WithdrawalPage = (props) => {
                 textStyle={{color : Colors.white}}
                 />
                 <View style={style.inputCont}>
-                    <Picker
+                    <Picker style={[style.input, DefaultStyle.centeredXY]} 
+                    selectedValue={receiverBankCode}
+                    onValueChange={(itemValue, itemIndex) => {
+                        setReceiverBankCode(itemValue);
+                    }}
                     >
-                        <Picker.Item label="Select a bank" value="" />
+                        <Picker.Item label="Select a bank" value="" enabled={false} />
+                        {
+                            bankList.length > 0 ? 
+                            bankList.map((bank) => (
+                                    <Picker.Item
+                                    key={bank.bankCode}
+                                    label={bank.bankName}
+                                    value={bank.bankCode}
+                                    />
+                                )) : null
+                        }
                         <Picker.Item
                             key={0}
                             label={"First bank"}
                             value={"bank.bankCode"}
                         />
                     </Picker>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Receiver's username" inputMode="text" onChangeText={value => {
-                            setUsername(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Account number" onChangeText={value => {
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Account number" value={receiverAccountNumber}
+                    maxLength={10} onChangeText={value => {
                             setReceiverAccountNumber(value.replace(/[^0-9.]/g,"").trim());
-                            validateForm();
                         }}
-                        onEndEditing={() => validateForm() } />
+                     />
+                </View>
+                <View style={{marginTop : verticalScale(25)}} >
+                    <Text style={[style.instructionTextInPage,{
+                        color : Colors.green,
+                        fontSize : moderateScale(20)
+                    }]} >{receverName}</Text>
                 </View>
                 <View style={[style.btnsCont]}>
                     <Btn text=""/>
