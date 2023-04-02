@@ -47,7 +47,12 @@ const ConfirmTransaction = (props) => {
         }, [])
     );
 
-    const {username, amount, type, receiverDeviceId, senderUsername} = props.route.params;
+    const {username, amount, type, receiverDeviceId, senderUsername, sessionId ,
+        receiverBankCode,
+        receiverAccountNumber,
+        receiverName,
+        narration,
+    } = props.route.params;
 
     const [storedPin, setStoredPin] = useState("");
     const [qrValue, setQrValue] = useState("suv");
@@ -293,7 +298,7 @@ const ConfirmTransaction = (props) => {
                                 }
                             </Text>
                             <Text style={[style.introText]}>
-                                to {username} - {type}
+                                to {type === "withdrawal" ? receiverName : username} - {type}
                             </Text>
                             <Text style={[style.introText]}>
                                 Transaction fee : {
@@ -329,7 +334,7 @@ const ConfirmTransaction = (props) => {
                         }
                     </Text>
                     <Text style={[style.introText]}>
-                        to {username} - {type}
+                        to {type === "withdrawal" ? receiverName : username} - {type}
                     </Text>
                     <Text style={[style.introText]}>
                         Transaction fee : {

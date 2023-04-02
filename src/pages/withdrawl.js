@@ -234,20 +234,15 @@ export const WithdrawalContinualPage = (props) => {
     },[amount, narration])
 
     const navigateToConfirmationPage = () => {
-        if(senderAccountNumber == receiverAccountNumber) {
-            Toast.show({
-                type : "info",
-                text1 : "Opps",
-                text2 : "You cannot send to yourself"
-            })
-        }
-        else {
-            props.navigation.navigate("ConfirmTransaction", {
-                username : username,
-                amount : Number(amount),
-                type : "withdrawal"
-            })
-        }
+        props.navigation.navigate("ConfirmTransaction", {
+            sessionId : sessionId,
+            receiverBankCode : receiverBankCode,
+            receiverAccountNumber : receiverAccountNumber,
+            receiverName : receiverName,
+            amount : Number(amount),
+            narration : narration,
+            type : "withdrawal"
+        })
     }
 
     return (
