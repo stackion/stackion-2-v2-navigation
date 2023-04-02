@@ -19,7 +19,8 @@ import {InAppHB} from "../components/in-app-h-b-f";
 import {backendUrls} from "../functions/config";
 
 export const WithdrawalPage = (props) => {
-    const [receverName, setReceiverName] = useState("");
+    const [senderAccountNumber, setSenderAccountNumber] = useState("")
+    const [receiverName, setReceiverName] = useState("");
     const [receiverAccountNumber, setReceiverAccountNumber] = useState("");
     const [receiverBankCode, setReceiverBankCode] = useState("");
     const [sessionId, setSessionId] = useState("");
@@ -30,6 +31,11 @@ export const WithdrawalPage = (props) => {
 
     useEffect(() => {
         (async () => {
+            const userSession = await encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                setSenderAccountNumber(parsedSession.user_online_data.account_number)
+            }
             axios.get(backendUrls.k_c + "/get-bank-list")
             .then(response => {
                 if(response.data.status == true) {
@@ -73,6 +79,7 @@ export const WithdrawalPage = (props) => {
                     .then(response => {
                         setLoaderIsVisible(false);
                         if(response.data.status == true) {
+                            setSessionId(response.data.data.sessionID);
                             setReceiverName(response.data.data.beneficiaryName);
                         }
                         else {
@@ -98,7 +105,7 @@ export const WithdrawalPage = (props) => {
     },[receiverBankCode, receiverAccountNumber]);
 
     useEffect(() => {
-        if(receverName !== "" && receiverAccountNumber.length === 10 && receiverBankCode !== "") {
+        if(receiverName !== "" && receiverAccountNumber.length === 10 && receiverBankCode !== "") {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
         }
@@ -106,10 +113,10 @@ export const WithdrawalPage = (props) => {
             setFormSubmitableState(false);
             setSubmitBtnOpacity(0.5);
         }
-    },[receverName , receiverAccountNumber , receiverBankCode])
+    },[receiverName , receiverAccountNumber , receiverBankCode])
 
-    const navigateToConfirmationPage = () => {
-        if(username == senderUsername) {
+    const navigateToContinualPage = () => {
+        if(senderAccountNumber == receiverAccountNumber) {
             Toast.show({
                 type : "info",
                 text1 : "Opps",
@@ -117,10 +124,11 @@ export const WithdrawalPage = (props) => {
             })
         }
         else {
-            props.navigation.navigate("ConfirmTransaction", {
-                username : username,
-                amount : Number(amount),
-                type : "fiat"
+            props.navigation.navigate("WithdrawalContinualPage", {
+                sessionId : sessionId,
+                receiverBankCode : receiverBankCode,
+                receiverAccountNumber : receiverAccountNumber,
+                receiverName : receiverName
             })
         }
     }
@@ -168,7 +176,164 @@ export const WithdrawalPage = (props) => {
                     <Text style={[style.instructionTextInPage,{
                         color : Colors.green,
                         fontSize : moderateScale(14)
-                    }]} >{receverName}</Text>
+                    }]} >{receiverName}</Text>
+                </View>
+                <View style={[style.btnsCont]}>
+                    <Btn text=""/>
+                    <Btn text="Next" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
+                            if(formSubmitable) {
+                                navigateToContinualPage();
+                            }
+                        }}/>
+                </View>
+                <View style={{marginTop : verticalScale(35)}}>
+                    <Text style={style.instructionTextInPage}>
+                        Ensure the name of the beneficiary is correct.
+                    </Text>
+                    <Text style={style.instructionTextInPage} >
+                        We are not responsible for sending funds to the wrong person.
+                    </Text>
+                </View>
+            </View>
+        </InAppHB>
+    )
+}
+
+export const WithdrawalContinualPage = (props) => {
+    const [senderWithdrawableBalance, setSenderWithdrawableBalance] = useState(0);
+
+    const {sessionId, receiverBankCode, receiverAccountNumber, receverName } = props.route.params;
+
+    const [loaderIsVisible, setLoaderIsVisible] = useState(true);
+    const [formSubmitable, setFormSubmitableState] = useState(false);
+    const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
+
+    useEffect(() => {
+        (async () => {
+            const userSession = await encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                axios.post(backendUrls.k_c + "/bank-account-balance",
+                {
+                    user_access_token : parsedSession.user_access_token
+                })
+                .then(response => {
+                    console.log(response.data)
+                    if(response.data.status == true) {
+                        setSenderWithdrawableBalance(response.data.withdrawableBalance)
+                        setLoaderIsVisible(false)
+                    }
+                    else {
+                        Toast.show({
+                            type : "error",
+                            text1 : "Processing error",
+                            text2 : "An error occured while fetching bank balance, please check back later"
+                        })
+                        props.navigation.goBack();
+                    }
+                })
+                .catch(error => {
+                    setLoaderIsVisible(false)
+                    Toast.show({
+                        type : "error",
+                        text1 : "Connection error",
+                        text2 : "An error occured while fetching bank balance, please check your internet conection"
+                    })
+                    props.navigation.goBack();
+                })
+            }
+        })();
+    },[])
+/*
+    useEffect(() => {
+        (async () => { 
+            const userSession = await encryptedStorage.getItem("user_session");
+            if(userSession) {
+                let parsedSession = JSON.parse(userSession);
+                if(receiverBankCode !== "" && receiverAccountNumber.length === 10) {
+                    setLoaderIsVisible(true);
+                    axios.post(backendUrls.k_c + "/request-beneficiary-name",
+                    {
+                        beneficiaryAccountNumber : receiverAccountNumber,
+                        beneficiaryBankCode : receiverBankCode,
+                        user_access_token : parsedSession.user_access_token
+                    })
+                    .then(response => {
+                        setLoaderIsVisible(false);
+                        if(response.data.status == true) {
+                            setSessionId(response.data.data.sessionID);
+                            setReceiverName(response.data.data.beneficiaryName);
+                        }
+                        else {
+                            setReceiverName("")
+                            Toast.show({
+                                type : "error",
+                                text1 : "Wrong info",
+                                text2 : "Please ensure the information you input matches that of the beneficiary"
+                            })
+                        }
+                    })
+                    .catch(error => {
+                        setLoaderIsVisible(false);
+                        Toast.show({
+                            type : "error",
+                            text1 : "Connection error",
+                            text2 : "An error occured while fetching beneficiary info, please check your internet conection"
+                        });
+                    })
+                }
+            }
+        })()
+    },[receiverBankCode, receiverAccountNumber]);
+
+    useEffect(() => {
+        if(receiverName !== "" && receiverAccountNumber.length === 10 && receiverBankCode !== "") {
+            setFormSubmitableState(true);
+            setSubmitBtnOpacity(1);
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnOpacity(0.5);
+        }
+    },[receiverName , receiverAccountNumber , receiverBankCode])
+*/
+    const navigateToConfirmationPage = () => {
+        if(senderAccountNumber == receiverAccountNumber) {
+            Toast.show({
+                type : "info",
+                text1 : "Opps",
+                text2 : "You cannot send to yourself"
+            })
+        }
+        else {
+            props.navigation.navigate("ConfirmTransaction", {
+                username : username,
+                amount : Number(amount),
+                type : "withdrawal"
+            })
+        }
+    }
+
+    return (
+        <InAppHB navigation={props.navigation} headerTitleText={"Withdrawl Via Bank Transfer"} >
+            <View style={style.formView}>
+                <Spinner
+                customIndicator={<Wave size={moderateScale(48)} color={Colors.defaultBlue} />}
+                visible={loaderIsVisible}
+                textContent={''}
+                textStyle={{color : Colors.white}}
+                />
+                <View style={style.inputCont}>
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" value={receiverAccountNumber}
+                    maxLength={10} onChangeText={value => {
+                            //setReceiverAccountNumber(value.replace(/[^0-9.]/g,"").trim());
+                        }}
+                     />
+                     <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Naration" value={receiverAccountNumber}
+                     maxLength={10} onChangeText={value => {
+                             //setReceiverAccountNumber(value.replace(/[^0-9.]/g,"").trim());
+                         }}
+                      />
                 </View>
                 <View style={[style.btnsCont]}>
                     <Btn text=""/>
@@ -180,7 +345,7 @@ export const WithdrawalPage = (props) => {
                 </View>
                 <View style={{marginTop : verticalScale(35)}}>
                     <Text style={style.instructionTextInPage}>
-                        Ensure the name of the beneficiary is correct and it matches that of the person you want to send funds to.
+                        Ensure the name of the beneficiary is correct.
                     </Text>
                     <Text style={style.instructionTextInPage} >
                         We are not responsible for sending funds to the wrong person.
