@@ -201,6 +201,8 @@ export const WithdrawalPage = (props) => {
 
 export const WithdrawalContinualPage = (props) => {
     const [senderWithdrawableBalance, setSenderWithdrawableBalance] = useState(0);
+    const [amount, setAmount] = useState("");
+    const [narration, setNarration] = useState("");
 
     const {sessionId, receiverBankCode, receiverAccountNumber, receverName } = props.route.params;
 
@@ -245,46 +247,6 @@ export const WithdrawalContinualPage = (props) => {
         })();
     },[])
 /*
-    useEffect(() => {
-        (async () => { 
-            const userSession = await encryptedStorage.getItem("user_session");
-            if(userSession) {
-                let parsedSession = JSON.parse(userSession);
-                if(receiverBankCode !== "" && receiverAccountNumber.length === 10) {
-                    setLoaderIsVisible(true);
-                    axios.post(backendUrls.k_c + "/request-beneficiary-name",
-                    {
-                        beneficiaryAccountNumber : receiverAccountNumber,
-                        beneficiaryBankCode : receiverBankCode,
-                        user_access_token : parsedSession.user_access_token
-                    })
-                    .then(response => {
-                        setLoaderIsVisible(false);
-                        if(response.data.status == true) {
-                            setSessionId(response.data.data.sessionID);
-                            setReceiverName(response.data.data.beneficiaryName);
-                        }
-                        else {
-                            setReceiverName("")
-                            Toast.show({
-                                type : "error",
-                                text1 : "Wrong info",
-                                text2 : "Please ensure the information you input matches that of the beneficiary"
-                            })
-                        }
-                    })
-                    .catch(error => {
-                        setLoaderIsVisible(false);
-                        Toast.show({
-                            type : "error",
-                            text1 : "Connection error",
-                            text2 : "An error occured while fetching beneficiary info, please check your internet conection"
-                        });
-                    })
-                }
-            }
-        })()
-    },[receiverBankCode, receiverAccountNumber]);
 
     useEffect(() => {
         if(receiverName !== "" && receiverAccountNumber.length === 10 && receiverBankCode !== "") {
@@ -326,12 +288,12 @@ export const WithdrawalContinualPage = (props) => {
                 <View style={style.inputCont}>
                     <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" value={receiverAccountNumber}
                     maxLength={10} onChangeText={value => {
-                            //setReceiverAccountNumber(value.replace(/[^0-9.]/g,"").trim());
+                            setAmount(value.replace(/[^0-9.]/g,"").trim());
                         }}
                      />
-                     <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Naration" value={receiverAccountNumber}
+                     <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Narration" value={receiverAccountNumber}
                      maxLength={10} onChangeText={value => {
-                             //setReceiverAccountNumber(value.replace(/[^0-9.]/g,"").trim());
+                             setNarration(value.trim());
                          }}
                       />
                 </View>
@@ -339,17 +301,9 @@ export const WithdrawalContinualPage = (props) => {
                     <Btn text=""/>
                     <Btn text="Next" style={[style.submitBtn, {opacity : submitBtnOpacity}]} textStyle={style.submitBtnText} onPress={() => {
                             if(formSubmitable) {
-                                navigateToConfirmationPage();
+                                //navigateToConfirmationPage();
                             }
                         }}/>
-                </View>
-                <View style={{marginTop : verticalScale(35)}}>
-                    <Text style={style.instructionTextInPage}>
-                        Ensure the name of the beneficiary is correct.
-                    </Text>
-                    <Text style={style.instructionTextInPage} >
-                        We are not responsible for sending funds to the wrong person.
-                    </Text>
                 </View>
             </View>
         </InAppHB>
