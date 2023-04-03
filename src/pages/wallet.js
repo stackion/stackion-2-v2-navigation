@@ -177,7 +177,7 @@ const style = StyleSheet.create({
     assetCont : {
         backgroundColor : Colors.white,
         height : "70@vs",
-        padding : "24@vs",
+        padding : "14@vs",
         marginTop : "10@vs",
         shadowColor: Colors.black,
         shadowOffset: {
