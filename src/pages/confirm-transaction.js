@@ -3,7 +3,6 @@ import {
     Text,
     View,
     TextInput,
-    Alert,
     ScrollView,
     BackHandler
 } from "react-native";
@@ -227,6 +226,52 @@ const ConfirmTransaction = (props) => {
         }
     }
 
+    const processWithdrawalViaBankTransfer = async () => {
+        const userSession = await encryptedStorage.getItem("user_session");
+        if(userSession) {
+            let parsedSession = JSON.parse(userSession);
+            let user_access_token = parsedSession.user_access_token;
+            setLoaderVisibility(true);
+
+            axios.post(`${backendUrls.k_c}/withdrawl`,{
+                user_access_token : user_access_token,
+                amount : amount,
+                sessionId : sessionId,
+                receiverBankCode : receiverBankCode,
+                receiverAccountNumber : receiverAccountNumber,
+                receiverName : receiverName,
+                narration : narration
+            })
+            .then((transaction) => {
+                setLoaderVisibility(false)
+                const data = transaction.data;
+                if(data.status == true) {
+                    setPopUpVisibility(true);
+                    Toast.show({
+                        type : "success",
+                        text1 : "Transaction successful",
+                        text2 : "Your transaction has been completed, have a great day🙌"
+                    })
+                }
+                else {
+                    Toast.show({
+                        type : "error",
+                        text1 : "Insufficient balance",
+                        text2 : "Could not complete transaction."
+                    })
+                }
+            })
+            .catch((err) => {
+                setLoaderVisibility(false)
+                Toast.show({
+                    type : "error",
+                    text1 : "Connection error",
+                    text2 : "Please check your internet connection."
+                })
+            });
+        }
+    }
+
     const initiateTransaction = () => {
         if(type === "fiat") {
             process_transfer_of_fiat_to_stackion_user();
@@ -239,6 +284,9 @@ const ConfirmTransaction = (props) => {
         }
         else if(type === "to fiat") {
             processConversion("/convert-to-fiat");
+        }
+        else if (type === "withdrawal") {
+            processWithdrawalViaBankTransfer();
         }
         else {
             Toast.show({

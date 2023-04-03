@@ -276,7 +276,7 @@ export const WithdrawalContinualPage = (props) => {
                         }}
                      />
                      <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Narration" value={narration}
-                     maxLength={10} onChangeText={value => {
+                     maxLength={44} onChangeText={value => {
                              setNarration(value.trim());
                          }}
                       />
