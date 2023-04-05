@@ -81,12 +81,12 @@ const SendViaInternet = (props) => {
                     </Text>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Receiver's username" inputMode="text" onChangeText={value => {
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#303030" placeholder="Receiver's username" inputMode="text" onChangeText={value => {
                             setUsername(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholderTextColor="#303030" placeholder="Amount" onChangeText={value => {
                             setAmount(value.replace(/[^0-9.]/g,"").trim());
                             validateForm();
                         }}

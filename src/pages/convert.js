@@ -161,7 +161,7 @@ export const ConversionForm = (props) => {
                     </Text>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" onChangeText={value => {
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholderTextColor="#303030" placeholder="Amount" onChangeText={value => {
                             setAmount(value.trim().replace(/[^0-9.]/g,""));
                             validateForm();
                         }}

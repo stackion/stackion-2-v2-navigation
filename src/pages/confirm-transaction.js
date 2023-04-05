@@ -399,7 +399,7 @@ const ConfirmTransaction = (props) => {
                 </View>
                 <View style={style.inputCont}>
                     <TextInput style={[style.input, DefaultStyle.centeredXY]} keyboardType="numeric" 
-                    placeholder="Transaction pin" maxLength={4} autoComplete="off" secureTextEntry={true} 
+                    placeholderTextColor="#303030" placeholder="Transaction pin" maxLength={4} autoComplete="off" secureTextEntry={true} 
                     onChangeText={value => {
                             setPin(value.trim());
                             validateForm();

@@ -166,7 +166,7 @@ export const WithdrawalPage = (props) => {
                             value={"bank.bankCode"}
                         />
                     </Picker>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Account number" value={receiverAccountNumber}
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholderTextColor="#303030" placeholder="Account number" value={receiverAccountNumber}
                     maxLength={10} onChangeText={value => {
                             setReceiverAccountNumber(value.replace(/[^0-9.]/g,"").trim());
                         }}
@@ -270,12 +270,12 @@ export const WithdrawalContinualPage = (props) => {
                     </Text>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholder="Amount" value={amount}
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholderTextColor="#303030" placeholder="Amount" value={amount}
                     maxLength={10} onChangeText={value => {
                             setAmount(value.replace(/[^0-9.]/g,"").trim());
                         }}
                      />
-                     <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholder="Narration" value={narration}
+                     <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#303030" placeholder="Narration" value={narration}
                      maxLength={44} onChangeText={value => {
                              setNarration(value.trim());
                          }}
