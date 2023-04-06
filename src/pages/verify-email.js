@@ -105,7 +105,7 @@ const VerifyEmail = (props) => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#303030" placeholder="Verification code" inputMode="numeric" keyboardType="numeric" maxLength={5} onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Verification code" inputMode="numeric" keyboardType="numeric" maxLength={5} onChangeText={value => {
                             setCode(value.trim());
                             validateForm();
                         }}

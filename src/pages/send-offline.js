@@ -83,7 +83,7 @@ const SendOffline = (props) => {
                     </View>
                 </View>
                 <View style={style.inputCont}>
-                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholderTextColor="#303030" placeholder="Amount" onChangeText={value => {
+                    <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholderTextColor="#606060" placeholder="Amount" onChangeText={value => {
                             setAmount(value.replace(/[^0-9.]/g,"").trim());
                             validateForm();
                         }}

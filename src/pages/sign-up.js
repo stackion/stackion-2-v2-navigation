@@ -111,37 +111,37 @@ const SignUp = (props) => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#303030" placeholder="First name" inputMode="text" onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="First name" inputMode="text" onChangeText={value => {
                             setFirstName(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#303030" placeholder="Middle name" inputMode="text" onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Middle name" inputMode="text" onChangeText={value => {
                             setMiddleName(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#303030" placeholder="Last name" inputMode="text" onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Last name" inputMode="text" onChangeText={value => {
                             setLastName(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#303030" placeholder="Email" inputMode="email" onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Email" inputMode="email" onChangeText={value => {
                             setEmail(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#303030" placeholder="Tel e.g 08012345678" inputMode="numeric" maxLength={11} onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Tel e.g 08012345678" inputMode="numeric" maxLength={11} onChangeText={value => {
                             setPhoneNumber(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholderTextColor="#303030" placeholder="Password" onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholderTextColor="#606060" placeholder="Password" onChangeText={value => {
                             setPassword(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholderTextColor="#303030" placeholder="Retype Password" onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholderTextColor="#606060" placeholder="Retype Password" onChangeText={value => {
                             setRetypedPassword(value.trim());
                             validateForm();
                         }}

@@ -119,12 +119,12 @@ const SignIn = (props) => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#303030" placeholder="Email" inputMode="email" onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Email" inputMode="email" onChangeText={value => {
                             setEmail(value.trim());
                             validateForm();
                         }}
                         onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholderTextColor="#303030" placeholder="Password" onChangeText={value => {
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholderTextColor="#606060" placeholder="Password" onChangeText={value => {
                             setPassword(value.trim());
                             validateForm();
                         }}
