@@ -1,16 +1,16 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     ScrollView,
     View,
     Text,
-    TextInput,
-    Alert
+    TextInput
 } from "react-native";
 import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Wave } from 'react-native-animated-spinkit';
 import axios from "axios";
-import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale, scale } from 'react-native-size-matters';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -24,10 +24,21 @@ const SignIn = (props) => {
     const [loaderIsVisibile, setLoaderVisibility] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [inputIsSecure, setIsInputSecurity] = useState(true);
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
     //TODO fix this code
+    useEffect(() => {
+        if(checkIfDataListIsEmpty([email, password]) && password.length >= 6 ) {
+            setFormSubmitableState(true);
+            setSubmitBtnOpacity(1);
+        }
+        else {
+            setFormSubmitableState(false);
+            setSubmitBtnOpacity(0.5);
+        }
+    },[email, password])
     const validateForm = () => {
         if(checkIfDataListIsEmpty([email, password]) && password.length >= 6 ) {
             setFormSubmitableState(true);
@@ -119,16 +130,31 @@ const SignIn = (props) => {
                         </Text>
                     </View>
                     <View style={style.inputCont}>
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Email" inputMode="email" onChangeText={value => {
-                            setEmail(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholderTextColor="#606060" placeholder="Password" onChangeText={value => {
+                        <View>
+                            <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Email" inputMode="email" onChangeText={value => {
+                                setEmail(value.trim().toLowerCase());
+                            }}
+                            />
+                        </View>
+                        <View>
+                            <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={inputIsSecure} placeholderTextColor="#606060" placeholder="Password" onChangeText={value => {
                             setPassword(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
+                            }}
+                            />
+                            <Btn text={<FontAwesomeIcon icon={inputIsSecure ? "eye" : "eye-slash"} 
+                            size={20} color={Colors.black31} />} style={{
+                                position : "absolute",
+                                top : verticalScale(35),
+                                left : scale(260)
+                            }} onPress={() => {
+                                if(inputIsSecure) {
+                                    setIsInputSecurity(false);
+                                }
+                                else {
+                                    setIsInputSecurity(true);
+                                }
+                            }} />
+                        </View>
                     </View>
                     <View>
                         <Anchor href="https://stackion.net/account%20recovery/" style={{marginTop : verticalScale(20)}} text="forgot password ?" textStyle={{color : Colors.blue2, fontFamily : "Roboto-Regular", fontSize : moderateScale(12)}}/>

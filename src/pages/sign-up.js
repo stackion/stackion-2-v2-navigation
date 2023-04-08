@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {
     ScrollView,
     View,
@@ -9,7 +9,8 @@ import Toast from "react-native-toast-message";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Wave } from 'react-native-animated-spinkit';
 import axios from "axios";
-import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
+import { ScaledSheet as StyleSheet, moderateScale, verticalScale, scale } from 'react-native-size-matters';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -29,10 +30,11 @@ const SignUp = (props) => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const [retypedPassword, setRetypedPassword] = useState("");
+    const [inputIsSecure, setIsInputSecurity] = useState(true);
     const [formSubmitable, setFormSubmitableState] = useState(false);
     const [submitBtnOpacity, setSubmitBtnOpacity] = useState(0.5);
 
-    const validateForm = () => {
+    useEffect(() => {
         if(checkIfDataListIsEmpty([firstName, middleName, lastName, phoneNumber, email, password]) && (retypedPassword === password) && password.length >= 6 && phoneNumber.length == 11) {
             setFormSubmitableState(true);
             setSubmitBtnOpacity(1);
@@ -41,7 +43,8 @@ const SignUp = (props) => {
             setFormSubmitableState(false);
             setSubmitBtnOpacity(0.5);
         }
-    }
+    }, [firstName, middleName, lastName, phoneNumber, email, password, retypedPassword]);
+
     const sendForm = () => {
         axios.post(`${backendUrls.authentication}/append-user`, {
             first_name : firstName,
@@ -113,39 +116,40 @@ const SignUp = (props) => {
                     <View style={style.inputCont}>
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="First name" inputMode="text" onChangeText={value => {
                             setFirstName(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
+                        }} />
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Middle name" inputMode="text" onChangeText={value => {
                             setMiddleName(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
+                        }} />
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Last name" inputMode="text" onChangeText={value => {
                             setLastName(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
+                        }} />
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Email" inputMode="email" onChangeText={value => {
-                            setEmail(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
+                            setEmail(value.trim().toLowerCase());
+                        }} />
                         <TextInput style={[style.input, DefaultStyle.centeredXY]} placeholderTextColor="#606060" placeholder="Tel e.g 08012345678" inputMode="numeric" maxLength={11} onChangeText={value => {
                             setPhoneNumber(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholderTextColor="#606060" placeholder="Password" onChangeText={value => {
-                            setPassword(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
-                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={true} placeholderTextColor="#606060" placeholder="Retype Password" onChangeText={value => {
+                        }} />
+                        <View>
+                            <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={inputIsSecure} placeholderTextColor="#606060" placeholder="Password" onChangeText={value => {
+                                setPassword(value.trim());
+                            }} />
+                            <Btn text={<FontAwesomeIcon icon={inputIsSecure ? "eye" : "eye-slash"} 
+                                size={20} color={Colors.black31} />} style={{
+                                    position : "absolute",
+                                    top : verticalScale(35),
+                                    left : scale(260)
+                                }} onPress={() => {
+                                    if(inputIsSecure) {
+                                        setIsInputSecurity(false);
+                                    }
+                                    else {
+                                        setIsInputSecurity(true);
+                                    }
+                                }} />
+                        </View>
+                        <TextInput style={[style.input, DefaultStyle.centeredXY]} secureTextEntry={inputIsSecure} placeholderTextColor="#606060" placeholder="Retype Password" onChangeText={value => {
                             setRetypedPassword(value.trim());
-                            validateForm();
-                        }}
-                        onEndEditing={() => validateForm() } />
+                        }} />
                     </View>
                     <View style={[style.btnsCont]}>
                         <Btn text="Sign in" textStyle={{color : Colors.black, fontSize : moderateScale(16), fontFamily : "Roboto-Regular"}} onPress={() => props.navigation.replace("SignIn")}/>
