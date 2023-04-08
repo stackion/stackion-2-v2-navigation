@@ -75,7 +75,7 @@ const SetupPin = (props) => {
                             color : Colors.black46,
                             fontSize : moderateScale(12),
                             fontFamily : "Roboto-Regular"}}>
-                        This pin would be requested from you each time you want to mae a transaction.
+                        This pin would be requested from you each time you want to make a transaction.
                         </Text>
                         <Text style={{
                             color : Colors.black46,
