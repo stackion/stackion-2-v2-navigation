@@ -4,6 +4,7 @@ import {
     View,
 } from "react-native";
 import { ScaledSheet as StyleSheet, moderateScale } from 'react-native-size-matters';
+import { Wave } from 'react-native-animated-spinkit';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -12,11 +13,7 @@ import {InAppHB} from "../components/in-app-h-b-f";
 import {Btn} from "../components/button";
 
 const TransactionHistory = (props) => {
-    const [historyContent, setHistoryContent] = useState(
-        <Text style={{fontSize : moderateScale(12), color : Colors.black46, fontFamily : "Roboto-Regular"}}>
-            No History
-        </Text>
-        );
+    const [historyContent, setHistoryContent] = useState(<Wave size={moderateScale(48)} color={Colors.defaultBlue} />);
     const [isOnlineTransactions, setIsOnlineTransactions] = useState(true);
 
     useEffect(() => {
