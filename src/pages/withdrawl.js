@@ -143,13 +143,15 @@ export const WithdrawalPage = (props) => {
                 textStyle={{color : Colors.white}}
                 />
                 <View style={style.inputCont}>
-                    <Picker style={[style.input, DefaultStyle.centeredXY]} 
+                    <Picker style={[style.input, DefaultStyle.centeredXY, {
+                        backgroundColor : Colors.blackF2
+                    }]} 
                     selectedValue={receiverBankCode}
                     onValueChange={(itemValue, itemIndex) => {
                         setReceiverBankCode(itemValue);
                     }}
                     >
-                        <Picker.Item label="Select a bank" value="" enabled={false} />
+                        <Picker.Item key="0" fontFamily="Comfortaa-Bold" label="Select a bank" color={Colors.black46} value=""/>
                         {
                             bankList.length > 0 ? 
                             bankList.map((bank) => (
@@ -157,14 +159,11 @@ export const WithdrawalPage = (props) => {
                                     key={bank.bankCode}
                                     label={bank.bankName}
                                     value={bank.bankCode}
+                                    color={Colors.black}
+                                    fontFamily="Comfortaa-Bold"
                                     />
                                 )) : null
                         }
-                        <Picker.Item
-                            key={0}
-                            label={"First bank"}
-                            value={"bank.bankCode"}
-                        />
                     </Picker>
                     <TextInput style={[style.input, DefaultStyle.centeredXY]} inputMode="numeric" placeholderTextColor="#606060" placeholder="Account number" value={receiverAccountNumber}
                     maxLength={10} onChangeText={value => {
