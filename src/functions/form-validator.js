@@ -7,4 +7,4 @@ export const checkIfDataListIsEmpty = data => {
     }
 }
 
-export const convertFormatedNumToRealNum = (num) => Number(num.replace(/NGN|\s/g,""))
+export const convertFormatedNumToRealNum = (num) => Number(num.replace(/NGN|\s|,/gi,""))
