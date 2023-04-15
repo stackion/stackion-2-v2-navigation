@@ -5,6 +5,7 @@ TODO IOS Support
 + `pod install`git add . 
 + Checking documentations of all packages to add support for IOS
 + Use a virtual machine for testing or ask for help from someone that has a macbook and an IOS device
++ Versioning in ios using CFBundleShortVersionString, CFBundleVersion
 
 TODO App logo in users app launcher
 + reduce the size of the app logo

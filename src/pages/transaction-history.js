@@ -73,7 +73,7 @@ const TransactionHistory = (props) => {
         })();
     }, [isOnlineTransactions])
     return (
-        <InAppHB navigation={props.navigation} headerStyle={{justifyContent : "center", paddingLeft : 0}} headerTitleText={"Transaction History"} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Transaction History"} >
             <View style={[DefaultStyle.centeredYSpaceBetweenX, style.transactionListSelectorCont, style.contentsInBodyCont]}>
                 <Btn text="Online" style={[style.transactionListSelectorbtn, {
                     backgroundColor : isOnlineTransactions ? Colors.white : Colors.blackF2,

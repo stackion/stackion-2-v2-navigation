@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import {
     Text,
-    View,
-    Alert
+    View
 } from "react-native";
 import { ScaledSheet as StyleSheet, moderateScale, verticalScale } from 'react-native-size-matters';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from "react-native-toast-message";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { Wave } from 'react-native-animated-spinkit';
 
 import * as encryptedStorage from "../functions/encrypted-storage";
 import Colors from "../styles/colors";
@@ -17,7 +17,7 @@ import {InAppHB} from "../components/in-app-h-b-f";
 
 const ReceiveViaOnline = (props) => {
     const [name, setName] = useState("Dear User");
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState(<Wave size={moderateScale(18)} color={Colors.defaultBlue} />);
     useEffect(() => {
         (async () => {
             const userSession = await encryptedStorage.getItem("user_session");

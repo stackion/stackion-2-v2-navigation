@@ -56,8 +56,8 @@ const Dashboard = (props) => {
     const [totalBalance, setTotalBalance] = useState(<Wave size={moderateScale(48)} color={Colors.defaultBlue} />);
     const [refreshing, setRefreshing] = useState(false);
     const [popUpVisibility, setPopUpVisibility] = useState(false);
-    const [accountName, setAccName] = useState("");
-    const [accountNumber, setAccNumber] = useState("");
+    const [accountName, setAccName] = useState(<Wave size={moderateScale(18)} color={Colors.defaultBlue} />);
+    const [accountNumber, setAccNumber] = useState(<Wave size={moderateScale(18)} color={Colors.defaultBlue} />);
     const [withdrawalVisibility, setWithdrawalVisibility] = useState(false);
 
     const reflectUserData = async () => {
