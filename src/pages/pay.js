@@ -3,6 +3,7 @@ import {
     Image
 } from "react-native";
 import { ScaledSheet as StyleSheet } from 'react-native-size-matters';
+import Toast from "react-native-toast-message";
 
 import Colors from "../styles/colors";
 import DefaultStyle from "../styles/defaults";
@@ -27,7 +28,11 @@ const Pay = (props) => {
                 }]}
                 text="Purchase Airtime"
                 textStyle={[style.actionBtnsText, {color : Colors.defaultBlue}]}
-                onPress={() => props.navigation.navigate("AirtimePurchasePage")} />
+                onPress={() => Toast.show({
+                    type : "info",
+                    text1 : "Coming soon !!!",
+                    text2 : "Airtime purchase feature is comming soon. Anticipate 🙌✌"
+                })} />
             </View>
         </InAppHB>
     )
