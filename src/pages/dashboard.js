@@ -280,7 +280,7 @@ const Dashboard = (props) => {
                     <Btn text={
                         (
                             <>
-                            <Text>Withdrawl{"\n\n"}</Text>
+                            <Text>Pay{"\n\n"}</Text>
                             <FontAwesomeIcon icon="money-bill" size={moderateScale(20)} color="#0047b3" />
                             </>
                         )
