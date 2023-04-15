@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import {
     Text,
     View,
+    Image
 } from "react-native";
 import { ScaledSheet as StyleSheet, moderateScale } from 'react-native-size-matters';
 import { Wave } from 'react-native-animated-spinkit';
@@ -16,9 +17,12 @@ const Pay = (props) => {
     return (
         <InAppHB navigation={props.navigation} headerTitleText={"Make Payments"} >
             <View style={[DefaultStyle.centeredX, style.contentsInBodyCont]} >
-                <Btn style={[DefaultStyle.centeredY, style.actionBtns]}
+                <Image style={[style.illustration]}
+                source={require("../../assets/images/illustration-of-payment.png")} />
+                <Btn style={[DefaultStyle.centeredXY, style.actionBtns]}
                 text="Withdrawl to bank"
-                textStyle={[style.actionBtnsText]} />
+                textStyle={[style.actionBtnsText]}
+                onPress={() => props.navigation.navigate("WithdrawalPage")} />
             </View>
         </InAppHB>
     )
@@ -30,19 +34,20 @@ const style = StyleSheet.create({
         minWidth : "289@s",
         maxWidth : "340@s",
     },
+    illustration : {
+        height : "230@ms",
+        width : "230@ms"
+    },
     actionBtns : {
-        height : "55@vs",
+        height : "45@vs",
         width : "320@s",
-        borderColor : Colors.blackF2,
-        borderWidth : "3@ms",
-        borderStyle : "solid",
-        paddingLeft : "5@s",
-        backgroundColor : Colors.white
+        backgroundColor : Colors.defaultBlue,
+        borderRadius : "5@ms"
     },
     actionBtnsText : {
-        fontSize : "16@ms",
+        fontSize : "14@ms",
         fontFamily : "Roboto-Medium",
-        color : Colors.black31
+        color : Colors.white
     }
 })
 
