@@ -29,6 +29,7 @@ import { faMoneyBill } from '@fortawesome/free-solid-svg-icons/faMoneyBill';
 import { faMoneyBillAlt } from '@fortawesome/free-solid-svg-icons/faMoneyBillAlt';
 import { faGem } from '@fortawesome/free-solid-svg-icons/faGem';
 import { faCopy } from '@fortawesome/free-solid-svg-icons/faCopy';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 
 import Colors from "./src/styles/colors";
 
@@ -52,10 +53,11 @@ import ConversionMode, {ConversionForm} from "./src/pages/convert";
 import Menu from "./src/pages/menu";
 import { WithdrawalPage, WithdrawalContinualPage } from "./src/pages/withdrawl";
 import Pay from "./src/pages/pay";
+import AirtimePurchasePage from "./src/pages/airtime-purchase";
 
 library.add(faHome, faWallet, faPlus, faUser, faExchange, faArrowRight,
   faEye, faEyeSlash, faCancel, faPaperPlane, faArrowDown, faMoneyCheck, faMoneyBill,
-  faMoneyBillAlt, faGem, faCopy);
+  faMoneyBillAlt, faGem, faCopy, faArrowLeft);
 
 const Stack = createStackNavigator();
 
@@ -101,6 +103,7 @@ const App = () => {
         <Stack.Screen name="WithdrawalPage" component={WithdrawalPage} />
         <Stack.Screen name="WithdrawalContinualPage" component={WithdrawalContinualPage} />
         <Stack.Screen name="Pay" component={Pay} />
+        <Stack.Screen name="AirtimePurchasePage" component={AirtimePurchasePage} />
       </Stack.Navigator>
       <ModalPortal />
       <Toast />

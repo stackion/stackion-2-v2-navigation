@@ -19,6 +19,9 @@ export const InAppHB = props => {
     return (
         <View style={[DefaultStyle.WHSpanParent, {backgroundColor : Colors.white}]}>
             <View style={[DefaultStyle.WSpanParent, style.headerCont, props.headerStyle]}>
+                <Btn style={[style.headerMenuBtn, DefaultStyle.centeredXY]} text={(
+                    <FontAwesomeIcon icon="arrow-left" color={Colors.blue2} />
+                )} onPress={() => props.navigation.goBack()} />
                 <Text style={[style.headerTitleText, {
                     textAlign : "center"
                 }]}>

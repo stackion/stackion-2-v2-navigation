@@ -9,16 +9,16 @@ import DefaultStyle from "../styles/defaults";
 import {InAppHB} from "../components/in-app-h-b-f";
 import {Btn} from "../components/button";
 
-const Pay = (props) => {
+const AirtimePurchasePage = (props) => {
     return (
-        <InAppHB navigation={props.navigation} headerTitleText={"Make Payments"} >
+        <InAppHB navigation={props.navigation} headerTitleText={"Purchase Airtime"} >
             <View style={[DefaultStyle.centeredX, style.contentsInBodyCont]} >
                 <Image style={[style.illustration]}
                 source={require("../../assets/images/illustration-of-payment.png")} />
                 
                 <Btn style={[DefaultStyle.centeredXY, style.actionBtns
                 , {backgroundColor : Colors.defaultBlue,}]}
-                text="Withdrawl Via Bank Transfer"
+                text="Withdrawl to bank"
                 textStyle={[style.actionBtnsText, {color : Colors.white}]}
                 onPress={() => props.navigation.navigate("WithdrawalPage")} />
 
@@ -27,7 +27,7 @@ const Pay = (props) => {
                 }]}
                 text="Purchase Airtime"
                 textStyle={[style.actionBtnsText, {color : Colors.defaultBlue}]}
-                onPress={() => props.navigation.navigate("AirtimePurchasePage")} />
+                onPress={() => props.navigation.navigate("WithdrawalPage")} />
             </View>
         </InAppHB>
     )
@@ -58,4 +58,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default Pay;
+export default AirtimePurchasePage;
